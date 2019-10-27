@@ -1,0 +1,190 @@
+<!-- Javascript -->
+<script src="/javascripts/context_menu.js"></script>
+<%= javascript_include_tag "kanban", :plugin => "kanban" %>
+<!-- CSS -->
+<link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css">
+<%= stylesheet_link_tag 'kanban', :plugin => 'kanban' %>
+<div class="contextual">
+  <% if @project_id.blank? != true then %>
+    <a class="icon icon-add new-issue" href="/projects/<%= @project_id %>/issues/new">新しいチケット</a>
+  <% else %>
+    <a class="icon icon-add new-issue" href="/issues/new">新しいチケット</a>
+  <% end %>
+</div>
+<!-- タイトル -->
+<h2><%= avatar(@user, :size => "24") %><%= @user.lastname %>さんのかんばん</h2>
+<!-- フォーム -->
+<form id="form1" action="" method="GET">
+<!-- 開閉パーツ -->
+<fieldset id="filters" class="collapsible collapsed">
+  <legend onclick="toggleFieldset(this);">フィルタ</legend>
+  <div style="display: none;">
+    <table>
+      <tr>
+        <td style="width: 100px">
+          <label>更新日</label>
+        </td>
+        <td>
+          <select name="updated_within">
+            <option value="1"  <% if @updated_within == "1"  then %> selected <% end %>>1日以内</option>
+            <option value="3"  <% if @updated_within == "3"  then %> selected <% end %>>3日以内</option>
+            <option value="7"  <% if @updated_within == "7"  then %> selected <% end %>>1週間以内</option>
+            <option value="14" <% if @updated_within == "14" then %> selected <% end %>>2週間以内</option>
+            <option value="31" <% if @updated_within == "31" then %> selected <% end %>>1ヶ月以内</option>
+            <option value="62" <% if @updated_within == "62" then %> selected <% end %>>2ヶ月以内</option>
+            <option value="93" <% if @updated_within == "93" then %> selected <% end %>>3ヶ月以内</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px">  
+          <label>終了日</label>
+        </td>
+        <td>
+          <select name="done_within">
+            <option value="1"  <% if @done_within == "1"  then %> selected <% end %>>1日以内</option>
+            <option value="3"  <% if @done_within == "3"  then %> selected <% end %>>3日以内</option>
+            <option value="7"  <% if @done_within == "7"  then %> selected <% end %>>1週間以内</option>
+            <option value="14" <% if @done_within == "14" then %> selected <% end %>>2週間以内</option>
+            <option value="31" <% if @done_within == "31" then %> selected <% end %>>1ヶ月以内</option>
+            <option value="62" <% if @done_within == "62" then %> selected <% end %>>2ヶ月以内</option>
+            <option value="93" <% if @done_within == "93" then %> selected <% end %>>3ヶ月以内</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px">
+          <label>担当者</label>
+        </td>
+        <td>
+          <select name="user_id">
+            <% @all_users.each{|user| %>
+              <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.lastname %>さん</option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px">
+          <label>グループ</label>
+        </td>
+        <td>
+          <select name="group_id">
+            <option value="all" <% if @group_id.blank? == true then %> selected <% end %>><< 指定なし >></option>
+            <% @all_groups.each{|group| %>
+              <option value="<%= group.id %>" <% if @group_id.to_i == group.id then %> selected <% end %>><%= group.name %></option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px">
+          <label>プロジェクト</label>
+        </td>
+        <td>
+          <select name="project_all">
+            <% if @project_id.blank? != true then %>
+              <option value="0" <% if @project_all == "0" then %> selected <% end %>><%= @project.name %></option>
+            <% end %>
+            <option value="1" <% if @project_all == "1" then %> selected <% end %>><< 全プロジェクト >></option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px">  
+          <label>WIP制限</label>
+        </td>
+        <td>
+          <select name="wip_max" id="wip_max">
+            <option value="1" <% if @wip_max == "1" then %> selected <% end %>>1チケット</option>
+            <option value="2" <% if @wip_max == "2" then %> selected <% end %>>2チケット</option>
+            <option value="3" <% if @wip_max == "3" then %> selected <% end %>>3チケット</option>
+            <option value="4" <% if @wip_max == "4" then %> selected <% end %>>4チケット</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+</fieldset>
+<!-- 開閉パーツ -->
+<fieldset id="filters" class="collapsible collapsed">
+  <legend onclick="toggleFieldset(this);">フィールド</legend>
+  <div style="display: none;">
+    <table>
+      <tr>
+        <td>
+          <!-- ステータスチェックボックス -->
+          <% @issue_statuses.each_with_index do |status,index| %>
+            <% if @status_fields_array.include?(status.id) then flag = true else flag = false end %>
+            <div style="float: left;">
+                <%= check_box "status_fields", status.id, {:checked => flag} %><%= status.name %>　
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</fieldset>
+<input name="project_id" type="hidden" value="<%= @project_id %>">
+</form>
+<!-- 更新ボタン・クリアボタン -->
+<p class="buttons">
+  <a href="#" onclick="$('#form1').submit(); return false;" class="icon icon-checked">適用</a>
+  <% if @project_id.blank? == true then %>
+    <a class="icon icon-reload" href="/kanban?clear=1">クリア</a>
+  <% else %>
+    <a class="icon icon-reload" href="/kanban?clear=1&project_id=<%= @project_id %>">クリア</a>
+  <% end %>
+</p>
+<!-- フォーム -->
+<form data-cm-url="/issues/context_menu" action="/issues" accept-charset="UTF-10" method="post">
+<div>
+  <!-- テーブル -->
+  <table class="list issues odd-even" style="table-layout: fixed;">
+    <tbody>
+    <tr class="group">
+      <!-- 列タイトル -->
+      <% @status_fields_array.each {|status_id| %>
+        <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
+      <% } %>
+    </tr>
+      <tr class="group">
+        <!-- 列タイトル -->
+        <% @status_fields_array.each {|status_id| %>
+          <td id="field-<%= status_id %>" style="vertical-align: top;">
+            <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
+              <!-- WIP制限エラー -->
+              <% if @over_wip == 1 then %>
+                <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
+              <% else %>
+                <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
+              <% end %>
+            <% end %>
+            <% @issues_hash[status_id].each {|issue| %>
+              <!-- 1枚のカード -->
+              <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+                <!-- カード色 -->
+                <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                <p><a href="../issues/<%= issue.id %>"><%= issue.subject %></a></p>
+                <hr>
+                <!-- 24時間以内に更新 -->
+                <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
+                <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %>さん<% else %>Not assigned<% end %></p>
+              </div>
+            <% } %>
+          </td>
+        <% } %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</form>
+<!-- 各ユーザーのWIP値 -->
+<% @user_id_array.each {|uid| %>
+  <% if uid != nil then %>
+    <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
+  <% end %>
+<% } %>
+<!-- WIP判定フィールド -->
+<p id="wip-field" style="display: none;"><%= Constants::WIP_COUNT_STATUS_FIELD %></p>

@@ -1,0 +1,76 @@
+/* 普通のカード */
+.my-issue-card {
+  padding: 5px;
+  border: solid 1px #d5d5d5;
+  background-color: #ffffdd;
+  margin: 8px 4px 8px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
+}
+
+/* 優先度高のカード */
+.my-issue-card-high-priority {
+    padding: 5px;
+    border: solid 1px #d5d5d5;
+    /* background-color: #ffafaf; */
+    background-color: #FFD4D4;
+    margin: 8px 4px 8px 4px;
+    word-wrap: break-word;
+    text-align: left;
+    white-space: normal;
+    cursor: pointer;
+    position: relative;
+    border-radius:3px;
+}
+
+/* 優先度低のカード */
+.my-issue-card-low-priority {
+  padding: 5px;
+  border: solid 1px #d5d5d5;
+  background-color: #EAF7FF;
+  margin: 8px 4px 8px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
+}
+
+/* ドラッグされたカード */
+.dragged-issue-card {
+  transform: rotate(-10deg);
+}
+
+/* ノートのテーブル */
+.my-journal-table {
+  width: 100%;
+  border: solid 1px #d5d5d5;
+  background-color: #ffffff;
+  margin: 8px 0px 8px 0px;
+  word-break : break-all;
+  text-align: left;
+  white-space: normal;
+  border-collapse: separate;
+  border-radius:4px;
+}
+.my-journal-table td {
+  text-align: left !important;
+}
+
+/* コメント欄のテーブル */
+.my-comment-table {
+  width: 100%;
+  margin: 8px 0px 8px 0px;
+}
+
+/* コメント欄のテキストエリア */
+.my-comment-textarea {
+  box-sizing:border-box;
+  resize: none;
+  width: 100%;
+}

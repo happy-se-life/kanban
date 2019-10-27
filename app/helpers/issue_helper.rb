@@ -1,0 +1,2 @@
+module IssueHelper
+end
