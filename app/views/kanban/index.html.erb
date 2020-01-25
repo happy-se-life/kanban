@@ -16,7 +16,7 @@
 <!-- フォーム -->
 <form id="form1" action="" method="GET">
 <!-- 開閉パーツ -->
-<fieldset id="filters" class="collapsible collapsed">
+<fieldset id="upper_filters" class="collapsible collapsed">
   <legend onclick="toggleFieldset(this);">フィルタ</legend>
   <div style="display: none;">
     <table>
@@ -107,7 +107,7 @@
   </div>
 </fieldset>
 <!-- 開閉パーツ -->
-<fieldset id="filters" class="collapsible collapsed">
+<fieldset id="lower_filters" class="collapsible collapsed">
   <legend onclick="toggleFieldset(this);">フィールド</legend>
   <div style="display: none;">
     <table>
@@ -142,48 +142,65 @@
   <!-- テーブル -->
   <table class="list issues odd-even" style="table-layout: fixed;">
     <tbody>
-    <tr class="group">
-      <!-- 列タイトル -->
-      <% @status_fields_array.each {|status_id| %>
-        <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
-      <% } %>
-    </tr>
+      <!-- 行 -->
       <tr class="group">
-        <!-- 列タイトル -->
+        <th style="width: 10px;">
+        </th>
+        <!-- Field列 -->
         <% @status_fields_array.each {|status_id| %>
-          <td id="field-<%= status_id %>" style="vertical-align: top;">
-            <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
-              <!-- WIP制限エラー -->
-              <% if @over_wip == 1 then %>
-                <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
-              <% else %>
-                <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
-              <% end %>
-            <% end %>
-            <% @issues_hash[status_id].each {|issue| %>
-              <!-- 1枚のカード -->
-              <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
-                <!-- カード色 -->
-                <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
-                <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
-                <p><a href="../issues/<%= issue.id %>"><%= issue.subject %></a></p>
-                <hr>
-                <!-- 24時間以内に更新 -->
-                <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
-                <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %>さん<% else %>Not assigned<% end %></p>
-              </div>
-            <% } %>
-          </td>
+          <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
         <% } %>
       </tr>
+      <!-- ユーザのループ -->
+      <% @user_id_array.each{|uid| %>
+        <!-- 行 -->
+        <tr class="group">
+          <td>
+            <% if uid != nil then %>
+              <p style="word-break: break-all;"><%= @all_users.find(uid).lastname %><p>
+            <% end %>
+          </td>
+          <!-- Field列 -->
+          <% @status_fields_array.each {|status_id| %>
+            <td id="field-<%= status_id %>-<%= uid %>" style="vertical-align: top;">
+              <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
+                <!-- WIP制限エラー -->
+                <% if @wip_hash[uid].to_i > @wip_max.to_i then %>
+                  <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
+                <% else %>
+                  <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
+                <% end %>
+              <% end %>
+              <% @issues_hash[status_id].each {|issue| %>
+                <% if uid == issue.assigned_to_id %>  
+                  <!-- 1枚のカード -->
+                  <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+                    <!-- カード色 -->
+                    <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                    <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                    <p><a href="../issues/<%= issue.id %>"><%= issue.subject %></a></p>
+                    <hr>
+                    <!-- 24時間以内に更新 -->
+                    <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
+                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %>さん<% else %>Not assigned<% end %></p>
+                  </div>
+                <% end %>
+              <% } %>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
     </tbody>
   </table>
 </div>
 </form>
-<!-- 各ユーザーのWIP値 -->
+<!-- 各ユーザーのhidden値 -->
 <% @user_id_array.each {|uid| %>
   <% if uid != nil then %>
+    <!-- WIP値 --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
+    <!-- ユーザ名 -->
+    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_users.find(uid).lastname %>さん</p>
   <% end %>
 <% } %>
 <!-- WIP判定フィールド -->

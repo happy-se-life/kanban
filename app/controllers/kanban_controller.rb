@@ -23,10 +23,15 @@ class KanbanController < ApplicationController
     # ユーザー情報を取得(アバター用)
     @user = User.find(@user_id.to_i)
 
-    # 全ユーザーを取得する(SELECT作成用)
-    @all_users = User.where(type: "User")
-                     .where(status: 1)
-                     .where("login <> 'admin'")
+    # 全ユーザーを取得(SELECT作成用)
+    @all_users = User.where(type: "User").where(status: 1)
+
+    # 無効ユーザを削除
+    @user_id_array.each {|id|
+      if @all_users.ids.include?(id) == false then
+        @user_id_array.delete(id)
+      end
+    }
 
     # 全ステータスを取得（表示順）
     @issue_statuses = IssueStatus.all.order("position ASC")
@@ -100,10 +105,6 @@ class KanbanController < ApplicationController
             # カウント値を保存
             if uid != nil then
               @wip_hash[uid] = wip_counter
-              # 超過判定
-              if wip_counter > @wip_max.to_i then
-                @over_wip = 1
-              end
             end
           }
         end

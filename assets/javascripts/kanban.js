@@ -113,6 +113,12 @@ $(function() {
                             $('#wip_error').hide();
                         }
                     }
+                    // カードの担当名を更新
+                    if (data.user_id != null) {
+                        $('#user_name_' + card_id).html($('#user_name_user_id-' + data.user_id).html());
+                    } else {
+                        $('#user_name_' + card_id).html("<p>Not assigned</p>");
+                    }
                 }
                 if (data.result == "NG") {
                     // 画面再描画
