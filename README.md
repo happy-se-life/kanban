@@ -19,12 +19,14 @@ This plugin provides the Kanban board.
 
 ## Install
 
-1. Move to plugins folder
+1. Move to plugins folder.
 <pre>
 git clone https://github.com/happy-se-life/kanban.git
 </pre>
 
-2. Enable modules for each project.
+2. Edit models/constants.rb for your environment.
+
+3. Enable modules for each project.
 
 ## License
 * MIT Lisense
