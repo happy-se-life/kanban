@@ -10,12 +10,13 @@ class IssueController < ApplicationController
     # POST値を取得
     card_id = params[:card_id]
     field_id = params[:field_id]
+    comment = params[:comment]
     
-    # チケットIDを取得する
+    # チケットIDを取得
     issue_array = card_id.split("-")
     issue_id = issue_array[1].to_i
 
-    # ステータスIDを取得する
+    # ステータスIDを取得
     field_array = field_id.split("-")
     status_id = field_array[1].to_i
     
@@ -50,7 +51,7 @@ class IssueController < ApplicationController
         issue.assigned_to_id = user_id
         issue.save!
         # ノートを追加する
-        note = Journal.new(:journalized => issue, user: User.current)
+        note = Journal.new(:journalized => issue, :notes => comment, user: User.current)
         note.details << JournalDetail.new(:property => 'attr', :prop_key => 'status_id', :old_value => old_status_id,:value => status_id)
         note.details << JournalDetail.new(:property => 'attr', :prop_key => 'done_ratio', :old_value => old_done_ratio,:value => issue.done_ratio)
         note.details << JournalDetail.new(:property => 'attr', :prop_key => 'assigned_to_id', :old_value => old_assigned_to_id,:value => user_id)

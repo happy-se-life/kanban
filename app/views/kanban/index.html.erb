@@ -166,9 +166,9 @@
               <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
                 <!-- WIP制限エラー -->
                 <% if @wip_hash[uid].to_i > @wip_max.to_i then %>
-                  <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
+                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
                 <% else %>
-                  <div class="flash error" id="wip_error" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
+                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
                 <% end %>
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
@@ -205,3 +205,11 @@
 <% } %>
 <!-- WIP判定フィールド -->
 <p id="wip-field" style="display: none;"><%= Constants::WIP_COUNT_STATUS_FIELD %></p>
+<!-- チケット保存用hidden値  -->
+<input type="hidden" id="save_card_id">
+<input type="hidden" id="save_from_field_id">
+<input type="hidden" id="save_to_field_id">
+<!-- コメント入力ダイアログ  -->
+<div id="comment-dialog" style="display: none;">
+  <td><textarea id="comment-of-dialog" rows="5" cols="40"></textarea></td>
+</div>
