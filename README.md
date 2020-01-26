@@ -28,5 +28,9 @@ git clone https://github.com/happy-se-life/kanban.git
 
 3. Enable modules for each project.
 
+## Limitation
+* Only supports Japanese.
+* It has only been used by small organizations before.
+
 ## License
 * MIT Lisense
