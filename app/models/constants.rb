@@ -1,28 +1,33 @@
 #
-# 定数クラス
+# Constant definition 
 #
 class Constants < ActiveRecord::Base
   
-  # クエリ結果の最大値
-  SELECT_LIMIT = 250 
+  # Max number of selections
+  SELECT_LIMIT = 250
   
-  # デフォルト値
+  # Days since upadated date
   DEFAULT_VALUE_UPDATED_WITHIN = "31"
+
+  # Days since closed date
   DEFAULT_VALUE_DONE_WITHIN = "14"
+
+  # Max number of WIP issue
   DEFAULT_VALUE_WIP_MAX = "2"
 
-  # デフォルト値
-  # 1:新規
-  # 2:進行中
-  # 3:レビュー
-  # 4:フィードバック
-  # 5:終了
-  # 7:リリース待ち
-  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,2,3,4,7,5]
+  # Array of status IDs to be displayed initially
+  # <Please customize this array for your environment>
+  # 1: New
+  # 2: In Progress
+  # 3: Resolved
+  # 4: Feedback
+  # 5: Closed
+  # 6: Rejected
+  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,2,3,4,5]
 
-  # WIP制限するフィールド
+  # Status ID for WIP count
   WIP_COUNT_STATUS_FIELD = 2
 
-  # ノートの最大バイト数
+  # Max length of note on sidebar (bytes)
   MAX_NOTES_BYTESIZE = 350
 end

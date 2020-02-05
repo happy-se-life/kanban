@@ -1,35 +1,33 @@
 $(function() {
-    // サイドバーを表示
+    // Show sidebar
     $('#main').removeClass('nosidebar');
 
-    // 元のCSSのマージンをオーバーライド
+    // Override sidebar style
     $('#sidebar').css({"cssText" : "padding : 0 8px 0px 8px !important"});
 
-    // 初期表示
+    // Initial message when no note
     var initial_string = "<table class=\"my-journal-table\"><tr><td>履歴が表示されます。</td></tr></table>"
     $('#sidebar').html(initial_string);
 
-    // マウスを乗せたら発動
+    // When mouse over
     $('[id^=issue-]').hover(function() {
         var card = $(this);
-        // 500ミリ秒後に発火する
+        // Exec. after 500ms
         timeout = setTimeout(function() {
-            // カードID
             var card_id = card.attr('id');
-            // ジャーナル取得
+            // Get journal
             getJournal(card_id);
         }, 500)
-    // ここにはマウスを離したときの動作を記述
     }, function() {
-        // 発火する前にキャンセル
+        // Cancel before exec.
         clearTimeout(timeout)
     });
 
-    // windowがスクロールされた時に実行する処理
+    // When window scrolled
     $(window).scroll(function() {
         var top = $(this).scrollTop();
         var content = $('#content').offset();
-        // サイドバーをスクロールに追従させる
+        // Make sidebar follow the scroll
         if (content.top < top) {
             $('#sidebar').offset({ top: top + 10 });
         } else {
@@ -37,7 +35,7 @@ $(function() {
         }
     });
 
-    // コメント投稿ダイアログを定義
+    // Definition of dialog when card dropped
     $("#comment-dialog").dialog({
         title: 'コメント投稿',
         width: 400,
@@ -45,59 +43,55 @@ $(function() {
         modal: true,
         buttons: {
             "OK": function() {
-            // 閉じる
-            $(this).dialog("close");
-            // 保存する
-            saveTicket(
-                $('#save_card_id').val(),
-                $('#save_from_field_id').val(),
-                $('#save_to_field_id').val(),
-                $('#comment-of-dialog').val()
-                );
-            // コメント削除
-            $('#comment-of-dialog').val('');
+                $(this).dialog("close");
+                // Save ticket (change status and assignee)
+                saveTicket(
+                    $('#save_card_id').val(),
+                    $('#save_from_field_id').val(),
+                    $('#save_to_field_id').val(),
+                    $('#comment-of-dialog').val()
+                    );
+                // Clear inputs
+                $('#comment-of-dialog').val('');
             },
             "Cancel": function() {
-                // 閉じる
                 $(this).dialog("close");
-                // 画面再描画
+                // Reload page
                 $('#form1').submit();
             }
-          }
+        }
     });
 
-    // カードをdrag可能に
+    // Card can be draggable
     $("[id^=issue-]").draggable({ stack: "[id^=issue-]", drag: function( event, ui ) {ui.helper.addClass("dragged-issue-card")}});
     
-    // カードをdrop可能に
+    // Card can be droppable
     $("[id^=field-]").droppable({
-        // 受け入れる要素
 		accept : "[id^=issue]" ,
-        // ドロップされた時
         drop : function(event , ui){
-            // まっすぐに直す
+            // Level the card
             ui.helper.removeClass("dragged-issue-card");
-            // ドラッグ元ID
+            // Field ID when drag
             $('#save_card_id').val(ui.draggable.attr('id'));
             $('#save_from_field_id').val(ui.draggable.parent().attr('id'));
-            // ドロップ先ID
+            // Field ID when drop
             $('#save_to_field_id').val($(this).attr('id'));
-            // カードをTDに挿入
+            // Insert card to <TD>
             if (ui.position.top < 0) {
-                // 先頭へ
+                // Insert to top
                 $(this).prepend(ui.draggable.css('left','').css('top',''));
             } else {
-                // 最後へ
+                // Insert to bottom
                 $(this).append(ui.draggable.css('left','').css('top',''));
             }
-            // コメント入力ダイアログ表示
+            // Display comment dialog when drop
             $("#comment-dialog").dialog("open");
 		} 
     });
 });
 
 //
-// チケット保存
+// Save ticket (change status and assignee, save comment)
 //
 function saveTicket(card_id, from_field_id, to_field_id, comment) {
     // AJAX
@@ -112,41 +106,42 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
         dataType: 'json',
         async: true
     })
-    // Ajaxリクエストが成功した時発動
+    // Case ajax succeed
     .done( (data) => {
         console.log(data.result);
         if (data.result == "OK") {
-            // カウンタの更新(アップ)
+            // Count up counter on <th>
             var tmp1 = to_field_id.split('-');
             var to_counter_id = 'counter-' + tmp1[1];
             var to_value = Number($('#' + to_counter_id).html()) + 1;
             $('#'+to_counter_id).html(to_value);
-            // カウンタの更新(ダウン)
+            // Count down counter on <th>
             var tmp2 = from_field_id.split('-');
             var from_counter_id = 'counter-' + tmp2[1];
             var from_value = Number($('#' + from_counter_id).html()) - 1;
             $('#'+from_counter_id).html(from_value);
-            // WIP制限
+            // Get WIP limit value
             var wip_field = Number($('#wip-field').html());
             var wip_limit = $('#wip_max option:selected').val();
-            // WIP制限エラー（アップ）
+            // Case card move to WIP field (count up)
             if (tmp1[1] == wip_field) {
-                if (tmp1[2] == tmp2[2]) { // 同じ人
+                if (tmp1[2] == tmp2[2]) { // Case same user
                     var wip_next1 = Number($('#wip-' + tmp1[2]).html()) + 1;
                     $('#wip-' + tmp1[2]).html(wip_next1);
-                } else { // 違う人
-                    if (tmp1[2] == tmp2[2]) { // 同じステータス
+                } else { // Case different user
+                    if (tmp1[2] == tmp2[2]) { // Case same status
                         if (data.user_id != null) {
                             var wip_next1 = Number($('#wip-' + tmp1[2]).html()) + 1;
                             $('#wip-' + tmp1[2]).html(wip_next1);
                         }
                         var wip_next2 = Number($('#wip-' + tmp2[2]).html()) - 1;
                         $('#wip-' + tmp2[2]).html(wip_next2);
-                    } else { // 違うステータス
+                    } else { // Case different status
                         var wip_next1 = Number($('#wip-' + tmp1[2]).html()) + 1;
                         $('#wip-' + tmp1[2]).html(wip_next1);
                     }
                 }
+                // Show or hide WIP warning
                 if (wip_next1 > Number(wip_limit)) {
                     $('#' + to_field_id).prepend($('#wip_error-' + tmp1[2]));
                     $('#wip_error-' + tmp1[2]).show();
@@ -154,24 +149,25 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
                     $('#wip_error-' + tmp1[2]).hide();
                 }
             }
-            // WIP制限エラー（ダウン）
+            // Case card move from WIP field (count down)
             if (tmp2[1] == wip_field) {
-                if (tmp1[2] == tmp2[2]) { // 同じ人
+                if (tmp1[2] == tmp2[2]) { // Case same user
                     var wip_next2 = Number($('#wip-' + tmp2[2]).html()) - 1;
                     $('#wip-' + tmp2[2]).html(wip_next2);
-                } else { // 違う人
-                    if (tmp1[2] == tmp2[2]) { // 同じステータス
+                } else { // Case different user
+                    if (tmp1[2] == tmp2[2]) { // Case same status
                         if (data.user_id != null) {
                             var wip_next1 = Number($('#wip-' + tmp1[2]).html()) + 1;
                             $('#wip-' + tmp1[2]).html(wip_next1);
                         }
                         var wip_next2 = Number($('#wip-' + tmp2[2]).html()) - 1;
                         $('#wip-' + tmp2[2]).html(wip_next2);
-                    } else { // 違うステータス
+                    } else { // Case different status
                         var wip_next2 = Number($('#wip-' + tmp2[2]).html()) - 1;
                         $('#wip-' + tmp2[2]).html(wip_next2);
                     }
                 }
+                // Show or hide WIP warning
                 if (wip_next2 > Number(wip_limit)) {
                     $('#' + from_field_id).prepend($('#wip_error-' + tmp2[2]));
                     $('#wip_error-' + tmp2[2]).show();
@@ -179,7 +175,7 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
                     $('#wip_error-' + tmp2[2]).hide();
                 }
             }
-            // カードの担当名を更新
+            // Write user name on card
             if (data.user_id != null) {
                 $('#user_name_' + card_id).html($('#user_name_user_id-' + data.user_id).html());
             } else {
@@ -187,20 +183,20 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
             }
         }
         if (data.result == "NG") {
-            // 画面再描画
+            // Reload page
             $('#form1').submit();
         }
     })
-    // Ajaxリクエストが失敗した時発動
+    // Case ajax failed
     .fail( (data) => {
         console.log("AJAX FAILED.");
-        // 画面再描画
+        // Reload page
         $('#form1').submit();
     });
 }
 
 //
-// ジャーナル取得
+// Get journal
 //
 function getJournal(card_id) {
     // AJAX
@@ -214,26 +210,26 @@ function getJournal(card_id) {
         async: true,
         global: false
     })
-    // Ajaxリクエストが成功した時発動
+    // Case ajax succeed
     .done( (data) => {
         console.log(data.result);
         if (data.result == "OK") {
-            // サイドバーに表示
+            // Display on sidebar
             $('#sidebar').html(data.notes);
-            // クリックイベントを登録
+            // Register click event
             $('#submit-journal-button').on('click',function(){
                 putJournal(card_id);
             });
         }
     })
-    // Ajaxリクエストが失敗した時発動
+    // Case ajax failed
     .fail( (data) => {
         console.log("AJAX FAILED.");
     })
 }
 
 //
-// ジャーナル追加
+// Add new journal
 //
 function putJournal(card_id) {
     var note = $('#comment_area').val();
@@ -248,21 +244,21 @@ function putJournal(card_id) {
         dataType: 'json',
         async: true,
     })
-    // Ajaxリクエストが成功した時発動
+    // Case ajax succeed
     .done( (data) => {
         console.log(data.result);
         if (data.result == "OK") {
-            // ジャーナル更新
+            // Reread journal
             getJournal(card_id);
         }
     })
-    // Ajaxリクエストが失敗した時発動
+    // Case ajax failed
     .fail( (data) => {
         console.log("AJAX FAILED.");
     })
 }
 
-//「このサイトを離れますか」を非表示
+// Suppress messages "Leave this site?"
 Object.defineProperty(window, 'onbeforeunload', {
     set(newValue) {
         if (typeof newValue === 'function') window.onbeforeunload = null;

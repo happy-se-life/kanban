@@ -2,66 +2,66 @@ class KanbanController < ApplicationController
   unloadable
   before_action :global_authorize
   #
-  # インデックス
+  # Display kanban board
   #
   def index 
-    # ブラウザバックでキャッシュさせない設定
+    # Do not cache on browser back
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0'
     response.headers['Pragma'] = 'no-cache'
     
-    # セッション破棄
+    # Session discard
     if params[:clear].to_i == 1 then
       discard_session
     end
 
-    # セッション復元
+    # Session restore
     restore_session
 
-    # 各種パラメータの初期化とセッション保存
+    # Initialize and store session
     initialize_params_and_store_session
 
-    # ユーザー情報を取得(アバター用)
+    # Get user to display avator
     @user = User.find(@user_id.to_i)
 
-    # 全ユーザーを取得(SELECT作成用)
+    # Get all user for user filetr <select>
     @all_users = User.where(type: "User").where(status: 1)
 
-    # 無効ユーザを削除
+    # Remove inactive users from array of target users
     @user_id_array.each {|id|
       if @all_users.ids.include?(id) == false then
         @user_id_array.delete(id)
       end
     }
 
-    # 全ステータスを取得（表示順）
+    # Get all status orderby position
     @issue_statuses = IssueStatus.all.order("position ASC")
     @issue_statuses_hash = {}
     @issue_statuses.each {|issue_status|
       @issue_statuses_hash[issue_status.id.to_i] = issue_status.name
     }
 
-    # 終了ステータスを取得
+    # Get statuses for issue closed
     @done_issue_statuses = IssueStatus.where(is_closed: 1)
     @done_issue_statuses_array = []
     @done_issue_statuses.each {|issue_status|
       @done_issue_statuses_array << issue_status.id
     }
 
-    # 更新日 updated_within 日前
+    # Updated datetime for filter
     time_from = Time.now - 3600 * 24 * @updated_within.to_i
     updated_from = time_from.strftime("%Y-%m-%d 00:00:00")
 
-    # 終了日 done_within 日前
+    # Closed datetime for filter
     time_from = Time.now - 3600 * 24 * @done_within.to_i
     closed_from = time_from.strftime("%Y-%m-%d 00:00:00")
 
-    # ユーザーに関連したチケットを取得
+    # Get issues related to target users
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
-                               .where("updated_on >= '" + updated_from + "'")
-                               .where(is_private: 0)
-                               .limit(Constants::SELECT_LIMIT)
+      .where("updated_on >= '" + updated_from + "'")
+      .where(is_private: 0)
+      .limit(Constants::SELECT_LIMIT)
 
-    # ユニークプロジェクトID配列を作成
+    # Group by project ID
     unique_project_id_array = []
     if @project_all == "1" then
       issues_for_projects.each {|issue|
@@ -70,31 +70,31 @@ class KanbanController < ApplicationController
         end
       }
     else
-      # 単一のプロジェクトの場合
+      # When select one project
       unique_project_id_array << @project.id.to_i
     end
 
-    # Not assigned ユーザーを追加
+    # To display no assignee issue
     @user_id_array << nil;
 
-    # チケットを取得
+    # Declaring variables
     @issues_hash = {}
     @wip_hash = {}
     @over_wip = 0
-    # ステータスでループ
+
+    # Get issues using status loop
     @status_fields_array.each {|status_id|
       if @done_issue_statuses_array.include?(status_id) == false then
-        # 終了以外のステータス
+        # Case not closed status
         @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-                                      .where(project_id: unique_project_id_array)
-                                      .where(status: status_id)
-                                      .where("updated_on >= '" + updated_from + "'")
-                                      .where(is_private: 0)
-                                      .limit(Constants::SELECT_LIMIT)
-                                      .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # @user_id を先頭にソート
-        # WIP制限
+          .where(project_id: unique_project_id_array)
+          .where(status: status_id)
+          .where("updated_on >= '" + updated_from + "'")
+          .where(is_private: 0)
+          .limit(Constants::SELECT_LIMIT)
+          .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # Sort @user_id first
+        # Count WIP issues
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
-          # WIPカウント
           @user_id_array.each {|uid|
             wip_counter = 0
               @issues_hash[status_id].each {|issue|
@@ -102,21 +102,21 @@ class KanbanController < ApplicationController
                 wip_counter += 1
               end
             }
-            # カウント値を保存
+            # Save count value
             if uid != nil then
               @wip_hash[uid] = wip_counter
             end
           }
         end
       else
-        # 終了のステータス
+        # Case closed status
         @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-                                      .where(project_id: unique_project_id_array)
-                                      .where(status: status_id)
-                                      .where("updated_on >= '" + closed_from + "'")
-                                      .where(is_private: 0)
-                                      .limit(Constants::SELECT_LIMIT)
-                                      .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # @user_id を先頭にソート
+          .where(project_id: unique_project_id_array)
+          .where(status: status_id)
+          .where("updated_on >= '" + closed_from + "'")
+          .where(is_private: 0)
+          .limit(Constants::SELECT_LIMIT)
+          .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # Sort @user_id first
       end
     }
 
@@ -125,62 +125,61 @@ class KanbanController < ApplicationController
   private
 
   #
-  # セッションを破棄する
+  # Session discard
   #
   def discard_session
     session[:kanban] = nil
   end
 
   #
-  # セッションを復元する
+  # Session restore
   #
   def restore_session
-    # セッションを復元
     session_hash = session[:kanban]
     
-    # 更新日（セッション復元）
+    # Days since upadated date
     if !session_hash.blank? && params[:updated_within].blank?
       @updated_within = session_hash["updated_within"]
     else
       @updated_within = params[:updated_within]
     end
 
-    # 終了日（セッション復元）
+    # Days since closed date
     if !session_hash.blank? && params[:done_within].blank?
       @done_within = session_hash["done_within"]
     else
       @done_within = params[:done_within]
     end
 
-    # 担当者（セッション復元）
+    # Target user ID
     if !session_hash.blank? && params[:user_id].blank?
       @user_id = session_hash["user_id"]
     else
       @user_id = params[:user_id]
     end
 
-    # グループ（セッション復元）
+    # Target group ID
     if !session_hash.blank? && params[:group_id].blank?
       @group_id = session_hash["group_id"]
     else
       @group_id = params[:group_id]
     end
 
-    # ステータス列（セッション復元）
+    # Selected statuses
     if !session_hash.blank? && params[:status_fields].blank?
       @status_fields = session_hash["status_fields"]
     else
       @status_fields = params[:status_fields]
     end
 
-    # プロジェクト選択（セッション復元）
+    # Selected project
     if !session_hash.blank? && params[:project_all].blank?
       @project_all = session_hash["project_all"]
     else
       @project_all = params[:project_all]
     end
 
-    # WIP最大値（セッション復元）
+    # Max number of WIP issue
     if !session_hash.blank? && params[:wip_max].blank?
       @wip_max = session_hash["wip_max"]
     else
@@ -189,51 +188,48 @@ class KanbanController < ApplicationController
   end
 
   #
-  # 各種パラメータの初期化とセッション保存
+  # Initialize and store session
   #
   def initialize_params_and_store_session
-    # セッション保存用ハッシュ
     session_hash = {}
 
-    # Default更新日
+    # Days since upadated date (default)
     if @updated_within == nil || @updated_within.to_i == 0 then
       @updated_within = Constants::DEFAULT_VALUE_UPDATED_WITHIN
     end
     session_hash["updated_within"] = @updated_within
     
-    # Default終了日
+    # Days since closed date (default)
     if @done_within == nil || @done_within.to_i == 0 then
       @done_within = Constants::DEFAULT_VALUE_DONE_WITHIN
     end
     session_hash["done_within"] = @done_within
 
-    # Default担当者
+    # Default user ID (= current user)
     if @user_id == nil || @user_id.to_i == 0 then
       @user_id = @current_user.id
     end
     session_hash["user_id"] = @user_id
     
-    # Defaultプロジェクト
+    # Project identifier
     @project_id = params[:project_id]
-    # プロジェクト識別子
     if @project_id.blank? == true then
       @project = nil
     else
       @project = Project.find(@project_id)
     end
     
-    # 全グループを取得する
+    # Get all group
     @all_groups = Group.where(type: "Group")
 
-    # グループに属するユーザーID配列を作成
+    # Create array of user ID belongs to group
     @user_id_array = []
     if @group_id == nil || @group_id.to_i == 0 then
-      # グループが指定されていない場合
-      # 自分
+      # Case no group selected
       @user_id_array << @user_id.to_i
       @group_id = "all"
     else
-      # グループが指定されている場合
+      # Case group selected
       @all_groups.each {|group|
         if group.id == @group_id.to_i
           @user_id_array = group.user_ids
@@ -242,7 +238,7 @@ class KanbanController < ApplicationController
     end
     session_hash["group_id"] = @group_id
 
-    # 画面セレクトの選択でプロジェクト「全体」
+    # Case <<all project>> selected
     if @project_id.blank? == true then
       @project_all = "1"
     else
@@ -252,7 +248,7 @@ class KanbanController < ApplicationController
     end
     session_hash["project_all"] = @project_all
 
-    # チェックの付いているステータスID配列を作成
+    # Array of status ID for display
     @status_fields_array = []
     if !@status_fields.blank? then
       @status_fields.each {|id,chk|
@@ -261,31 +257,31 @@ class KanbanController < ApplicationController
         end
       }
     else
-      # Defaultは定数ファイルから取得
+      # Default
       @status_fields_array = Constants::DEFAULT_STATUS_FIELD_VALUE_ARRAY
     end
     session_hash["status_fields"] = @status_fields
 
-    # Default WIP最大値
+    # Max number of WIP issue (default)
     if @wip_max == nil || @wip_max.to_i == 0 then
       @wip_max = Constants::DEFAULT_VALUE_WIP_MAX
     end
     session_hash["wip_max"] = @wip_max
 
-    # セッション保存
+    # Store session
     session[:kanban] = session_hash
   end
 
 
   #
-  # ログインユーザーを取得する
+  # User logged in
   #
   def set_user
     @current_user ||= User.current
   end
 
   #
-  # ログインユーザーでなければエラー
+  # Need Login
   #
   def global_authorize
     set_user

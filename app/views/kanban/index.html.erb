@@ -11,11 +11,11 @@
     <a class="icon icon-add new-issue" href="/issues/new">新しいチケット</a>
   <% end %>
 </div>
-<!-- タイトル -->
+<!-- H2 title -->
 <h2><%= avatar(@user, :size => "24") %><%= @user.lastname %>さんのかんばん</h2>
-<!-- フォーム -->
+<!-- Form for filters -->
 <form id="form1" action="" method="GET">
-<!-- 開閉パーツ -->
+<!-- This is the part that opens and closes -->
 <fieldset id="upper_filters" class="collapsible collapsed">
   <legend onclick="toggleFieldset(this);">フィルタ</legend>
   <div style="display: none;">
@@ -106,14 +106,14 @@
     </table>
   </div>
 </fieldset>
-<!-- 開閉パーツ -->
+<!-- This is the part that opens and closes -->
 <fieldset id="lower_filters" class="collapsible collapsed">
   <legend onclick="toggleFieldset(this);">フィールド</legend>
   <div style="display: none;">
     <table>
       <tr>
         <td>
-          <!-- ステータスチェックボックス -->
+          <!-- checkboxes for status fields -->
           <% @issue_statuses.each_with_index do |status,index| %>
             <% if @status_fields_array.include?(status.id) then flag = true else flag = false end %>
             <div style="float: left;">
@@ -127,7 +127,7 @@
 </fieldset>
 <input name="project_id" type="hidden" value="<%= @project_id %>">
 </form>
-<!-- 更新ボタン・クリアボタン -->
+<!-- Update and clear links -->
 <p class="buttons">
   <a href="#" onclick="$('#form1').submit(); return false;" class="icon icon-checked">適用</a>
   <% if @project_id.blank? == true then %>
@@ -136,35 +136,35 @@
     <a class="icon icon-reload" href="/kanban?clear=1&project_id=<%= @project_id %>">クリア</a>
   <% end %>
 </p>
-<!-- フォーム -->
+<!-- Form for issue operation -->
 <form data-cm-url="/issues/context_menu" action="/issues" accept-charset="UTF-10" method="post">
 <div>
-  <!-- テーブル -->
+  <!-- Main table -->
   <table class="list issues odd-even" style="table-layout: fixed;">
     <tbody>
-      <!-- 行 -->
+      <!-- Table header row -->
       <tr class="group">
         <th style="width: 10px;">
         </th>
-        <!-- Field列 -->
+        <!-- Table header cols -->
         <% @status_fields_array.each {|status_id| %>
           <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
         <% } %>
       </tr>
-      <!-- ユーザのループ -->
+      <!-- User loop -->
       <% @user_id_array.each{|uid| %>
-        <!-- 行 -->
+        <!-- Rows -->
         <tr class="group">
           <td>
             <% if uid != nil then %>
               <p style="word-break: break-all;"><%= @all_users.find(uid).lastname %><p>
             <% end %>
           </td>
-          <!-- Field列 -->
+          <!-- Cols -->
           <% @status_fields_array.each {|status_id| %>
             <td id="field-<%= status_id %>-<%= uid %>" style="vertical-align: top;">
               <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
-                <!-- WIP制限エラー -->
+                <!-- Display exceed WIP warning message -->
                 <% if @wip_hash[uid].to_i > @wip_max.to_i then %>
                   <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
                 <% else %>
@@ -173,14 +173,14 @@
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
                 <% if uid == issue.assigned_to_id %>  
-                  <!-- 1枚のカード -->
+                  <!-- This is one card -->
                   <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
-                    <!-- カード色 -->
+                    <!-- Card color by priority -->
                     <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                     <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
                     <p><a href="../issues/<%= issue.id %>"><%= issue.subject %></a></p>
                     <hr>
-                    <!-- 24時間以内に更新 -->
+                    <!-- Case updated with in 24 hour -->
                     <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
                     <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %>さん<% else %>Not assigned<% end %></p>
                   </div>
@@ -194,22 +194,22 @@
   </table>
 </div>
 </form>
-<!-- 各ユーザーのhidden値 -->
+<!-- Hidden values for each user -->
 <% @user_id_array.each {|uid| %>
   <% if uid != nil then %>
-    <!-- WIP値 --> 
+    <!-- Number of WIP issues --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
-    <!-- ユーザ名 -->
+    <!-- User name on card -->
     <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_users.find(uid).lastname %>さん</p>
   <% end %>
 <% } %>
-<!-- WIP判定フィールド -->
+<!-- Field ID for display WIP warning -->
 <p id="wip-field" style="display: none;"><%= Constants::WIP_COUNT_STATUS_FIELD %></p>
-<!-- チケット保存用hidden値  -->
+<!-- Hidden values for saving issue status -->
 <input type="hidden" id="save_card_id">
 <input type="hidden" id="save_from_field_id">
 <input type="hidden" id="save_to_field_id">
-<!-- コメント入力ダイアログ  -->
+<!-- Comment dialog definition -->
 <div id="comment-dialog" style="display: none;">
   <td><textarea id="comment-of-dialog" rows="5" cols="40"></textarea></td>
 </div>

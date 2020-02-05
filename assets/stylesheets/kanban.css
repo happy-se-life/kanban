@@ -1,4 +1,4 @@
-/* 普通のカード */
+/* Normal priority issue */
 .my-issue-card {
   padding: 5px;
   border: solid 1px #d5d5d5;
@@ -12,7 +12,7 @@
   border-radius:3px;
 }
 
-/* 優先度高のカード */
+/* High priority issue */
 .my-issue-card-high-priority {
     padding: 5px;
     border: solid 1px #d5d5d5;
@@ -27,7 +27,7 @@
     border-radius:3px;
 }
 
-/* 優先度低のカード */
+/* Low priority issue */
 .my-issue-card-low-priority {
   padding: 5px;
   border: solid 1px #d5d5d5;
@@ -41,12 +41,12 @@
   border-radius:3px;
 }
 
-/* ドラッグされたカード */
+/* Tilt the card wheb dragged */
 .dragged-issue-card {
   transform: rotate(-10deg);
 }
 
-/* ノートのテーブル */
+/* Note on sidebar */
 .my-journal-table {
   width: 100%;
   border: solid 1px #d5d5d5;
@@ -62,13 +62,13 @@
   text-align: left !important;
 }
 
-/* コメント欄のテーブル */
+/* New comment table */
 .my-comment-table {
   width: 100%;
   margin: 8px 0px 8px 0px;
 }
 
-/* コメント欄のテキストエリア */
+/* New comment textarea */
 .my-comment-textarea {
   box-sizing:border-box;
   resize: none;
