@@ -1,22 +1,24 @@
 #
-# Constant definition 
+# Constant definition
 #
 class Constants < ActiveRecord::Base
-  
+
   # Max number of selections
   SELECT_LIMIT = 250
-  
+
   # Days since upadated date
+  # Please choose "1" "3" "7" "14" "31" "62" "93"
   DEFAULT_VALUE_UPDATED_WITHIN = "31"
 
   # Days since closed date
+  # Please choose "1" "3" "7" "14" "31" "62" "93"
   DEFAULT_VALUE_DONE_WITHIN = "14"
 
   # Max number of WIP issue
   DEFAULT_VALUE_WIP_MAX = "2"
 
   # Array of status IDs to be displayed initially
-  # <Please customize this array for your environment>
+  # Please customize this array for your environment
   # 1: New
   # 2: In Progress
   # 3: Resolved

@@ -238,7 +238,7 @@ class KanbanController < ApplicationController
     end
     session_hash["group_id"] = @group_id
 
-    # Case <<all project>> selected
+    # Case <unspecified> selected
     if @project_id.blank? == true then
       @project_all = "1"
     else
