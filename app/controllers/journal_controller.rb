@@ -27,6 +27,7 @@ class JournalController < ApplicationController
     # Building html of issue description
     if !issue.description.blank? then
       user = User.find(issue.author_id)
+      notes_string +="<p><b>" + I18n.t(:field_description) + "</b></p>"
       notes_string += "<table class=\"my-journal-table\">"
       notes_string += "<tr>"
       notes_string += "<th>"
@@ -35,7 +36,6 @@ class JournalController < ApplicationController
       notes_string += "</a>"
       notes_string += "　"
       notes_string += user.lastname
-      notes_string += "さん"
       notes_string += "</th>"
       notes_string += "</tr>"
       notes_string += "<tr>"
@@ -55,9 +55,9 @@ class JournalController < ApplicationController
       .limit(3)
       .order("created_on DESC")
 
-    # Adding string for newer history
+    # Adding string for recent history
     if !notes.blank? then
-      notes_string +="<p><b>最新の履歴</b></p>"
+      notes_string +="<p><b>" + I18n.t(:kanban_label_recent_history) + "</b></p>"
     end
 
     # Building html of notes
@@ -72,7 +72,6 @@ class JournalController < ApplicationController
         notes_string += "</a>"
         notes_string += "　"
         notes_string += user.lastname
-        notes_string += "さん"
         notes_string += "</th>"
         notes_string += "</tr>"
         notes_string += "<tr>"
@@ -84,11 +83,11 @@ class JournalController < ApplicationController
       end
     }
 
-    # Buiding new comment input area
-    notes_string += "<p><b>コメント投稿</b></p>"
+    # Buiding input area for new note
+    notes_string += "<p><b>" + I18n.t(:kanban_label_add_notes) + "</b></p>"
     notes_string += "<table class=\"my-comment-table\"><tr><td>"
     notes_string += "<textarea id=\"comment_area\" class=\"my-comment-textarea\" rows=\"5\"></textarea>"
-    notes_string += "<p><input type=\"button\" id=\"submit-journal-button\" value=\"送信\"></p>"
+    notes_string += "<p><input type=\"button\" id=\"submit-journal-button\" value=\"" + I18n.t(:button_submit) + "\"></p>"
     notes_string += "</td></tr></table>"
     
     # Ignoring failing

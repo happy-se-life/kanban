@@ -1,4 +1,8 @@
 <!-- Javascript -->
+<script>
+  var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
+  var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
+</script>
 <script src="/javascripts/context_menu.js"></script>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
 <!-- CSS -->
@@ -6,71 +10,71 @@
 <%= stylesheet_link_tag 'kanban', :plugin => 'kanban' %>
 <div class="contextual">
   <% if @project_id.blank? != true then %>
-    <a class="icon icon-add new-issue" href="/projects/<%= @project_id %>/issues/new">新しいチケット</a>
+    <a class="icon icon-add new-issue" href="/projects/<%= @project_id %>/issues/new"><%= I18n.t(:label_issue_new) %></a>
   <% else %>
-    <a class="icon icon-add new-issue" href="/issues/new">新しいチケット</a>
+    <a class="icon icon-add new-issue" href="/issues/new"><%= I18n.t(:label_issue_new) %></a>
   <% end %>
 </div>
 <!-- H2 title -->
-<h2><%= avatar(@user, :size => "24") %><%= @user.lastname %>さんのかんばん</h2>
+<h2><%= avatar(@user, :size => "24") %><%= @user.lastname %><%= I18n.t(:kanban_label_title) %></h2>
 <!-- Form for filters -->
 <form id="form1" action="" method="GET">
 <!-- This is the part that opens and closes -->
 <fieldset id="upper_filters" class="collapsible collapsed">
-  <legend onclick="toggleFieldset(this);">フィルタ</legend>
+  <legend onclick="toggleFieldset(this);"><%= I18n.t(:label_filter_plural) %></legend>
   <div style="display: none;">
     <table>
       <tr>
         <td style="width: 100px">
-          <label>更新日</label>
+          <label><%= I18n.t(:field_updated_on) %></label>
         </td>
         <td>
           <select name="updated_within">
-            <option value="1"  <% if @updated_within == "1"  then %> selected <% end %>>1日以内</option>
-            <option value="3"  <% if @updated_within == "3"  then %> selected <% end %>>3日以内</option>
-            <option value="7"  <% if @updated_within == "7"  then %> selected <% end %>>1週間以内</option>
-            <option value="14" <% if @updated_within == "14" then %> selected <% end %>>2週間以内</option>
-            <option value="31" <% if @updated_within == "31" then %> selected <% end %>>1ヶ月以内</option>
-            <option value="62" <% if @updated_within == "62" then %> selected <% end %>>2ヶ月以内</option>
-            <option value="93" <% if @updated_within == "93" then %> selected <% end %>>3ヶ月以内</option>
+            <option value="1"  <% if @updated_within == "1"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_day) %></option>
+            <option value="3"  <% if @updated_within == "3"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_days) %></option>
+            <option value="7"  <% if @updated_within == "7"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_week) %></option>
+            <option value="14" <% if @updated_within == "14" then %> selected <% end %>><%= I18n.t(:kanban_label_within_2_weeks) %></option>
+            <option value="31" <% if @updated_within == "31" then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_month) %></option>
+            <option value="62" <% if @updated_within == "62" then %> selected <% end %>><%= I18n.t(:kanban_label_within_2_months) %></option>
+            <option value="93" <% if @updated_within == "93" then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_months) %></option>
           </select>
         </td>
       </tr>
       <tr>
         <td style="width: 100px">  
-          <label>終了日</label>
+          <label><%= I18n.t(:field_closed_on) %></label>
         </td>
         <td>
           <select name="done_within">
-            <option value="1"  <% if @done_within == "1"  then %> selected <% end %>>1日以内</option>
-            <option value="3"  <% if @done_within == "3"  then %> selected <% end %>>3日以内</option>
-            <option value="7"  <% if @done_within == "7"  then %> selected <% end %>>1週間以内</option>
-            <option value="14" <% if @done_within == "14" then %> selected <% end %>>2週間以内</option>
-            <option value="31" <% if @done_within == "31" then %> selected <% end %>>1ヶ月以内</option>
-            <option value="62" <% if @done_within == "62" then %> selected <% end %>>2ヶ月以内</option>
-            <option value="93" <% if @done_within == "93" then %> selected <% end %>>3ヶ月以内</option>
+            <option value="1"  <% if @done_within == "1"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_day) %></option>
+            <option value="3"  <% if @done_within == "3"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_days) %></option>
+            <option value="7"  <% if @done_within == "7"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_week) %></option>
+            <option value="14" <% if @done_within == "14" then %> selected <% end %>><%= I18n.t(:kanban_label_within_2_weeks) %></option>
+            <option value="31" <% if @done_within == "31" then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_month) %></option>
+            <option value="62" <% if @done_within == "62" then %> selected <% end %>><%= I18n.t(:kanban_label_within_2_months) %></option>
+            <option value="93" <% if @done_within == "93" then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_months) %></option>
           </select>
         </td>
       </tr>
       <tr>
         <td style="width: 100px">
-          <label>担当者</label>
+          <label><%= I18n.t(:field_assigned_to) %></label>
         </td>
         <td>
           <select name="user_id">
             <% @all_users.each{|user| %>
-              <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.lastname %>さん</option>
+              <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.lastname %></option>
             <% } %>
           </select>
         </td>
       </tr>
       <tr>
         <td style="width: 100px">
-          <label>グループ</label>
+          <label><%= I18n.t(:label_group) %></label>
         </td>
         <td>
           <select name="group_id">
-            <option value="all" <% if @group_id.blank? == true then %> selected <% end %>><< 指定なし >></option>
+            <option value="all" <% if @group_id.blank? == true then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <% @all_groups.each{|group| %>
               <option value="<%= group.id %>" <% if @group_id.to_i == group.id then %> selected <% end %>><%= group.name %></option>
             <% } %>
@@ -79,27 +83,27 @@
       </tr>
       <tr>
         <td style="width: 100px">
-          <label>プロジェクト</label>
+          <label><%= I18n.t(:label_project) %></label>
         </td>
         <td>
           <select name="project_all">
             <% if @project_id.blank? != true then %>
               <option value="0" <% if @project_all == "0" then %> selected <% end %>><%= @project.name %></option>
             <% end %>
-            <option value="1" <% if @project_all == "1" then %> selected <% end %>><< 全プロジェクト >></option>
+            <option value="1" <% if @project_all == "1" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
           </select>
         </td>
       </tr>
       <tr>
-        <td style="width: 100px">  
-          <label>WIP制限</label>
+        <td style="width: 100px">
+          <label><%= I18n.t(:kanban_label_wip_limits) %></label>
         </td>
         <td>
           <select name="wip_max" id="wip_max">
-            <option value="1" <% if @wip_max == "1" then %> selected <% end %>>1チケット</option>
-            <option value="2" <% if @wip_max == "2" then %> selected <% end %>>2チケット</option>
-            <option value="3" <% if @wip_max == "3" then %> selected <% end %>>3チケット</option>
-            <option value="4" <% if @wip_max == "4" then %> selected <% end %>>4チケット</option>
+            <option value="1" <% if @wip_max == "1" then %> selected <% end %>>1</option>
+            <option value="2" <% if @wip_max == "2" then %> selected <% end %>>2</option>
+            <option value="3" <% if @wip_max == "3" then %> selected <% end %>>3</option>
+            <option value="4" <% if @wip_max == "4" then %> selected <% end %>>4</option>
           </select>
         </td>
       </tr>
@@ -108,7 +112,7 @@
 </fieldset>
 <!-- This is the part that opens and closes -->
 <fieldset id="lower_filters" class="collapsible collapsed">
-  <legend onclick="toggleFieldset(this);">フィールド</legend>
+  <legend onclick="toggleFieldset(this);"><%= I18n.t(:kanban_label_fields) %></legend>
   <div style="display: none;">
     <table>
       <tr>
@@ -129,11 +133,11 @@
 </form>
 <!-- Update and clear links -->
 <p class="buttons">
-  <a href="#" onclick="$('#form1').submit(); return false;" class="icon icon-checked">適用</a>
+  <a href="#" onclick="$('#form1').submit(); return false;" class="icon icon-checked"><%= I18n.t(:button_apply) %></a>
   <% if @project_id.blank? == true then %>
-    <a class="icon icon-reload" href="/kanban?clear=1">クリア</a>
+    <a class="icon icon-reload" href="/kanban?clear=1"><%= I18n.t(:button_clear) %></a>
   <% else %>
-    <a class="icon icon-reload" href="/kanban?clear=1&project_id=<%= @project_id %>">クリア</a>
+    <a class="icon icon-reload" href="/kanban?clear=1&project_id=<%= @project_id %>"><%= I18n.t(:button_clear) %></a>
   <% end %>
 </p>
 <!-- Form for issue operation -->
@@ -157,7 +161,7 @@
         <tr class="group">
           <td>
             <% if uid != nil then %>
-              <p style="word-break: break-all;"><%= @all_users.find(uid).lastname %><p>
+              <p style="writing-mode: vertical-rl;"><%= @all_users.find(uid).lastname %><p>
             <% end %>
           </td>
           <!-- Cols -->
@@ -182,7 +186,7 @@
                     <hr>
                     <!-- Case updated with in 24 hour -->
                     <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
-                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %>さん<% else %>Not assigned<% end %></p>
+                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %><% else %>Not assigned<% end %></p>
                   </div>
                 <% end %>
               <% } %>
@@ -200,7 +204,7 @@
     <!-- Number of WIP issues --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
     <!-- User name on card -->
-    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_users.find(uid).lastname %>さん</p>
+    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_users.find(uid).lastname %></p>
   <% end %>
 <% } %>
 <!-- Field ID for display WIP warning -->

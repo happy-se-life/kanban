@@ -6,7 +6,7 @@ $(function() {
     $('#sidebar').css({"cssText" : "padding : 0 8px 0px 8px !important"});
 
     // Initial message when no note
-    var initial_string = "<table class=\"my-journal-table\"><tr><td>履歴が表示されます。</td></tr></table>"
+    var initial_string = "<table class=\"my-journal-table\"><tr><td>" + label_recent_history_is_here + "</td></tr></table>"
     $('#sidebar').html(initial_string);
 
     // When mouse over
@@ -37,7 +37,7 @@ $(function() {
 
     // Definition of dialog when card dropped
     $("#comment-dialog").dialog({
-        title: 'コメント投稿',
+        title: label_add_notes,
         width: 400,
         autoOpen: false,
         modal: true,

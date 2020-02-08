@@ -1,3 +1,20 @@
 # English strings go here for Rails i18n
 en:
-  # my_label: "My label"
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: "'s Kanban"
+  kanban_label_unspecified: unspecified
+  kanban_label_wip_limits: WIP limits
+  kanban_label_fields: Fields
+
+  kanban_label_within_1_day: within 1day
+  kanban_label_within_3_days: within 3days
+  kanban_label_within_1_week: within 1week
+  kanban_label_within_2_weeks: within 2weeks
+  kanban_label_within_1_month: within 1month
+  kanban_label_within_2_months: within 2months
+  kanban_label_within_3_months: within 3months
+
+  kanban_label_recent_history_is_here: Recent history is displayed here
+  kanban_label_recent_history: Recent History
+  kanban_label_add_notes: Add Notes

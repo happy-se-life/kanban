@@ -7,11 +7,11 @@ Redmine::Plugin.register :kanban do
   author_url 'mailto:kohei_nom@yahoo.co.jp'
   
   # Display application common menu
-  menu :application_menu, :kanban, { :controller => 'kanban', :action => 'index' }, :caption => 'かんばん', :if => Proc.new { User.current.logged? }
+  menu :application_menu, :kanban, { :controller => 'kanban', :action => 'index' }, :caption => :kanban_menu_caption, :if => Proc.new { User.current.logged? }
   
   # Display menu at project page
-  menu :project_menu, :kanban, { :controller => 'kanban', :action => 'index' }, :caption => 'かんばん', :param => :project_id
-  
+  menu :project_menu, :kanban, { :controller => 'kanban', :action => 'index' }, :caption => :kanban_menu_caption, :param => :project_id
+
   # Enable permission for each project
   project_module :kanban do
     permission :kanban, {:kanban => [:index]}

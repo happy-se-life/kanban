@@ -1,0 +1,20 @@
+# Japanese strings go here for Rails i18n
+ja:
+  kanban_menu_caption: かんばん
+  
+  kanban_label_title: さんのかんばん
+  kanban_label_unspecified: 指定なし
+  kanban_label_wip_limits: WIP制限
+  kanban_label_fields: フィールド
+
+  kanban_label_within_1_day: 1日以内
+  kanban_label_within_3_days: 3日以内
+  kanban_label_within_1_week: 1週間以内
+  kanban_label_within_2_weeks: 2週間以内
+  kanban_label_within_1_month: 1ヶ月以内
+  kanban_label_within_2_months: 2ヶ月以内
+  kanban_label_within_3_months: 3ヶ月以内
+
+  kanban_label_recent_history_is_here: ここに最近の履歴が表示されます。
+  kanban_label_recent_history: 最近の履歴
+  kanban_label_add_notes: 注記の追加
