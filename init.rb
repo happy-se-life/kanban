@@ -2,8 +2,8 @@ Redmine::Plugin.register :kanban do
   name 'Kanban plugin'
   author 'Kohei Nomura'
   description 'Kanban plugin for redmine'
-  version '0.0.4'
-  url 'https://twitter.com/happy_se_life'
+  version '0.0.5'
+  url 'https://github.com/happy-se-life/kanban'
   author_url 'mailto:kohei_nom@yahoo.co.jp'
   
   # Display application common menu
