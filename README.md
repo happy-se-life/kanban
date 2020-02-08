@@ -1,6 +1,9 @@
 # Redmine kanban plugin
 This plugin provides the Kanban board.
 
+## What's new
+* English language support.
+
 ## Features
 * Tickets can be displayed in a card form by status.
 * You can change the ticket status and assignee by dragging and dropping.
@@ -12,10 +15,10 @@ This plugin provides the Kanban board.
 ## Screenshots
 
 ### Overview
-<img src="./assets/images/kanban_board_ss.png" width="800px">
+<img src="./assets/images/kanban_board_ss.png" width="960px">
 
 ### Ticket filters
-<img src="./assets/images/filters_ss.png" width="480px">
+<img src="./assets/images/filters_ss.png" width="420px">
 
 ## Install
 
@@ -26,10 +29,23 @@ git clone https://github.com/happy-se-life/kanban.git
 
 2. Edit models/constants.rb for your environment.
 
-3. Enable modules for each project.
+3. Restart redmine.
+
+4. Enable modules for each project.
+
+## Uninstall
+
+1. Move to plugins folder.
+
+2. Remove plugins folder.
+<pre>
+rm -rf kanban
+</pre>
+
+3. Restart redmine.
 
 ## Limitation
-* Only supports Japanese.
+* Only supports English and Japanese.
 * It has only been used by small organizations before.
 
 ## License
