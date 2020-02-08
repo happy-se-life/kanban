@@ -5,7 +5,9 @@ ja:
   kanban_label_title: さんのかんばん
   kanban_label_unspecified: 指定なし
   kanban_label_wip_limits: WIP制限
+  kanban_label_wip_limit_exceeded: WIP制限超過
   kanban_label_fields: フィールド
+  kanban_label_update: 更新
 
   kanban_label_within_1_day: 1日以内
   kanban_label_within_3_days: 3日以内

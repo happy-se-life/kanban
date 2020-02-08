@@ -162,6 +162,8 @@
           <td>
             <% if uid != nil then %>
               <p style="writing-mode: vertical-rl;"><%= @all_users.find(uid).lastname %><p>
+            <% else %>
+              <p style="writing-mode: vertical-rl;">Not Assigned<p>
             <% end %>
           </td>
           <!-- Cols -->
@@ -170,9 +172,9 @@
               <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
                 <!-- Display exceed WIP warning message -->
                 <% if @wip_hash[uid].to_i > @wip_max.to_i then %>
-                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px;">WIP制限超過</div>
+                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px;"><%= I18n.t(:kanban_label_wip_limit_exceeded) %></div>
                 <% else %>
-                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px; display: none;">WIP制限超過</div>
+                  <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px; display: none;"><%= I18n.t(:kanban_label_wip_limit_exceeded) %></div>
                 <% end %>
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
@@ -186,7 +188,7 @@
                     <hr>
                     <!-- Case updated with in 24 hour -->
                     <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
-                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller">更新</div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %><% else %>Not assigned<% end %></p>
+                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_update) %></div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %><% else %>Not assigned<% end %></p>
                   </div>
                 <% end %>
               <% } %>

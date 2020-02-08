@@ -5,7 +5,9 @@ en:
   kanban_label_title: "'s Kanban"
   kanban_label_unspecified: unspecified
   kanban_label_wip_limits: WIP limits
+  kanban_label_wip_limit_exceeded: WIP limit exceeded
   kanban_label_fields: Fields
+  kanban_label_update: Update
 
   kanban_label_within_1_day: within 1day
   kanban_label_within_3_days: within 3days
