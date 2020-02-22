@@ -3,16 +3,16 @@
   var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
   var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
 </script>
-<script src="/javascripts/context_menu.js"></script>
+<script src="./javascripts/context_menu.js"></script>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
 <!-- CSS -->
-<link rel="stylesheet" media="screen" href="/stylesheets/context_menu.css">
+<link rel="stylesheet" media="screen" href="./stylesheets/context_menu.css">
 <%= stylesheet_link_tag 'kanban', :plugin => 'kanban' %>
 <div class="contextual">
   <% if @project_id.blank? != true then %>
-    <a class="icon icon-add new-issue" href="/projects/<%= @project_id %>/issues/new"><%= I18n.t(:label_issue_new) %></a>
+    <a class="icon icon-add new-issue" href="./projects/<%= @project_id %>/issues/new"><%= I18n.t(:label_issue_new) %></a>
   <% else %>
-    <a class="icon icon-add new-issue" href="/issues/new"><%= I18n.t(:label_issue_new) %></a>
+    <a class="icon icon-add new-issue" href="./issues/new"><%= I18n.t(:label_issue_new) %></a>
   <% end %>
 </div>
 <!-- H2 title -->
@@ -135,13 +135,13 @@
 <p class="buttons">
   <a href="#" onclick="$('#form1').submit(); return false;" class="icon icon-checked"><%= I18n.t(:button_apply) %></a>
   <% if @project_id.blank? == true then %>
-    <a class="icon icon-reload" href="/kanban?clear=1"><%= I18n.t(:button_clear) %></a>
+    <a class="icon icon-reload" href="./kanban?clear=1"><%= I18n.t(:button_clear) %></a>
   <% else %>
-    <a class="icon icon-reload" href="/kanban?clear=1&project_id=<%= @project_id %>"><%= I18n.t(:button_clear) %></a>
+    <a class="icon icon-reload" href="./kanban?clear=1&project_id=<%= @project_id %>"><%= I18n.t(:button_clear) %></a>
   <% end %>
 </p>
 <!-- Form for issue operation -->
-<form data-cm-url="/issues/context_menu" action="/issues" accept-charset="UTF-10" method="post">
+<form data-cm-url="./issues/context_menu" action="./issues" accept-charset="UTF-10" method="post">
 <div>
   <!-- Main table -->
   <table class="list issues odd-even" style="table-layout: fixed;">
@@ -184,7 +184,7 @@
                     <!-- Card color by priority -->
                     <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                     <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
-                    <p><a href="../issues/<%= issue.id %>"><%= issue.subject %></a></p>
+                    <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
                     <hr>
                     <!-- Case updated with in 24 hour -->
                     <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
