@@ -2,7 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* English language support.
+* Fix problem with sub-URI configuration
 
 ## Features
 * Tickets can be displayed in a card form by status.
@@ -11,6 +11,7 @@ This plugin provides the Kanban board.
 * You can display the note of the ticket by mouse-over and write the note easily.
 * There are many filters for display.
 * A warning can be displayed if the WIP limit is exceeded.
+* Supports English and Japanese language.
 
 ## Screenshots
 
@@ -45,7 +46,6 @@ rm -rf kanban
 3. Restart redmine.
 
 ## Limitation
-* Only supports English and Japanese.
 * It has only been used by small organizations before.
 
 ## License
