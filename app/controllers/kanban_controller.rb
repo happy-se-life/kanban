@@ -33,6 +33,14 @@ class KanbanController < ApplicationController
       end
     }
 
+    # Move current user to head
+    selected_user_index = @user_id_array.index(@user_id.to_i)
+    if @user_id_array.length > 1 && selected_user_index != nil then
+      swap_id = @user_id_array[0]
+      @user_id_array[selected_user_index] = swap_id
+      @user_id_array[0] = @user_id.to_i
+    end
+
     # Get all status orderby position
     @issue_statuses = IssueStatus.all.order("position ASC")
     @issue_statuses_hash = {}
