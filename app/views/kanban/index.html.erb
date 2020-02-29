@@ -161,9 +161,12 @@
         <tr class="group">
           <td>
             <% if uid != nil then %>
-              <p style="writing-mode: vertical-rl;"><%= @all_users.find(uid).lastname %><p>
+              <% if uid == @group_id.to_i then %>
+                <img src="./images/group.png">
+              <% end %>
+              <p style="writing-mode: vertical-rl;"><%= @all_lastnames_hash[uid] %></p>
             <% else %>
-              <p style="writing-mode: vertical-rl;">Not Assigned<p>
+              <p style="writing-mode: vertical-rl;">Not Assigned</p>
             <% end %>
           </td>
           <!-- Cols -->
@@ -206,7 +209,7 @@
     <!-- Number of WIP issues --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
     <!-- User name on card -->
-    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_users.find(uid).lastname %></p>
+    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_lastnames_hash[uid] %></p>
   <% end %>
 <% } %>
 <!-- Field ID for display WIP warning -->

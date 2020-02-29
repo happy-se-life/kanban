@@ -183,6 +183,7 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
             }
         }
         if (data.result == "NG") {
+            alert("Operation not permitted")
             // Reload page
             $('#form1').submit();
         }

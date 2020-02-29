@@ -26,11 +26,27 @@ class KanbanController < ApplicationController
     # Get all user for user filetr <select>
     @all_users = User.where(type: "User").where(status: 1)
 
+    # Collect lastname for users
+    @all_lastnames_hash = {}
+    @all_users.each {|user|
+      @all_lastnames_hash[user.id] = user.lastname
+    }
+
     # Remove inactive users from array of target users
     @user_id_array.each {|id|
       if @all_users.ids.include?(id) == false then
         @user_id_array.delete(id)
       end
+    }
+
+    # Add group ID to array of target users
+    if Setting.issue_group_assignment? and @group_id != nil and @group_id.to_i != 0 then
+      @user_id_array << @group_id.to_i
+    end
+
+    # Collect lastname for groups
+    @all_groups.each {|group|
+      @all_lastnames_hash[group.id] = group.lastname
     }
 
     # Move current user to head
