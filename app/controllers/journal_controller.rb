@@ -22,7 +22,7 @@ class JournalController < ApplicationController
 
     # ヘッダ表示
     notes_string ="<p><b>#" + issue_id.to_s + "</b></p>"
-    notes_string ="<a href=\"../issues/" + issue_id.to_s + "\"><p><b>#" + issue_id.to_s + "</b><p></a>"
+    notes_string ="<a href=\"./issues/" + issue_id.to_s + "\"><p><b>#" + issue_id.to_s + "</b><p></a>"
 
     # Building html of issue description
     if !issue.description.blank? then
@@ -31,7 +31,7 @@ class JournalController < ApplicationController
       notes_string += "<table class=\"my-journal-table\">"
       notes_string += "<tr>"
       notes_string += "<th>"
-      notes_string += "<a href=\"../issues/" + issue_id.to_s + "\">"
+      notes_string += "<a href=\"./issues/" + issue_id.to_s + "\">"
       notes_string += issue.created_on.strftime("%Y-%m-%d %H:%M:%S")
       notes_string += "</a>"
       notes_string += "　"
@@ -67,7 +67,7 @@ class JournalController < ApplicationController
         notes_string += "<table class=\"my-journal-table\">"
         notes_string += "<tr>"
         notes_string += "<th>"
-        notes_string += "<a href=\"../issues/" + issue_id.to_s + "#change-" + note.id.to_s + "\">"
+        notes_string += "<a href=\"./issues/" + issue_id.to_s + "#change-" + note.id.to_s + "\">"
         notes_string += note.created_on.strftime("%Y-%m-%d %H:%M:%S")
         notes_string += "</a>"
         notes_string += "　"
