@@ -161,7 +161,7 @@
         <tr class="group">
           <td>
             <% if uid != nil then %>
-              <% if uid == @group_id.to_i then %>
+              <% if @group_id_array.include?(uid) then %>
                 <img src="./images/group.png">
               <% end %>
               <p style="writing-mode: vertical-rl;"><%= @all_lastnames_hash[uid] %></p>

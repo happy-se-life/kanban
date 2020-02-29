@@ -40,8 +40,19 @@ class KanbanController < ApplicationController
     }
 
     # Add group ID to array of target users
-    if Setting.issue_group_assignment? and @group_id != nil and @group_id.to_i != 0 then
-      @user_id_array << @group_id.to_i
+    @group_id_array = []
+    if Setting.issue_group_assignment? then
+      if @group_id != nil and @group_id.to_i != 0 then
+        @user_id_array << @group_id.to_i
+        @group_id_array << @group_id.to_i
+      else
+        @all_groups.each {|group|
+          if group.user_ids.include?(@user_id.to_i)
+            @user_id_array << group.id
+            @group_id_array << group.id
+          end
+        }
+      end
     end
 
     # Collect lastname for groups
