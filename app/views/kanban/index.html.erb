@@ -16,7 +16,7 @@
   <% end %>
 </div>
 <!-- H2 title -->
-<h2><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@user, :size => "24") %><% end %><%= @user.lastname %><%= I18n.t(:kanban_label_title) %></h2>
+<h2><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@user, :size => "24") %><% end %><%= @user.name %><%= I18n.t(:kanban_label_title) %></h2>
 <!-- Form for filters -->
 <form id="form1" action="" method="GET">
 <!-- This is the part that opens and closes -->
@@ -63,7 +63,7 @@
         <td>
           <select name="user_id">
             <% @all_users.each{|user| %>
-              <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.lastname %></option>
+              <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.name %></option>
             <% } %>
           </select>
         </td>
@@ -164,10 +164,10 @@
               <% if @group_id_array.include?(uid) then %>
                 <!-- When group -->
                 <img src="./images/group.png">
-                <p style="writing-mode: vertical-rl;"><%= @all_lastnames_hash[uid] %></p>
+                <p style="writing-mode: vertical-rl;"><%= @all_names_hash[uid] %></p>
               <% else %>
                 <!-- When user -->
-                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@all_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_lastnames_hash[uid] %></p>
+                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@all_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_names_hash[uid] %></p>
               <% end %>
             <% else %>
               <p style="writing-mode: vertical-rl;">Not Assigned</p>
@@ -195,7 +195,7 @@
                     <hr>
                     <!-- Case updated with in 24 hour -->
                     <% diff = (Time.now - issue.updated_on) / 3600 / 24 %>
-                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_update) %></div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.lastname %><% else %>Not assigned<% end %></p>
+                    <% if diff.to_i == 0 %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_update) %></div><% end %><p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
                   </div>
                 <% end %>
               <% } %>
@@ -213,7 +213,7 @@
     <!-- Number of WIP issues --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
     <!-- User name on card -->
-    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_lastnames_hash[uid] %></p>
+    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_names_hash[uid] %></p>
   <% end %>
 <% } %>
 <!-- Field ID for display WIP warning -->

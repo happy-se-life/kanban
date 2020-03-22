@@ -26,10 +26,10 @@ class KanbanController < ApplicationController
     # Get all user for user filetr <select>
     @all_users = User.where(type: "User").where(status: 1)
 
-    # Collect lastname for users
-    @all_lastnames_hash = {}
+    # Collect name for users
+    @all_names_hash = {}
     @all_users.each {|user|
-      @all_lastnames_hash[user.id] = user.lastname
+      @all_names_hash[user.id] = user.name
     }
 
     # Remove inactive users from array of target users
@@ -55,9 +55,9 @@ class KanbanController < ApplicationController
       end
     end
 
-    # Collect lastname for groups
+    # Collect name for groups
     @all_groups.each {|group|
-      @all_lastnames_hash[group.id] = group.lastname
+      @all_names_hash[group.id] = group.name
     }
 
     # Move current user to head

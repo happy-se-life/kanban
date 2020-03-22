@@ -35,7 +35,7 @@ class JournalController < ApplicationController
       notes_string += issue.created_on.strftime("%Y-%m-%d %H:%M:%S")
       notes_string += "</a>"
       notes_string += "　"
-      notes_string += user.lastname
+      notes_string += user.name
       notes_string += "</th>"
       notes_string += "</tr>"
       notes_string += "<tr>"
@@ -71,7 +71,7 @@ class JournalController < ApplicationController
         notes_string += note.created_on.strftime("%Y-%m-%d %H:%M:%S")
         notes_string += "</a>"
         notes_string += "　"
-        notes_string += user.lastname
+        notes_string += user.name
         notes_string += "</th>"
         notes_string += "</tr>"
         notes_string += "<tr>"
