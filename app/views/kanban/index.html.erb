@@ -162,9 +162,13 @@
           <td>
             <% if uid != nil then %>
               <% if @group_id_array.include?(uid) then %>
+                <!-- When group -->
                 <img src="./images/group.png">
+                <p style="writing-mode: vertical-rl;"><%= @all_lastnames_hash[uid] %></p>
+              <% else %>
+                <!-- When user -->
+                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@all_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_lastnames_hash[uid] %></p>
               <% end %>
-              <p style="writing-mode: vertical-rl;"><%= @all_lastnames_hash[uid] %></p>
             <% else %>
               <p style="writing-mode: vertical-rl;">Not Assigned</p>
             <% end %>
