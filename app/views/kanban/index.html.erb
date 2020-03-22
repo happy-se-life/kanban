@@ -16,7 +16,7 @@
   <% end %>
 </div>
 <!-- H2 title -->
-<h2><%= avatar(@user, :size => "24") %><%= @user.lastname %><%= I18n.t(:kanban_label_title) %></h2>
+<h2><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@user, :size => "24") %><% end %><%= @user.lastname %><%= I18n.t(:kanban_label_title) %></h2>
 <!-- Form for filters -->
 <form id="form1" action="" method="GET">
 <!-- This is the part that opens and closes -->

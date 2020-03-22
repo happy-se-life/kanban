@@ -34,7 +34,7 @@ class Constants < ActiveRecord::Base
   MAX_NOTES_BYTESIZE = 350
 
   # Enable display user's avator at user lane
-  # 1: Display avator
   # 0: None
-  DISPLAY_USER_AVATOR = 0
+  # 1: Display avator
+  DISPLAY_USER_AVATOR = 1
 end
