@@ -107,6 +107,10 @@ class KanbanController < ApplicationController
     else
       # When select one project
       unique_project_id_array << @project.id.to_i
+      subprojects = Project.where(parent_id: @project.id.to_i)
+      subprojects.each {|subproject|
+        unique_project_id_array << subproject.id.to_i
+      }
     end
 
     # To display no assignee issue
