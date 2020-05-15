@@ -23,18 +23,15 @@ class KanbanController < ApplicationController
     # Get user to display avator
     @user = User.find(@user_id.to_i)
 
-    # Get all user for user filetr <select>
-    @all_users = User.where(type: "User").where(status: 1)
-
     # Collect name for users
     @all_names_hash = {}
-    @all_users.each {|user|
+    @selectable_users.each {|user|
       @all_names_hash[user.id] = user.name
     }
 
     # Remove inactive users from array of target users
     @user_id_array.each {|id|
-      if @all_users.ids.include?(id) == false then
+      if @selectable_users.ids.include?(id) == false then
         @user_id_array.delete(id)
       end
     }
@@ -46,7 +43,7 @@ class KanbanController < ApplicationController
         @user_id_array << @group_id.to_i
         @group_id_array << @group_id.to_i
       else
-        @all_groups.each {|group|
+        @selectable_groups.each {|group|
           if group.user_ids.include?(@user_id.to_i)
             @user_id_array << group.id
             @group_id_array << group.id
@@ -56,7 +53,7 @@ class KanbanController < ApplicationController
     end
 
     # Collect name for groups
-    @all_groups.each {|group|
+    @selectable_groups.each {|group|
       @all_names_hash[group.id] = group.name
     }
 
@@ -250,7 +247,7 @@ class KanbanController < ApplicationController
     end
     session_hash["user_id"] = @user_id
     
-    # Project identifier
+    # Get one Project
     @project_id = params[:project_id]
     if @project_id.blank? == true then
       @project = nil
@@ -258,8 +255,36 @@ class KanbanController < ApplicationController
       @project = Project.find(@project_id)
     end
     
-    # Get all group
-    @all_groups = Group.where(type: "Group")
+    # Get users for assignee filetr. <select> items
+    if @project_id.blank? == true then
+      @selectable_users = User.where(type: "User").where(status: 1)
+    else
+      @selectable_users = @project.users
+    end
+
+    # Case <unspecified> selected for project filter
+    if @project_id.blank? == true then
+      # from application menu
+      @project_all = "1"
+    else
+      # from project menu
+      if @project_all.blank? == true then
+        @project_all = "0"
+      end
+    end
+    session_hash["project_all"] = @project_all
+
+    # Get groups for group filetr. <select> items
+    if @project_all == "1" then
+      @selectable_groups = Group.where(type: "Group")
+    else
+      members = Member.where(project_id: @project.id)
+      member_user_ids = []
+      members.each {|member|
+        member_user_ids << member.user_id
+      }
+      @selectable_groups = Group.where(type: "Group").where(id: member_user_ids)
+    end
 
     # Create array of user ID belongs to group
     @user_id_array = []
@@ -269,23 +294,13 @@ class KanbanController < ApplicationController
       @group_id = "all"
     else
       # Case group selected
-      @all_groups.each {|group|
+      @selectable_groups.each {|group|
         if group.id == @group_id.to_i
           @user_id_array = group.user_ids
         end
       }
     end
     session_hash["group_id"] = @group_id
-
-    # Case <unspecified> selected
-    if @project_id.blank? == true then
-      @project_all = "1"
-    else
-      if @project_all.blank? == true then
-        @project_all = "0"
-      end
-    end
-    session_hash["project_all"] = @project_all
 
     # Array of status ID for display
     @status_fields_array = []

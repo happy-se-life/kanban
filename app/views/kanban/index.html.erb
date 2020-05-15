@@ -62,7 +62,7 @@
         </td>
         <td>
           <select name="user_id">
-            <% @all_users.each{|user| %>
+            <% @selectable_users.each{|user| %>
               <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.name %></option>
             <% } %>
           </select>
@@ -75,7 +75,7 @@
         <td>
           <select name="group_id">
             <option value="all" <% if @group_id.blank? == true then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
-            <% @all_groups.each{|group| %>
+            <% @selectable_groups.each{|group| %>
               <option value="<%= group.id %>" <% if @group_id.to_i == group.id then %> selected <% end %>><%= group.name %></option>
             <% } %>
           </select>
@@ -167,7 +167,7 @@
                 <p style="writing-mode: vertical-rl;"><%= @all_names_hash[uid] %></p>
               <% else %>
                 <!-- When user -->
-                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@all_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_names_hash[uid] %></p>
+                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@selectable_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_names_hash[uid] %></p>
               <% end %>
             <% else %>
               <p style="writing-mode: vertical-rl;">Not Assigned</p>
