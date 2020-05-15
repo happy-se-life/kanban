@@ -2,7 +2,8 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Fix problem with sub-URI configuration
+* Change permission name into "Display menu link".
+* Fix problem with sub-URI configuration.
 
 ## Features
 * Tickets can be displayed in a card form by status.
