@@ -37,4 +37,9 @@ class Constants < ActiveRecord::Base
   # 0: None
   # 1: Display avator
   DISPLAY_USER_AVATOR = 1
+
+  # Enable hide user without issues
+  # 0: Hide
+  # 1: Show
+  DISPLAY_USER_WITHOUT_ISSUES = 1
 end

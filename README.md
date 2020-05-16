@@ -3,6 +3,7 @@ This plugin provides the Kanban board.
 
 ## What's new
 * Add filter of project version.
+* Enable hide user without issues. See constants.rb.
 * Keep scroll position when cancel drop.
 * Refactored the program.
 * Change permission name into "Display menu link".

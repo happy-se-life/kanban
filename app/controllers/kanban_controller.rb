@@ -202,6 +202,10 @@ class KanbanController < ApplicationController
       end
     }
 
+    # Hide user without issues
+    if Constants::DISPLAY_USER_WITHOUT_ISSUES != 1 then
+      remove_user_without_issues
+    end
   end
   
   private
@@ -351,6 +355,25 @@ class KanbanController < ApplicationController
     if @wip_max.nil? || @wip_max.to_i == 0 then
       @wip_max = Constants::DEFAULT_VALUE_WIP_MAX
     end
+  end
+
+  #
+  # Remove user without issues from @user_id_array
+  #
+  def remove_user_without_issues
+    @user_id_array.each {|uid|
+      number_of_issues = 0
+      @status_fields_array.each {|status_id|
+        @issues_hash[status_id].each {|issue|
+          if issue.assigned_to_id == uid then
+            number_of_issues += 1
+          end
+        }
+      }
+      if !uid.nil? && number_of_issues == 0 then
+        @user_id_array.delete(uid)
+      end
+    }
   end
 
   #
