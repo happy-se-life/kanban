@@ -33,6 +33,8 @@ $(function() {
         } else {
             $('#sidebar').offset({ top: content.top });
         }
+        // Save hidden
+        $("#scroll_top").val(top);
     });
 
     // Definition of dialog when card dropped

@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Keep scroll position when cancel drop.
 * Refactored the program.
 * Change permission name into "Display menu link".
 * Fix problem of the filter group and assignee are not limited to the current project.

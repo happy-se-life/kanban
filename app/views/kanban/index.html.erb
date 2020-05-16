@@ -2,6 +2,9 @@
 <script>
   var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
   var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
+  window.onload = function(){
+    $(window).scrollTop(<%= params[:scroll_top] %>);
+  }
 </script>
 <script src="./javascripts/context_menu.js"></script>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
@@ -130,6 +133,7 @@
   </div>
 </fieldset>
 <input name="project_id" type="hidden" value="<%= @project_id %>">
+<input name="scroll_top" id="scroll_top" type="hidden" value="0">
 </form>
 <!-- Update and clear links -->
 <p class="buttons">
