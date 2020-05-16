@@ -173,9 +173,15 @@ class KanbanController < ApplicationController
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
           @user_id_array.each {|uid|
             wip_counter = 0
-              @issues_hash[status_id].each {|issue|
+            @issues_hash[status_id].each {|issue|
               if issue.assigned_to_id == uid then
-                wip_counter += 1
+                if @version_id == "unspecified" then
+                  wip_counter += 1
+                else
+                  if issue.fixed_version_id == @version_id.to_i then
+                    wip_counter += 1
+                  end
+                end
               end
             }
             # Save count value
@@ -217,6 +223,7 @@ class KanbanController < ApplicationController
     session_hash["user_id"] = @user_id
     session_hash["group_id"] = @group_id
     session_hash["project_all"] = @project_all
+    session_hash["version_id"] = @version_id
     session_hash["status_fields"] = @status_fields
     session_hash["wip_max"] = @wip_max
     session[:kanban] = session_hash
@@ -262,7 +269,14 @@ class KanbanController < ApplicationController
     else
       @project_all = params[:project_all]
     end
-    
+
+    # Display version ID
+    if !session_hash.blank? && params[:version_id].blank?
+      @version_id = session_hash["version_id"]
+    else
+      @version_id = params[:version_id]
+    end
+
     # Selected statuses
     if !session_hash.blank? && params[:status_fields].blank?
       @status_fields = session_hash["status_fields"]
@@ -313,6 +327,11 @@ class KanbanController < ApplicationController
       if @project_all.blank? then
         @project_all = "0"
       end
+    end
+
+    # Version ID
+    if @version_id.nil? || @version_id.to_i == 0 || @project_all == "1" then
+      @version_id = "unspecified"
     end
 
     # Array of status ID for display

@@ -77,7 +77,7 @@
         </td>
         <td>
           <select name="group_id">
-            <option value="unspecified" <% if @group_id.blank? then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
+            <option value="unspecified" <% if @group_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <% @selectable_groups.each{|group| %>
               <option value="<%= group.id %>" <% if @group_id.to_i == group.id then %> selected <% end %>><%= group.name %></option>
             <% } %>
@@ -97,6 +97,21 @@
           </select>
         </td>
       </tr>
+      <% if @project_all == "0" then %>
+        <tr>
+          <td style="width: 100px">
+            <label><%= I18n.t(:label_version) %></label>
+          </td>
+          <td>
+            <select name="version_id">
+              <option value="unspecified" <% if @version_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
+              <% @project.versions.each{|version| %>
+                <option value="<%= version.id %>" <% if @version_id.to_i == version.id then %> selected <% end %>><%= version.name %></option>
+              <% } %>
+            </select>
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td style="width: 100px">
           <label><%= I18n.t(:kanban_label_wip_limits) %></label>
@@ -189,6 +204,7 @@
                 <% end %>
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
+                <% if @version_id != "unspecified" and issue.fixed_version_id != @version_id.to_i then next end %>
                 <% if uid == issue.assigned_to_id %>  
                   <!-- This is one card -->
                   <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection

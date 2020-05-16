@@ -2,11 +2,11 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Add filter of project version.
 * Keep scroll position when cancel drop.
 * Refactored the program.
 * Change permission name into "Display menu link".
 * Fix problem of the filter group and assignee are not limited to the current project.
-* Fix problem with sub-URI configuration.
 
 ## Features
 * Tickets can be displayed in a card form by status.
