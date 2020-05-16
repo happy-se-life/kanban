@@ -74,7 +74,7 @@
         </td>
         <td>
           <select name="group_id">
-            <option value="all" <% if @group_id.blank? == true then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
+            <option value="unspecified" <% if @group_id.blank? then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <% @selectable_groups.each{|group| %>
               <option value="<%= group.id %>" <% if @group_id.to_i == group.id then %> selected <% end %>><%= group.name %></option>
             <% } %>
@@ -87,7 +87,7 @@
         </td>
         <td>
           <select name="project_all">
-            <% if @project_id.blank? != true then %>
+            <% if !@project_id.blank? then %>
               <option value="0" <% if @project_all == "0" then %> selected <% end %>><%= @project.name %></option>
             <% end %>
             <option value="1" <% if @project_all == "1" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
@@ -164,10 +164,10 @@
               <% if @group_id_array.include?(uid) then %>
                 <!-- When group -->
                 <img src="./images/group.png">
-                <p style="writing-mode: vertical-rl;"><%= @all_names_hash[uid] %></p>
+                <p style="writing-mode: vertical-rl;"><%= @user_and_group_names_hash[uid] %></p>
               <% else %>
                 <!-- When user -->
-                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@selectable_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @all_names_hash[uid] %></p>
+                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@selectable_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @user_and_group_names_hash[uid] %></p>
               <% end %>
             <% else %>
               <p style="writing-mode: vertical-rl;">Not Assigned</p>
@@ -213,7 +213,7 @@
     <!-- Number of WIP issues --> 
     <p id="wip-<%= uid %>" style="display: none;"><%= @wip_hash[uid] %></p>
     <!-- User name on card -->
-    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @all_names_hash[uid] %></p>
+    <p id="user_name_user_id-<%= uid %>" style="display: none;"><%= @user_and_group_names_hash[uid] %></p>
   <% end %>
 <% } %>
 <!-- Field ID for display WIP warning -->

@@ -9,52 +9,68 @@ class KanbanController < ApplicationController
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0'
     response.headers['Pragma'] = 'no-cache'
     
-    # Session discard
+    # Discard session
     if params[:clear].to_i == 1 then
       discard_session
     end
 
-    # Session restore
-    restore_session
+    # Restore session
+    restore_params_from_session
 
-    # Initialize and store session
-    initialize_params_and_store_session
+    # Initialize params
+    initialize_params
+
+    # Store session
+    store_params_to_session
 
     # Get user to display avator
     @user = User.find(@user_id.to_i)
 
-    # Collect name for users
-    @all_names_hash = {}
-    @selectable_users.each {|user|
-      @all_names_hash[user.id] = user.name
-    }
+    # Get current project
+    if @project_id.blank? then
+      @project = nil
+    else
+      @project = Project.find(@project_id)
+    end
+    
+    # Get users for assignee filetr
+    if @project_all == "1" then
+      @selectable_users = User.where(type: "User").where(status: 1)
+    else
+      @selectable_users = @project.users
+    end
 
-    # Remove inactive users from array of target users
+    # Get groups for group filetr
+    if @project_all == "1" then
+      @selectable_groups = Group.where(type: "Group")
+    else
+      members = Member.where(project_id: @project.id)
+      member_user_ids = []
+      members.each {|member|
+        member_user_ids << member.user_id
+      }
+      @selectable_groups = Group.where(type: "Group").where(id: member_user_ids)
+    end
+
+    # Create array of user IDs belongs to the group
+    @user_id_array = []
+    if @group_id == "unspecified" then
+      # Case no group selected
+      @user_id_array << @user_id.to_i
+    else
+      # Case group selected
+      @selectable_groups.each {|group|
+        if group.id == @group_id.to_i
+          @user_id_array = group.user_ids
+        end
+      }
+    end
+
+    # Remove inactive users from array of display users
     @user_id_array.each {|id|
       if @selectable_users.ids.include?(id) == false then
         @user_id_array.delete(id)
       end
-    }
-
-    # Add group ID to array of target users
-    @group_id_array = []
-    if Setting.issue_group_assignment? then
-      if @group_id != nil and @group_id.to_i != 0 then
-        @user_id_array << @group_id.to_i
-        @group_id_array << @group_id.to_i
-      else
-        @selectable_groups.each {|group|
-          if group.user_ids.include?(@user_id.to_i)
-            @user_id_array << group.id
-            @group_id_array << group.id
-          end
-        }
-      end
-    end
-
-    # Collect name for groups
-    @selectable_groups.each {|group|
-      @all_names_hash[group.id] = group.name
     }
 
     # Move current user to head
@@ -64,6 +80,30 @@ class KanbanController < ApplicationController
       @user_id_array[selected_user_index] = swap_id
       @user_id_array[0] = @user_id.to_i
     end
+
+    # When system settings of issue_group_assignment is true,
+    # add group ID to array of display users
+    @group_id_array = []
+    if Setting.issue_group_assignment? then
+      if @group_id == "unspecified" then
+        @selectable_groups.each {|group|
+            @user_id_array << group.id
+            @group_id_array << group.id
+        }
+      else
+        @user_id_array << @group_id.to_i
+        @group_id_array << @group_id.to_i
+      end
+    end
+
+    # Create hash of users/groups name
+    @user_and_group_names_hash = {}
+    @selectable_users.each {|user|
+      @user_and_group_names_hash[user.id] = user.name
+    }
+    @selectable_groups.each {|group|
+      @user_and_group_names_hash[group.id] = group.name
+    }
 
     # Get all status orderby position
     @issue_statuses = IssueStatus.all.order("position ASC")
@@ -87,13 +127,13 @@ class KanbanController < ApplicationController
     time_from = Time.now - 3600 * 24 * @done_within.to_i
     closed_from = time_from.strftime("%Y-%m-%d 00:00:00")
 
-    # Get issues related to target users
+    # Get issues related to display users
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
       .where("updated_on >= '" + updated_from + "'")
       .where(is_private: 0)
       .limit(Constants::SELECT_LIMIT)
 
-    # Group by project ID
+    # Unique project IDs
     unique_project_id_array = []
     if @project_all == "1" then
       issues_for_projects.each {|issue|
@@ -102,7 +142,7 @@ class KanbanController < ApplicationController
         end
       }
     else
-      # When select one project
+      # When select one project, add subproject IDs
       unique_project_id_array << @project.id.to_i
       subprojects = Project.where(parent_id: @project.id.to_i)
       subprojects.each {|subproject|
@@ -110,7 +150,7 @@ class KanbanController < ApplicationController
       }
     end
 
-    # To display no assignee issue
+    # Display no assignee issue
     @user_id_array << nil;
 
     # Declaring variables
@@ -161,16 +201,31 @@ class KanbanController < ApplicationController
   private
 
   #
-  # Session discard
+  # Discard session
   #
   def discard_session
     session[:kanban] = nil
   end
 
   #
-  # Session restore
+  # Store session
   #
-  def restore_session
+  def store_params_to_session
+    session_hash = {}
+    session_hash["updated_within"] = @updated_within
+    session_hash["done_within"] = @done_within
+    session_hash["user_id"] = @user_id
+    session_hash["group_id"] = @group_id
+    session_hash["project_all"] = @project_all
+    session_hash["status_fields"] = @status_fields
+    session_hash["wip_max"] = @wip_max
+    session[:kanban] = session_hash
+  end
+
+  #
+  # Restore session
+  #
+  def restore_params_from_session
     session_hash = session[:kanban]
     
     # Days since upadated date
@@ -187,32 +242,32 @@ class KanbanController < ApplicationController
       @done_within = params[:done_within]
     end
 
-    # Target user ID
+    # Display user ID
     if !session_hash.blank? && params[:user_id].blank?
       @user_id = session_hash["user_id"]
     else
       @user_id = params[:user_id]
     end
 
-    # Target group ID
+    # Display group ID
     if !session_hash.blank? && params[:group_id].blank?
       @group_id = session_hash["group_id"]
     else
       @group_id = params[:group_id]
     end
 
+    # Project display flag
+    if !session_hash.blank? && params[:project_all].blank?
+      @project_all = session_hash["project_all"]
+    else
+      @project_all = params[:project_all]
+    end
+    
     # Selected statuses
     if !session_hash.blank? && params[:status_fields].blank?
       @status_fields = session_hash["status_fields"]
     else
       @status_fields = params[:status_fields]
-    end
-
-    # Selected project
-    if !session_hash.blank? && params[:project_all].blank?
-      @project_all = session_hash["project_all"]
-    else
-      @project_all = params[:project_all]
     end
 
     # Max number of WIP issue
@@ -224,83 +279,41 @@ class KanbanController < ApplicationController
   end
 
   #
-  # Initialize and store session
+  # Initialize params
+  # When value is invalid, set it to default. 
   #
-  def initialize_params_and_store_session
-    session_hash = {}
-
-    # Days since upadated date (default)
-    if @updated_within == nil || @updated_within.to_i == 0 then
+  def initialize_params
+    # Days since upadated date
+    if @updated_within.nil? || @updated_within.to_i == 0 then
       @updated_within = Constants::DEFAULT_VALUE_UPDATED_WITHIN
     end
-    session_hash["updated_within"] = @updated_within
     
-    # Days since closed date (default)
-    if @done_within == nil || @done_within.to_i == 0 then
+    # Days since closed date
+    if @done_within.nil? || @done_within.to_i == 0 then
       @done_within = Constants::DEFAULT_VALUE_DONE_WITHIN
     end
-    session_hash["done_within"] = @done_within
 
-    # Default user ID (= current user)
-    if @user_id == nil || @user_id.to_i == 0 then
+    # User ID
+    if @user_id.nil? || @user_id.to_i == 0 then
       @user_id = @current_user.id
     end
-    session_hash["user_id"] = @user_id
     
-    # Get one Project
-    @project_id = params[:project_id]
-    if @project_id.blank? == true then
-      @project = nil
-    else
-      @project = Project.find(@project_id)
-    end
-    
-    # Get users for assignee filetr. <select> items
-    if @project_id.blank? == true then
-      @selectable_users = User.where(type: "User").where(status: 1)
-    else
-      @selectable_users = @project.users
+    # Group ID
+    if @group_id.nil? || @group_id.to_i == 0 then
+      @group_id = "unspecified"
     end
 
-    # Case <unspecified> selected for project filter
-    if @project_id.blank? == true then
-      # from application menu
+    # Project display flag
+    @project_id = params[:project_id]
+    if @project_id.blank? then
+      # Case move from application menu
       @project_all = "1"
     else
-      # from project menu
-      if @project_all.blank? == true then
+      # Case move from project menu
+      if @project_all.blank? then
         @project_all = "0"
       end
     end
-    session_hash["project_all"] = @project_all
-
-    # Get groups for group filetr. <select> items
-    if @project_all == "1" then
-      @selectable_groups = Group.where(type: "Group")
-    else
-      members = Member.where(project_id: @project.id)
-      member_user_ids = []
-      members.each {|member|
-        member_user_ids << member.user_id
-      }
-      @selectable_groups = Group.where(type: "Group").where(id: member_user_ids)
-    end
-
-    # Create array of user ID belongs to group
-    @user_id_array = []
-    if @group_id == nil || @group_id.to_i == 0 then
-      # Case no group selected
-      @user_id_array << @user_id.to_i
-      @group_id = "all"
-    else
-      # Case group selected
-      @selectable_groups.each {|group|
-        if group.id == @group_id.to_i
-          @user_id_array = group.user_ids
-        end
-      }
-    end
-    session_hash["group_id"] = @group_id
 
     # Array of status ID for display
     @status_fields_array = []
@@ -314,18 +327,12 @@ class KanbanController < ApplicationController
       # Default
       @status_fields_array = Constants::DEFAULT_STATUS_FIELD_VALUE_ARRAY
     end
-    session_hash["status_fields"] = @status_fields
 
     # Max number of WIP issue (default)
-    if @wip_max == nil || @wip_max.to_i == 0 then
+    if @wip_max.nil? || @wip_max.to_i == 0 then
       @wip_max = Constants::DEFAULT_VALUE_WIP_MAX
     end
-    session_hash["wip_max"] = @wip_max
-
-    # Store session
-    session[:kanban] = session_hash
   end
-
 
   #
   # User logged in
