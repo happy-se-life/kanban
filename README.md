@@ -37,7 +37,11 @@ git clone https://github.com/happy-se-life/kanban.git
 
 3. Restart redmine.
 
-4. Enable modules for each project.
+4. Enable role permission to each users groups
+
+<img src="./assets/images/roles_management.png" width="420px">
+
+5. Enable modules for each project.
 
 ## Uninstall
 
