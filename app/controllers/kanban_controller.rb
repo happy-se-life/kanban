@@ -67,8 +67,9 @@ class KanbanController < ApplicationController
     end
 
     # Remove inactive users from array of display users
-    @user_id_array.each {|id|
-      if @selectable_users.ids.include?(id) == false then
+    copied_user_id_array = @user_id_array.dup
+    copied_user_id_array.each {|id|
+      if !@selectable_users.ids.include?(id) then
         @user_id_array.delete(id)
       end
     }
@@ -361,7 +362,8 @@ class KanbanController < ApplicationController
   # Remove user without issues from @user_id_array
   #
   def remove_user_without_issues
-    @user_id_array.each {|uid|
+    copied_user_id_array = @user_id_array.dup
+    copied_user_id_array.each {|uid|
       number_of_issues = 0
       @status_fields_array.each {|status_id|
         @issues_hash[status_id].each {|issue|
