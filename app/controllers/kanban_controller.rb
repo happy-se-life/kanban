@@ -24,8 +24,12 @@ class KanbanController < ApplicationController
     store_params_to_session
 
     # Get user to display avator
-    @user = User.find(@user_id.to_i)
-
+    if @user_id == "unspecified" then
+      @user = User.find(@current_user.id)
+    else
+      @user = User.find(@user_id.to_i)
+    end
+  
     # Get current project
     if @project_id.blank? then
       @project = nil
@@ -52,13 +56,19 @@ class KanbanController < ApplicationController
       @selectable_groups = Group.where(type: "Group").where(id: member_user_ids)
     end
 
-    # Create array of user IDs belongs to the group
+    # Create array of dispaly user IDs belongs to the group
     @user_id_array = []
     if @group_id == "unspecified" then
-      # Case no group selected
-      @user_id_array << @user_id.to_i
+      # Case group is unspecified
+      if @user_id == "unspecified" then
+        # Case user is unspecified
+        @user_id_array = @selectable_users.ids
+      else
+        # Case user is specified
+        @user_id_array << @user_id.to_i
+      end
     else
-      # Case group selected
+      # Case group is specified
       @selectable_groups.each {|group|
         if group.id == @group_id.to_i
           @user_id_array = group.user_ids
@@ -313,7 +323,7 @@ class KanbanController < ApplicationController
     end
 
     # User ID
-    if @user_id.nil? || @user_id.to_i == 0 then
+    if @user_id.nil? || (@user_id.to_i == 0 && @user_id != "unspecified") then
       @user_id = @current_user.id
     end
     

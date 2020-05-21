@@ -65,6 +65,7 @@
         </td>
         <td>
           <select name="user_id">
+            <option value="unspecified" <% if @user_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <% @selectable_users.each{|user| %>
               <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.name %></option>
             <% } %>

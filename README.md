@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Add an option "unspecified" in assigned list. It's useful to see all assignations.
 * Add filter of project version.
 * Enable hide user without issues. See constants.rb.
 * Keep scroll position when cancel drop.
