@@ -65,7 +65,7 @@ class KanbanController < ApplicationController
         @user_id_array = @selectable_users.ids
       else
         # Case user is specified
-        @user_id_array << @user_id.to_i
+        @user_id_array << @user.id
       end
     else
       # Case group is specified
@@ -85,11 +85,11 @@ class KanbanController < ApplicationController
     }
 
     # Move current user to head
-    selected_user_index = @user_id_array.index(@user_id.to_i)
+    selected_user_index = @user_id_array.index(@user.id)
     if @user_id_array.length > 1 && selected_user_index != nil then
       swap_id = @user_id_array[0]
       @user_id_array[selected_user_index] = swap_id
-      @user_id_array[0] = @user_id.to_i
+      @user_id_array[0] = @user.id
     end
 
     # When system settings of issue_group_assignment is true,
@@ -179,7 +179,6 @@ class KanbanController < ApplicationController
           .where("updated_on >= '" + updated_from + "'")
           .where(is_private: 0)
           .limit(Constants::SELECT_LIMIT)
-          .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # Sort @user_id first
         # Count WIP issues
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
           @user_id_array.each {|uid|
@@ -209,7 +208,6 @@ class KanbanController < ApplicationController
           .where("updated_on >= '" + closed_from + "'")
           .where(is_private: 0)
           .limit(Constants::SELECT_LIMIT)
-          .order("CASE assigned_to_id WHEN '" + @user_id.to_s + "' THEN 1 ELSE 2 END, assigned_to_id DESC")  # Sort @user_id first
       end
     }
 
