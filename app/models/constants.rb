@@ -30,6 +30,13 @@ class Constants < ActiveRecord::Base
   # Status ID for WIP count
   WIP_COUNT_STATUS_FIELD = 2
 
+  # Max number of note on sidebar
+  MAX_NOTES = 3
+
+  # Order of note on sidebar
+  # Please choose "ASC" "DESC"
+  ORDER_NOTES = "DESC"
+
   # Max length of note on sidebar (bytes)
   MAX_NOTES_BYTESIZE = 350
 

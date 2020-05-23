@@ -52,8 +52,8 @@ class JournalController < ApplicationController
       .where(private_notes: 0)
       .where("notes IS NOT NULL")
       .where("notes <> ''")
-      .limit(3)
-      .order("created_on DESC")
+      .order(created_on: :desc)
+      .limit(Constants::MAX_NOTES)
 
     # Adding string for recent history
     if !notes.blank? then
@@ -61,27 +61,16 @@ class JournalController < ApplicationController
     end
 
     # Building html of notes
-    notes.reverse_each {|note|
-      if !note.notes.blank? then
-        user = User.find(note.user_id)
-        notes_string += "<table class=\"my-journal-table\">"
-        notes_string += "<tr>"
-        notes_string += "<th>"
-        notes_string += "<a href=\"./issues/" + issue_id.to_s + "#change-" + note.id.to_s + "\">"
-        notes_string += note.created_on.strftime("%Y-%m-%d %H:%M:%S")
-        notes_string += "</a>"
-        notes_string += "　"
-        notes_string += user.name
-        notes_string += "</th>"
-        notes_string += "</tr>"
-        notes_string += "<tr>"
-        notes_string += "<td>"
-        notes_string += CGI.escapeHTML(trim_notes(note.notes))
-        notes_string += "</td>"
-        notes_string += "</tr>"
-        notes_string += "</table>"
-      end
-    }
+    if Constants::ORDER_NOTES == "ASC" then
+      notes.reverse_each {|note|
+        notes_string += note_to_html(issue_id, note)
+      }
+    else
+      # DESC
+      notes.each {|note|
+        notes_string += note_to_html(issue_id, note)
+      }
+    end
 
     # Buiding input area for new note
     notes_string += "<p><b>" + I18n.t(:kanban_label_add_notes) + "</b></p>"
@@ -134,4 +123,30 @@ class JournalController < ApplicationController
     render json: result_hash
   end
 
+  #
+  # Return html of note
+  #
+  def note_to_html(issue_id, note)
+    html = ""
+    if !note.notes.blank? then
+      user = User.find(note.user_id)
+      html += "<table class=\"my-journal-table\">"
+      html += "<tr>"
+      html += "<th>"
+      html += "<a href=\"./issues/" + issue_id.to_s + "#change-" + note.id.to_s + "\">"
+      html += note.created_on.strftime("%Y-%m-%d %H:%M:%S")
+      html += "</a>"
+      html += "　"
+      html += user.name
+      html += "</th>"
+      html += "</tr>"
+      html += "<tr>"
+      html += "<td>"
+      html += CGI.escapeHTML(trim_notes(note.notes))
+      html += "</td>"
+      html += "</tr>"
+      html += "</table>"
+    end
+    return html
+  end
 end
