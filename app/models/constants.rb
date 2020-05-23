@@ -49,4 +49,9 @@ class Constants < ActiveRecord::Base
   # 0: Hide
   # 1: Show
   DISPLAY_USER_WITHOUT_ISSUES = 1
+
+  # Display comment dialog when issue was dropped
+  # 0: Not display
+  # 1: Display
+  DISPLAY_COMMENT_DIALOG_WHEN_DROP = 1
 end

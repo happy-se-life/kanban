@@ -2,6 +2,7 @@
 <script>
   var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
   var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
+  var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>"
   window.onload = function(){
     $(window).scrollTop(<%= params[:scroll_top] %>);
   }

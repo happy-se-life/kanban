@@ -87,7 +87,17 @@ $(function() {
                 $(this).append(ui.draggable.css('left','').css('top',''));
             }
             // Display comment dialog when drop
-            $("#comment-dialog").dialog("open");
+            if (option_display_comment_dialog_when_drop == "1") {
+                $("#comment-dialog").dialog("open");
+            } else {
+                // Save ticket (change status and assignee)
+                saveTicket(
+                    $('#save_card_id').val(),
+                    $('#save_from_field_id').val(),
+                    $('#save_to_field_id').val(),
+                    ""
+                    );
+            }
 		} 
     });
 });
