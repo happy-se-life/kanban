@@ -75,6 +75,6 @@
   width: 100%;
 }
 
-/* Dialog display on top*/
+/* Dialog display on top */
 .ui-dialog { z-index: 1003; }
 .ui-front { z-index: 1002; }
