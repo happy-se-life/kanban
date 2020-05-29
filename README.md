@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Floating table header.
 * Enabled to select display or not comment dialog when issue was dropped. See constants.rb.
 * Enabled to select the display order of recent history. See constants.rb.
 * Add an option "unspecified" in assigned list. It's useful to see all assignations.
@@ -62,3 +63,6 @@ rm -rf kanban
 
 ## License
 * MIT Lisense
+
+## Library used
+* [jquery.floatThead](https://github.com/mkoryak/floatThead)

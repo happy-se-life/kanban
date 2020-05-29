@@ -8,6 +8,7 @@
   }
 </script>
 <script src="./javascripts/context_menu.js"></script>
+<%= javascript_include_tag "jquery.floatThead", :plugin => "kanban" %>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
 <!-- CSS -->
 <link rel="stylesheet" media="screen" href="./stylesheets/context_menu.css">
@@ -165,8 +166,8 @@
 <form data-cm-url="./issues/context_menu" action="./issues" accept-charset="UTF-10" method="post">
 <div>
   <!-- Main table -->
-  <table class="list issues odd-even" style="table-layout: fixed;">
-    <tbody>
+  <table id="kanban_table" class="list issues odd-even" style="table-layout: fixed;">
+    <thead>
       <!-- Table header row -->
       <tr class="group">
         <th style="width: 10px;">
@@ -176,6 +177,8 @@
           <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
         <% } %>
       </tr>
+    </thead>
+    <tbody>
       <!-- User loop -->
       <% @user_id_array.each{|uid| %>
         <!-- Rows -->

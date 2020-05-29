@@ -1,4 +1,17 @@
 $(function() {
+    // Floating table header
+    $('#kanban_table').floatThead();
+
+    // Redraw table header
+    $('#upper_filters').on('click',function(){
+        $('#kanban_table').floatThead('reflow')
+    });
+
+    // Redraw table header
+    $('#lower_filters').on('click',function(){
+        $('#kanban_table').floatThead('reflow')
+    });
+
     // Show sidebar
     $('#main').removeClass('nosidebar');
 
