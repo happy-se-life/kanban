@@ -1,6 +1,6 @@
 $(function() {
     // Floating table header
-    $('#kanban_table').floatThead();
+    $('#kanban_table').floatThead({zIndex: 39});
 
     // Redraw table header
     $('#upper_filters').on('click',function(){
