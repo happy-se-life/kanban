@@ -64,6 +64,21 @@
         </td>
       </tr>
       <tr>
+        <td style="width: 100px">  
+          <label><%= I18n.t(:field_due_date) %></label>
+        </td>
+        <td>
+          <select name="due_date">
+            <option value="unspecified" <% if @due_date == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
+            <option value="overdue" <% if @due_date == "overdue" then %> selected <% end %>><%= I18n.t(:kanban_label_overdue) %></option>
+            <option value="today" <% if @due_date == "today" then %> selected <% end %>><%= I18n.t(:kanban_label_today) %></option>
+            <option value="tommorow" <% if @due_date == "tommorow" then %> selected <% end %>><%= I18n.t(:kanban_label_tommorow) %></option>
+            <option value="thisweek" <% if @due_date == "thisweek" then %> selected <% end %>><%= I18n.t(:kanban_label_thisweek) %></option>
+            <option value="nextweek" <% if @due_date == "nextweek" then %> selected <% end %>><%= I18n.t(:kanban_label_nextweek) %></option>
+          </select>
+        </td>
+      </tr>
+      <tr>
         <td style="width: 100px">
           <label><%= I18n.t(:field_assigned_to) %></label>
         </td>

@@ -2,7 +2,8 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Filter updated/closed options can be select "unspecified".
+* Filter "updated" and "closed" options can be selected "unspecified".
+* Filter "due date" was added.
 
 ## Features
 * Tickets can be displayed in a card form by status.
@@ -49,7 +50,7 @@ rm -rf kanban
 
 3. Restart redmine.
 
-## Limitation
+## Please note
 * It has only been used by small organizations before.
 
 ## License

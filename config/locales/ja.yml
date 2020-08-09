@@ -20,3 +20,9 @@ ja:
   kanban_label_recent_history_is_here: ここに最近の履歴が表示されます。
   kanban_label_recent_history: 最近の履歴
   kanban_label_add_notes: 注記の追加
+  
+  kanban_label_overdue: 期限切れ
+  kanban_label_today: 今日
+  kanban_label_tommorow: 明日
+  kanban_label_thisweek: 今週
+  kanban_label_nextweek: 来週

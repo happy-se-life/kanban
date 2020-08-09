@@ -146,6 +146,28 @@ class KanbanController < ApplicationController
       closed_from = time_from.strftime("%Y-%m-%d 00:00:00")
     end
 
+    # Due datetime for filetr
+    due_from = ""
+    due_to = ""
+    due_now = Time.now
+    case @due_date 
+      when "overdue" then
+        due_from = "1970-01-01"
+        due_to = due_now.yesterday.strftime("%Y-%m-%d")
+      when "today" then
+        due_from = due_now.strftime("%Y-%m-%d")
+        due_to = due_from
+      when "tommorow" then
+        due_from = due_now.tomorrow.strftime("%Y-%m-%d")
+        due_to = due_from
+      when "thisweek" then
+        due_from = due_now.beginning_of_week.strftime("%Y-%m-%d")
+        due_to = due_now.end_of_week.strftime("%Y-%m-%d")
+      when "nextweek" then
+        due_from = due_now.next_week.beginning_of_week.strftime("%Y-%m-%d")
+        due_to = due_now.next_week.end_of_week.strftime("%Y-%m-%d")
+    end
+
     # Get issues related to display users
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
       .where("updated_on >= '" + updated_from + "'")
@@ -181,12 +203,22 @@ class KanbanController < ApplicationController
     @status_fields_array.each {|status_id|
       if @done_issue_statuses_array.include?(status_id) == false then
         # Case not closed status
-        @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-          .where(project_id: unique_project_id_array)
-          .where(status: status_id)
-          .where("updated_on >= '" + updated_from + "'")
-          .where(is_private: 0)
-          .limit(Constants::SELECT_LIMIT)
+        if @due_date == "unspecified" then
+          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
+            .where(project_id: unique_project_id_array)
+            .where(status: status_id)
+            .where("updated_on >= '" + updated_from + "'")
+            .where(is_private: 0)
+            .limit(Constants::SELECT_LIMIT)
+        else
+          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
+            .where(project_id: unique_project_id_array)
+            .where(status: status_id)
+            .where("due_date >= '" + due_from + "'")
+            .where("due_date <= '" + due_to + "'")
+            .where(is_private: 0)
+            .limit(Constants::SELECT_LIMIT)
+        end
         # Count WIP issues
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
           @user_id_array.each {|uid|
@@ -210,12 +242,22 @@ class KanbanController < ApplicationController
         end
       else
         # Case closed status
-        @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-          .where(project_id: unique_project_id_array)
-          .where(status: status_id)
-          .where("updated_on >= '" + closed_from + "'")
-          .where(is_private: 0)
-          .limit(Constants::SELECT_LIMIT)
+        if @due_date == "unspecified" then
+          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
+            .where(project_id: unique_project_id_array)
+            .where(status: status_id)
+            .where("updated_on >= '" + closed_from + "'")
+            .where(is_private: 0)
+            .limit(Constants::SELECT_LIMIT)
+        else
+          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
+            .where(project_id: unique_project_id_array)
+            .where(status: status_id)
+            .where("due_date >= '" + due_from + "'")
+            .where("due_date <= '" + due_to + "'")
+            .where(is_private: 0)
+            .limit(Constants::SELECT_LIMIT)
+        end
       end
     }
 
@@ -241,6 +283,7 @@ class KanbanController < ApplicationController
     session_hash = {}
     session_hash["updated_within"] = @updated_within
     session_hash["done_within"] = @done_within
+    session_hash["due_date"] = @due_date
     session_hash["user_id"] = @user_id
     session_hash["group_id"] = @group_id
     session_hash["project_all"] = @project_all
@@ -268,6 +311,13 @@ class KanbanController < ApplicationController
       @done_within = session_hash["done_within"]
     else
       @done_within = params[:done_within]
+    end
+
+    # Due date
+    if !session_hash.blank? && params[:due_date].blank?
+      @due_date = session_hash["due_date"]
+    else
+      @due_date = params[:due_date]
     end
 
     # Display user ID
@@ -326,6 +376,12 @@ class KanbanController < ApplicationController
     # Days since closed date
     if @done_within.nil? || (@done_within.to_i == 0 && @done_within != "unspecified") then
       @done_within = Constants::DEFAULT_VALUE_DONE_WITHIN
+    end
+
+    # Due date
+    due_date_values = ["overdue", "today", "tommorow", "thisweek", "nextweek", "unspecified"]
+    if @due_date.nil? || !due_date_values.include?(@due_date.to_s) then
+      @due_date = "unspecified"
     end
 
     # User ID

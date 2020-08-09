@@ -20,3 +20,9 @@ en:
   kanban_label_recent_history_is_here: Recent history is displayed here
   kanban_label_recent_history: Recent History
   kanban_label_add_notes: Add Notes
+
+  kanban_label_overdue: Overdue
+  kanban_label_today: Today
+  kanban_label_tommorow: Tomorrow
+  kanban_label_thisweek: This week
+  kanban_label_nextweek: Next week
