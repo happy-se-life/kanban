@@ -131,12 +131,20 @@ class KanbanController < ApplicationController
     }
 
     # Updated datetime for filter
-    time_from = Time.now - 3600 * 24 * @updated_within.to_i
-    updated_from = time_from.strftime("%Y-%m-%d 00:00:00")
+    if @updated_within == "unspecified" then
+      updated_from = "1970-01-01 00:00:00"
+    else
+      time_from = Time.now - 3600 * 24 * @updated_within.to_i
+      updated_from = time_from.strftime("%Y-%m-%d 00:00:00")
+    end
 
     # Closed datetime for filter
-    time_from = Time.now - 3600 * 24 * @done_within.to_i
-    closed_from = time_from.strftime("%Y-%m-%d 00:00:00")
+    if @done_within == "unspecified" then
+      closed_from = "1970-01-01 00:00:00"
+    else
+      time_from = Time.now - 3600 * 24 * @done_within.to_i
+      closed_from = time_from.strftime("%Y-%m-%d 00:00:00")
+    end
 
     # Get issues related to display users
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
@@ -311,12 +319,12 @@ class KanbanController < ApplicationController
   #
   def initialize_params
     # Days since upadated date
-    if @updated_within.nil? || @updated_within.to_i == 0 then
+    if @updated_within.nil? || (@updated_within.to_i == 0 && @updated_within != "unspecified") then
       @updated_within = Constants::DEFAULT_VALUE_UPDATED_WITHIN
     end
     
     # Days since closed date
-    if @done_within.nil? || @done_within.to_i == 0 then
+    if @done_within.nil? || (@done_within.to_i == 0 && @done_within != "unspecified") then
       @done_within = Constants::DEFAULT_VALUE_DONE_WITHIN
     end
 

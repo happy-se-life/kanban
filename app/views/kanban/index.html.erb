@@ -35,6 +35,7 @@
         </td>
         <td>
           <select name="updated_within">
+            <option value="unspecified" <% if @updated_within == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <option value="1"  <% if @updated_within == "1"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_day) %></option>
             <option value="3"  <% if @updated_within == "3"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_days) %></option>
             <option value="7"  <% if @updated_within == "7"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_week) %></option>
@@ -51,6 +52,7 @@
         </td>
         <td>
           <select name="done_within">
+            <option value="unspecified" <% if @done_within == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <option value="1"  <% if @done_within == "1"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_day) %></option>
             <option value="3"  <% if @done_within == "3"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_3_days) %></option>
             <option value="7"  <% if @done_within == "7"  then %> selected <% end %>><%= I18n.t(:kanban_label_within_1_week) %></option>

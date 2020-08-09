@@ -2,16 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Floating table header.
-* Enabled to select display or not comment dialog when issue was dropped. See constants.rb.
-* Enabled to select the display order of recent history. See constants.rb.
-* Add an option "unspecified" in assigned list. It's useful to see all assignations.
-* Add filter of project version.
-* Enable hide user without issues. See constants.rb.
-* Keep scroll position when cancel drop.
-* Refactored the program.
-* Change permission name into "Display menu link".
-* Fix problem of the filter group and assignee are not limited to the current project.
+* Filter updated/closed options can be select "unspecified".
 
 ## Features
 * Tickets can be displayed in a card form by status.

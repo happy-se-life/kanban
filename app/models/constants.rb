@@ -7,11 +7,11 @@ class Constants < ActiveRecord::Base
   SELECT_LIMIT = 250
 
   # Days since upadated date
-  # Please choose "1" "3" "7" "14" "31" "62" "93"
+  # Please choose "1" "3" "7" "14" "31" "62" "93" "unspecified"
   DEFAULT_VALUE_UPDATED_WITHIN = "31"
 
   # Days since closed date
-  # Please choose "1" "3" "7" "14" "31" "62" "93"
+  # Please choose "1" "3" "7" "14" "31" "62" "93" "unspecified"
   DEFAULT_VALUE_DONE_WITHIN = "14"
 
   # Max number of WIP issue
