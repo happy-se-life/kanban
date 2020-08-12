@@ -197,42 +197,30 @@ class KanbanController < ApplicationController
     # Declaring variables
     @issues_hash = {}
     @wip_hash = {}
-    @over_wip = 0
 
     # Get issues using status loop
     @status_fields_array.each {|status_id|
       if @done_issue_statuses_array.include?(status_id) == false then
         # Case not closed status
-        if @due_date == "unspecified" then
-          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-            .where(project_id: unique_project_id_array)
-            .where(status: status_id)
-            .where("updated_on >= '" + updated_from + "'")
-            .where(is_private: 0)
-            .limit(Constants::SELECT_LIMIT)
-        else
-          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-            .where(project_id: unique_project_id_array)
-            .where(status: status_id)
-            .where("updated_on >= '" + updated_from + "'")
-            .where("due_date >= '" + due_from + "'")
-            .where("due_date <= '" + due_to + "'")
-            .where(is_private: 0)
-            .limit(Constants::SELECT_LIMIT)
+        issues = Issue.where(assigned_to_id: @user_id_array)
+          .where(project_id: unique_project_id_array)
+          .where(status: status_id)
+          .where(is_private: 0)
+          .where("updated_on >= '" + updated_from + "'")
+        if @version_id != "unspecified" then
+          issues = issues.where(fixed_version_id: @version_id)
         end
+        if @due_date != "unspecified" then
+          issues = issues.where("due_date >= '" + due_from + "'").where("due_date <= '" + due_to + "'")
+        end
+        @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
         # Count WIP issues
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
           @user_id_array.each {|uid|
             wip_counter = 0
             @issues_hash[status_id].each {|issue|
               if issue.assigned_to_id == uid then
-                if @version_id == "unspecified" then
-                  wip_counter += 1
-                else
-                  if issue.fixed_version_id == @version_id.to_i then
-                    wip_counter += 1
-                  end
-                end
+                wip_counter += 1
               end
             }
             # Save count value
@@ -243,23 +231,18 @@ class KanbanController < ApplicationController
         end
       else
         # Case closed status
-        if @due_date == "unspecified" then
-          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
+        issues = Issue.where(assigned_to_id: @user_id_array)
             .where(project_id: unique_project_id_array)
             .where(status: status_id)
-            .where("updated_on >= '" + closed_from + "'")
             .where(is_private: 0)
-            .limit(Constants::SELECT_LIMIT)
-        else
-          @issues_hash[status_id] = Issue.where(assigned_to_id: @user_id_array)
-            .where(project_id: unique_project_id_array)
-            .where(status: status_id)
             .where("updated_on >= '" + closed_from + "'")
-            .where("due_date >= '" + due_from + "'")
-            .where("due_date <= '" + due_to + "'")
-            .where(is_private: 0)
-            .limit(Constants::SELECT_LIMIT)
+        if @version_id != "unspecified" then
+          issues = issues.where(fixed_version_id: @version_id)
         end
+        if @due_date != "unspecified" then
+          issues = issues.where("due_date >= '" + due_from + "'").where("due_date <= '" + due_to + "'")
+        end
+        @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
       end
     }
 

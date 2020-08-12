@@ -4,6 +4,7 @@ This plugin provides the Kanban board.
 ## What's new
 * Filter "updated" and "closed" options can be selected "unspecified".
 * Filter "due date" was added.
+* Fixed bug of Filter "version".
 
 ## Features
 * Tickets can be displayed in a card form by status.

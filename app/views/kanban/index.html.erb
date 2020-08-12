@@ -226,7 +226,6 @@
                 <% end %>
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
-                <% if @version_id != "unspecified" and issue.fixed_version_id != @version_id.to_i then next end %>
                 <% if uid == issue.assigned_to_id %>  
                   <!-- This is one card -->
                   <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
