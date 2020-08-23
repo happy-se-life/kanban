@@ -26,3 +26,5 @@ en:
   kanban_label_tommorow: Tomorrow
   kanban_label_thisweek: This week
   kanban_label_nextweek: Next week
+
+  kanban_label_days_left: "%{value} days left"

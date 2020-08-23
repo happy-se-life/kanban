@@ -26,3 +26,5 @@ ja:
   kanban_label_tommorow: 明日
   kanban_label_thisweek: 今週
   kanban_label_nextweek: 来週
+
+  kanban_label_days_left: "あと%{value}日"

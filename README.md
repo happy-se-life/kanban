@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Display the remaining days until the due date.
 * Filter "updated" and "closed" options can be selected "unspecified".
 * Filter "due date" was added.
 * Fixed bug of Filter "version".
