@@ -219,10 +219,11 @@
                 <p style="writing-mode: vertical-rl;"><%= @user_and_group_names_hash[uid] %></p>
               <% else %>
                 <!-- When user -->
-                <p style="writing-mode: vertical-rl;"><% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@selectable_users.find(uid), :size => "16") %>&nbsp;<% end %><%= @user_and_group_names_hash[uid] %></p>
+                <% if Constants::DISPLAY_USER_AVATOR == 1 then %><%= avatar(@selectable_users.find(uid), :size => "16") %>&nbsp;<% end %>
+                <p style="writing-mode: vertical-rl;"><%= @user_and_group_names_hash[uid] %></p>
               <% end %>
             <% else %>
-              <p style="writing-mode: vertical-rl;">Not Assigned</p>
+              <p style="writing-mode: vertical-rl;">Not&nbsp;Assigned</p>
             <% end %>
           </td>
           <!-- Cols -->
