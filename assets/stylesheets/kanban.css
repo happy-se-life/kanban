@@ -74,3 +74,52 @@
   resize: none;
   width: 100%;
 }
+
+/* String ellipsis */
+.my-string-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Normal priority issue (small size) */
+.my-issue-card-small {
+  padding: 3px;
+  border: solid 1px #d5d5d5;
+  background-color: #ffffdd;
+  margin: 4px 4px 4px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
+}
+/* High priority issue (small size) */
+.my-issue-card-high-priority-small {
+  padding: 3px;
+  border: solid 1px #d5d5d5;
+  /* background-color: #ffafaf; */
+  background-color: #FFD4D4;
+  margin: 4px 4px 4px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
+}
+
+/* Low priority issue (small size) */
+.my-issue-card-low-priority-small {
+padding: 3px;
+border: solid 1px #d5d5d5;
+background-color: #EAF7FF;
+margin: 4px 4px 4px 4px;
+word-wrap: break-word;
+text-align: left;
+white-space: normal;
+cursor: pointer;
+position: relative;
+border-radius:3px;
+}

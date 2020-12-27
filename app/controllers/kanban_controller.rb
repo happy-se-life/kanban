@@ -275,6 +275,7 @@ class KanbanController < ApplicationController
     session_hash["version_id"] = @version_id
     session_hash["status_fields"] = @status_fields
     session_hash["wip_max"] = @wip_max
+    session_hash["card_size"] = @card_size
     session[:kanban] = session_hash
   end
 
@@ -346,6 +347,13 @@ class KanbanController < ApplicationController
     else
       @wip_max = params[:wip_max]
     end
+
+    # Card size
+    if !session_hash.blank? && params[:card_size].blank?
+      @card_size = session_hash["card_size"]
+    else
+      @card_size = params[:card_size]
+    end
   end
 
   #
@@ -412,6 +420,11 @@ class KanbanController < ApplicationController
     # Max number of WIP issue (default)
     if @wip_max.nil? || @wip_max.to_i == 0 then
       @wip_max = Constants::DEFAULT_VALUE_WIP_MAX
+    end
+
+    # Card size (default)
+    if @card_size.nil? || (@card_size != "normal" && @card_size != "small") then
+      @card_size = Constants::DEFAULT_CARD_SIZE
     end
   end
 

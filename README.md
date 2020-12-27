@@ -1,7 +1,10 @@
 # Redmine kanban plugin
 This plugin provides the Kanban board.
 
-## What's new
+## What's new in 0.0.8
+* It is now possible to display with a small card size. See screenshot.
+
+## What's new in 0.0.7
 * Display the remaining days until the due date.
 * Filter "updated" and "closed" options can be selected "unspecified".
 * Filter "due date" was added.
@@ -19,10 +22,13 @@ This plugin provides the Kanban board.
 ## Screenshots
 
 ### Overview
-<img src="./assets/images/kanban_board_ss.png" width="960px">
+<img src="./assets/images/kanban_board_overview.png" width="960px">
 
 ### Ticket filters
 <img src="./assets/images/filters_ss.png" width="420px">
+
+### Small card view mode
+<img src="./assets/images/kanban_board_small_card.png" width="960px">
 
 ## Install
 
@@ -37,7 +43,7 @@ git clone https://github.com/happy-se-life/kanban.git
 
 4. Enable role permission to each users groups
 
-<img src="./assets/images/roles_management.png" width="420px">
+<img src="./assets/images/roles_management.png" width="200px">
 
 5. Enable modules for each project.
 

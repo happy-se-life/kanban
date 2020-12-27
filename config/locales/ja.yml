@@ -28,3 +28,8 @@ ja:
   kanban_label_nextweek: 来週
 
   kanban_label_days_left: "あと%{value}日"
+
+  kanban_label_card_size: カードサイズ
+  kanban_label_card_size_small: スモール
+  kanban_label_card_size_normal: ノーマル
+  

@@ -28,3 +28,8 @@ en:
   kanban_label_nextweek: Next week
 
   kanban_label_days_left: "%{value} days left"
+
+  kanban_label_card_size: Card size
+  kanban_label_card_size_small: Small
+  kanban_label_card_size_normal: Normal
+  

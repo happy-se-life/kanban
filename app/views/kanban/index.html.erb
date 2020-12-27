@@ -145,6 +145,17 @@
           </select>
         </td>
       </tr>
+      <tr>
+        <td style="width: 100px">
+          <label><%= I18n.t(:kanban_label_card_size) %></label>
+        </td>
+        <td>
+          <select name="card_size" id="card_size">
+            <option value="normal" <% if @card_size == "normal" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_normal) %></option>
+            <option value="small" <% if @card_size == "small" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_small) %></option>
+          </select>
+        </td>
+      </tr>
     </table>
   </div>
 </fieldset>
@@ -218,7 +229,7 @@
           <% @status_fields_array.each {|status_id| %>
             <td id="field-<%= status_id %>-<%= uid %>" style="vertical-align: top;">
               <% if status_id == Constants::WIP_COUNT_STATUS_FIELD %>
-                <!-- Display exceed WIP warning message -->
+                <!-- Display exceeded WIP warning message -->
                 <% if @wip_hash[uid].to_i > @wip_max.to_i then %>
                   <div class="flash error" id="wip_error-<%= uid %>" style="margin: 8px 4px 8px 4px;"><%= I18n.t(:kanban_label_wip_limit_exceeded) %></div>
                 <% else %>
@@ -226,25 +237,40 @@
                 <% end %>
               <% end %>
               <% @issues_hash[status_id].each {|issue| %>
-                <% if uid == issue.assigned_to_id %>  
-                  <!-- This is one card -->
-                  <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
-                    <!-- Card color by priority -->
-                    <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
-                    <div style="float: right; font-size: smaller"><%= issue.project.name %></div><p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
-                    <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
-                    <hr>
-                    <!-- Days to due_date -->
-                    <% if issue.due_date != nil and issue.done_ratio < 100 then %>
-                      <% diff = issue.due_date - Date.today %>
-                      <% if diff.to_i == 0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_today) %></div><% end %>
-                      <% if diff.to_i == 1 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_tommorow) %></div><% end %>
-                      <% if diff.to_i >= 2 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_days_left, :value => diff.to_i) %></div><% end %>
-                      <% if diff.to_i <  0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_overdue) %></div><% end %>
-                    <% end %>
-                    <!-- User name -->
-                    <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
-                  </div>
+                <% if uid == issue.assigned_to_id then %>
+                  <% if @card_size == "small" then %>
+                    <!-- This is SMALL SIZE card -->
+                    <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+                      <!-- Card color by priority -->
+                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority-small <% elsif issue.priority_id == 2 %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
+                      <p class="my-string-ellipsis">
+                        <input type="checkbox" name="ids[]" value="<%= issue.id %>">
+                        <a href="./issues/<%= issue.id %>"><%= issue.subject %></a>
+                      </p>
+                    </div>
+                    <!-- End of the card -->
+                  <% else %>
+                    <!-- This is NORMAL SIZE card -->
+                    <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+                      <!-- Card color by priority -->
+                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                      <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
+                      <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                      <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
+                      <hr>
+                      <!-- Days to due_date -->
+                      <% if issue.due_date != nil and issue.done_ratio < 100 then %>
+                        <% diff = issue.due_date - Date.today %>
+                        <% if diff.to_i == 0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_today) %></div><% end %>
+                        <% if diff.to_i == 1 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_tommorow) %></div><% end %>
+                        <% if diff.to_i >= 2 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_days_left, :value => diff.to_i) %></div><% end %>
+                        <% if diff.to_i <  0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_overdue) %></div><% end %>
+                      <% end %>
+                      <!-- User name -->
+                      <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
+                    </div>
+                    <!-- End of the card -->
+                  <% end %>
                 <% end %>
               <% } %>
             </td>
