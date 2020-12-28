@@ -14,17 +14,17 @@
 
 /* High priority issue */
 .my-issue-card-high-priority {
-    padding: 5px;
-    border: solid 1px #d5d5d5;
-    /* background-color: #ffafaf; */
-    background-color: #FFD4D4;
-    margin: 8px 4px 8px 4px;
-    word-wrap: break-word;
-    text-align: left;
-    white-space: normal;
-    cursor: pointer;
-    position: relative;
-    border-radius:3px;
+  padding: 5px;
+  border: solid 1px #d5d5d5;
+  /* background-color: #ffafaf; */
+  background-color: #FFD4D4;
+  margin: 8px 4px 8px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
 }
 
 /* Low priority issue */
@@ -112,14 +112,14 @@
 
 /* Low priority issue (small size) */
 .my-issue-card-low-priority-small {
-padding: 3px;
-border: solid 1px #d5d5d5;
-background-color: #EAF7FF;
-margin: 4px 4px 4px 4px;
-word-wrap: break-word;
-text-align: left;
-white-space: normal;
-cursor: pointer;
-position: relative;
-border-radius:3px;
+  padding: 3px;
+  border: solid 1px #d5d5d5;
+  background-color: #EAF7FF;
+  margin: 4px 4px 4px 4px;
+  word-wrap: break-word;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+  position: relative;
+  border-radius:3px;
 }

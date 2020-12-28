@@ -1,14 +1,16 @@
 <!-- Javascript -->
 <script>
+  var login_user_id = "<%= @current_user.id %>";
   var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
   var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
-  var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>"
+  var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>";
   window.onload = function(){
     $(window).scrollTop(<%= params[:scroll_top] %>);
   }
 </script>
 <script src="./javascripts/context_menu.js"></script>
 <%= javascript_include_tag "jquery.floatThead", :plugin => "kanban" %>
+<%= javascript_include_tag "hotkeys", :plugin => "kanban" %>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
 <!-- CSS -->
 <link rel="stylesheet" media="screen" href="./stylesheets/context_menu.css">
@@ -68,7 +70,7 @@
           <label><%= I18n.t(:field_due_date) %></label>
         </td>
         <td>
-          <select name="due_date">
+          <select name="due_date" id="due_date">
             <option value="unspecified" <% if @due_date == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <option value="overdue" <% if @due_date == "overdue" then %> selected <% end %>><%= I18n.t(:kanban_label_overdue) %></option>
             <option value="today" <% if @due_date == "today" then %> selected <% end %>><%= I18n.t(:kanban_label_today) %></option>
@@ -83,7 +85,7 @@
           <label><%= I18n.t(:field_assigned_to) %></label>
         </td>
         <td>
-          <select name="user_id">
+          <select name="user_id" id="user_id">
             <option value="unspecified" <% if @user_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
             <% @selectable_users.each{|user| %>
               <option value="<%= user.id %>" <% if @user_id.to_i == user.id then %> selected <% end %>><%= user.name %></option>
@@ -189,6 +191,7 @@
   <% else %>
     <a class="icon icon-reload" href="./kanban?clear=1&project_id=<%= @project_id %>"><%= I18n.t(:button_clear) %></a>
   <% end %>
+  <a href="#" onclick="$('#keyboard-chortcut-dialog').dialog('open'); return false;" class="icon icon-checked"><%= I18n.t(:button_keyboard_shortcuts) %></a>
 </p>
 <!-- Form for issue operation -->
 <form data-cm-url="./issues/context_menu" action="./issues" accept-charset="UTF-10" method="post">
@@ -300,4 +303,45 @@
 <!-- Comment dialog definition -->
 <div id="comment-dialog" style="display: none;">
   <td><textarea id="comment-of-dialog" rows="5" cols="40"></textarea></td>
+</div>
+<!-- Description dialog of keyboard shortcut -->
+<div id="keyboard-chortcut-dialog" style="display: none;">
+  <table>
+    <tr>
+      <td>o</td>
+      <td>: Show login user only.</td>
+    </tr>
+    <tr>
+      <td>e</td>
+      <td>: Show everyone in the project.</td>
+    </tr>
+    <tr>
+      <td>d+u</td>
+      <td>: Due date set to unspecified.</td>
+    </tr>
+    <tr>
+      <td>d+o</td>
+      <td>: Due date set to overdue.</td>
+    </tr>
+    <tr>
+      <td>d+t</td>
+      <td>: Due date set to today.</td>
+    </tr>
+    <tr>
+      <td>d+w</td>
+      <td>: Due date set to this week.</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>: Show by normal size card.</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>: Show by small size card.</td>
+    </tr>
+    <tr>
+      <td>h</td>
+      <td>: Show this.</td>
+    </tr>
+  </table>
 </div>

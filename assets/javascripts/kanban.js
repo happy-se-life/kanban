@@ -113,6 +113,19 @@ $(function() {
             }
 		} 
     });
+
+    // Description of keyboard shortcuts dialog
+    $("#keyboard-chortcut-dialog").dialog({
+        title: "Keyboard Shortcuts",
+        width: 300,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "OK": function() {
+                $(this).dialog("close");
+            }
+        }
+    });
 });
 
 //
@@ -289,4 +302,48 @@ Object.defineProperty(window, 'onbeforeunload', {
     set(newValue) {
         if (typeof newValue === 'function') window.onbeforeunload = null;
     }
+});
+
+// Keyboard Shortcuts
+hotkeys('o,e,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
+    switch(handler.key){
+        // assignee == (login user)
+        case "o":
+            $('#user_id').val(login_user_id);
+            break;
+        // assignee == (everyone in the project)
+        case "e":
+            $('#user_id').val("unspecified");
+            break;
+        // due_date == unspecified
+        case "d+u":
+            $('#due_date').val("unspecified");
+            break;
+        // due_date == overdue
+        case "d+o":
+            $('#due_date').val("overdue");
+            break;
+        // due_date == today
+        case "d+t":
+            $('#due_date').val("today");
+            break;
+        // due_date == thisweek
+        case "d+w":
+            $('#due_date').val("thisweek");
+            break;
+        // card_size == normal
+        case "n":
+            $('#card_size').val("normal");
+            break;
+        // card_size == small
+        case "s":
+            $('#card_size').val("small");
+            break;
+        // show this
+        case "h":
+            $('#keyboard-chortcut-dialog').dialog('open');
+            return;
+    }
+    // reload page
+    $('#form1').submit();
 });

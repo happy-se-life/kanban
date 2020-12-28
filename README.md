@@ -1,22 +1,17 @@
 # Redmine kanban plugin
 This plugin provides the Kanban board.
 
-## What's new in 0.0.8
-* It is now possible to display with a small card size. See screenshot.
-
-## What's new in 0.0.7
-* Display the remaining days until the due date.
-* Filter "updated" and "closed" options can be selected "unspecified".
-* Filter "due date" was added.
-* Fixed bug of Filter "version".
+## What's new
+* It is now possible to switch between normal card size and small card size. See screenshot.
+* It is now possible to use keyboard shortcuts. See below.
 
 ## Features
-* Tickets can be displayed in a card form by status.
-* You can change the ticket status and assignee by dragging and dropping.
-* You can view all tickets by group or user.
-* You can display the note of the ticket by mouse-over and write the note easily.
+* Issues can be displayed in a card form by status.
+* You can change the issue status and assignee by dragging and dropping.
+* You can view all issues by a group or project members.
+* You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
-* A warning can be displayed if the WIP limit is exceeded.
+* Warning can be displayed if the WIP limit is exceeded.
 * Supports English and Japanese language.
 
 ## Screenshots
@@ -27,8 +22,20 @@ This plugin provides the Kanban board.
 ### Ticket filters
 <img src="./assets/images/filters_ss.png" width="420px">
 
-### Small card view mode
+### Small card view
+You can display more cards than regular size cards at once.
 <img src="./assets/images/kanban_board_small_card.png" width="960px">
+
+## Keyboard Shortcuts
+- o : Show login user only.
+- e : Show everyone in the project.
+- d+u : Due date set to unspecified.
+- d+o : Due date set to overdue.
+- d+t : Due date set to today.
+- d+w : Due date set to this week.
+- n : Show by normal size card.
+- s : Show by small size card.
+- h : Show this.
 
 ## Install
 
@@ -58,11 +65,19 @@ rm -rf kanban
 
 3. Restart redmine.
 
-## Please note
-* It has only been used by small organizations before.
+## Notes
+* It has only been used by small organizations upto 30 members before.
+* Therefore, the visibility authority is loosely implemented.
+* However, I think it is a trade-off with ease of use.
 
 ## License
 * MIT Lisense
 
-## Library used
-* [jquery.floatThead](https://github.com/mkoryak/floatThead)
+## Thanks
+* [mkoryak/floatThead](https://github.com/mkoryak/floatThead)
+* [jaywcjlove/hotkeys](https://github.com/jaywcjlove/hotkeys)
+
+## Message from me
+* I'm an ordinary office worker and a Sunday programmer.
+* I like programming, so I'd love to hear your ideas for improvement.
+* If you have any questions, please register with Issue.
