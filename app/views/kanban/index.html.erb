@@ -249,7 +249,7 @@
                       <% if issue.priority_id >= 3 then %> my-issue-card-high-priority-small <% elsif issue.priority_id == 2 %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
                       <p class="my-string-ellipsis">
                         <input type="checkbox" name="ids[]" value="<%= issue.id %>">
-                        <a href="./issues/<%= issue.id %>"><%= issue.subject %></a>
+                        <a href="./issues/<%= issue.id %>" title="<%= issue.subject %>"><%= issue.subject %></a>
                       </p>
                     </div>
                     <!-- End of the card -->
