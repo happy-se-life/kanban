@@ -31,6 +31,7 @@ ja:
 
   kanban_label_card_size: カードサイズ
   kanban_label_card_size_small: スモール
-  kanban_label_card_size_normal: ノーマル
+  kanban_label_card_size_normal_days_left: ノーマル(期日との差)
+  kanban_label_card_size_normal_estimated_hours: ノーマル(予定工数)
   
   button_keyboard_shortcuts: ショートカット

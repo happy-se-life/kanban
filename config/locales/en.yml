@@ -31,7 +31,7 @@ en:
 
   kanban_label_card_size: Card size
   kanban_label_card_size_small: Small
-  kanban_label_card_size_normal: Normal
+  kanban_label_card_size_normal_days_left: Normal (diff. of due date)
+  kanban_label_card_size_normal_estimated_hours: Normal (estimated hours)
   
   button_keyboard_shortcuts: Shortcuts
-  

@@ -4,6 +4,7 @@ This plugin provides the Kanban board.
 ## What's new
 * It is now possible to switch between normal card size and small card size. See screenshot.
 * It is now possible to use keyboard shortcuts. See below.
+* The estimated hours can be displayed on the card. (type 'k' key)
 
 ## Features
 * Issues can be displayed in a card form by status.
@@ -23,7 +24,7 @@ This plugin provides the Kanban board.
 <img src="./assets/images/filters_ss.png" width="420px">
 
 ### Small card view
-You can display more cards than regular size cards at once.
+You can display more cards than normal size cards at once.
 <img src="./assets/images/kanban_board_small_card.png" width="960px">
 
 ## Keyboard Shortcuts
@@ -33,9 +34,10 @@ You can display more cards than regular size cards at once.
 - d+o : Due date set to overdue.
 - d+t : Due date set to today.
 - d+w : Due date set to this week.
-- n : Show by normal size card.
+- n : Show by normal size card with days left.
+- k : Show by normal size card with estimated hours.
 - s : Show by small size card.
-- h : Show this.
+- h : Show this help.
 
 ## Install
 

@@ -117,7 +117,7 @@ $(function() {
     // Description of keyboard shortcuts dialog
     $("#keyboard-chortcut-dialog").dialog({
         title: "Keyboard Shortcuts",
-        width: 300,
+        width: 400,
         autoOpen: false,
         modal: true,
         buttons: {
@@ -305,7 +305,7 @@ Object.defineProperty(window, 'onbeforeunload', {
 });
 
 // Keyboard Shortcuts
-hotkeys('o,e,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
+hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
     switch(handler.key){
         // assignee == (login user)
         case "o":
@@ -331,9 +331,13 @@ hotkeys('o,e,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
         case "d+w":
             $('#due_date').val("thisweek");
             break;
-        // card_size == normal
+        // card_size == normal_days_left
         case "n":
-            $('#card_size').val("normal");
+            $('#card_size').val("normal_days_left");
+            break;
+        // card_size == normal_estimated_hours
+        case "k":
+            $('#card_size').val("normal_estimated_hours");
             break;
         // card_size == small
         case "s":

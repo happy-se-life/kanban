@@ -153,7 +153,8 @@
         </td>
         <td>
           <select name="card_size" id="card_size">
-            <option value="normal" <% if @card_size == "normal" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_normal) %></option>
+            <option value="normal_days_left" <% if @card_size == "normal_days_left" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_normal_days_left) %></option>
+            <option value="normal_estimated_hours" <% if @card_size == "normal_estimated_hours" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_normal_estimated_hours) %></option>
             <option value="small" <% if @card_size == "small" then %> selected <% end %>><%= I18n.t(:kanban_label_card_size_small) %></option>
           </select>
         </td>
@@ -253,8 +254,8 @@
                       </p>
                     </div>
                     <!-- End of the card -->
-                  <% else %>
-                    <!-- This is NORMAL SIZE card -->
+                  <% elsif @card_size == "normal_days_left" then %>
+                    <!-- This is NORMAL SIZE card display with diff. of due date -->
                     <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
                       <!-- Card color by priority -->
                       <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
@@ -270,6 +271,21 @@
                         <% if diff.to_i >= 2 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_days_left, :value => diff.to_i) %></div><% end %>
                         <% if diff.to_i <  0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_overdue) %></div><% end %>
                       <% end %>
+                      <!-- User name -->
+                      <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
+                    </div>
+                    <!-- End of the card -->
+                  <% else %>
+                    <!-- This is NORMAL SIZE card display with Estimated Hours -->
+                    <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+                      <!-- Card color by priority -->
+                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                      <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
+                      <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                      <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
+                      <hr>
+                      <!-- Estimated Hours -->
+                      <div style="float: right; font-size: smaller"><%= (issue.estimated_hours || 0.0) %>h</div>
                       <!-- User name -->
                       <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
                     </div>
@@ -333,7 +349,11 @@
     </tr>
     <tr>
       <td>n</td>
-      <td>: Show by normal size card.</td>
+      <td>: Show by normal size card with days left.</td>
+    </tr>
+    <tr>
+      <td>k</td>
+      <td>: Show by normal size card with estimated hours.</td>
     </tr>
     <tr>
       <td>s</td>
@@ -341,7 +361,7 @@
     </tr>
     <tr>
       <td>h</td>
-      <td>: Show this.</td>
+      <td>: Show this help.</td>
     </tr>
   </table>
 </div>

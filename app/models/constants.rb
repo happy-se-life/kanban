@@ -56,6 +56,6 @@ class Constants < ActiveRecord::Base
   DISPLAY_COMMENT_DIALOG_WHEN_DROP = 1
 
   # Default Card Size
-  # Please choose "normal" "small"
-  DEFAULT_CARD_SIZE = "normal"
+  # Please choose "normal_days_left" "normal_estimated_hours" "small"
+  DEFAULT_CARD_SIZE = "normal_days_left"
 end
