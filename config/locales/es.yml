@@ -1,0 +1,37 @@
+# Español strings go here for Rails i18n
+es:
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: ": Kanban"
+  kanban_label_unspecified: no definido
+  kanban_label_wip_limits: Límites WIP      
+  kanban_label_wip_limit_exceeded: Límite WIP superado      
+  kanban_label_fields: Campos
+  kanban_label_update: Actualizar
+
+  kanban_label_within_1_day: últimas 24 horas
+  kanban_label_within_3_days: últimos 3 días
+  kanban_label_within_1_week: última semana 
+  kanban_label_within_2_weeks: últimas 2 semanas
+  kanban_label_within_1_month: último mes   
+  kanban_label_within_2_months: últimos 2 meses
+  kanban_label_within_3_months: úĺtimos 3 meses
+
+  kanban_label_recent_history_is_here: Aquí se muestra el historial reciente 
+  kanban_label_recent_history: Histórico reciente
+  kanban_label_add_notes: Agregar Nota
+
+  kanban_label_overdue: Atrasado
+  kanban_label_today: Hoy  
+  kanban_label_tommorow: Mañana  
+  kanban_label_thisweek: Esta semana 
+  kanban_label_nextweek: Próxima semana
+
+  kanban_label_days_left: "%{value} días faltantes"
+
+  kanban_label_card_size: Tamaño de tarjeta
+  kanban_label_card_size_small: Pequeño
+  kanban_label_card_size_normal_days_left: Normal 1 (con atrasos)
+  kanban_label_card_size_normal_estimated_hours: Normal 2 (con horas estimadas)
+  
+  button_keyboard_shortcuts: Accesos rápidos

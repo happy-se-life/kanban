@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Supported Spanish. #24
 * It is now possible to switch between normal card size and small card size. See screenshot.
 * It is now possible to use keyboard shortcuts. See below.
 * The estimated hours can be displayed on the card. (type 'k' key)
@@ -13,7 +14,7 @@ This plugin provides the Kanban board.
 * You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
 * Warning can be displayed if the WIP limit is exceeded.
-* Supports English and Japanese language.
+* Supports English, Spanish and Japanese language.
 
 ## Screenshots
 
@@ -24,7 +25,7 @@ This plugin provides the Kanban board.
 <img src="./assets/images/filters_ss.png" width="420px">
 
 ### Small card view
-You can display more cards than normal size cards at once.
+You can display more cards than normal size cards at once.  
 <img src="./assets/images/kanban_board_small_card.png" width="960px">
 
 ## Keyboard Shortcuts
