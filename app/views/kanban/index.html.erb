@@ -28,7 +28,7 @@
 <form id="form1" action="" method="GET">
 <!-- This is the part that opens and closes -->
 <fieldset id="upper_filters" class="collapsible collapsed">
-  <legend onclick="toggleFieldset(this);"><%= I18n.t(:label_filter_plural) %></legend>
+  <legend class="icon icon-collapsed" onclick="toggleFieldset(this);"><%= I18n.t(:label_filter_plural) %></legend>
   <div style="display: none;">
     <table>
       <tr>
@@ -164,7 +164,7 @@
 </fieldset>
 <!-- This is the part that opens and closes -->
 <fieldset id="lower_filters" class="collapsible collapsed">
-  <legend onclick="toggleFieldset(this);"><%= I18n.t(:kanban_label_fields) %></legend>
+  <legend class="icon icon-collapsed" onclick="toggleFieldset(this);"><%= I18n.t(:kanban_label_fields) %></legend>
   <div style="display: none;">
     <table>
       <tr>
@@ -206,7 +206,7 @@
         </th>
         <!-- Table header cols -->
         <% @status_fields_array.each {|status_id| %>
-          <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %><span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
+          <th style="min-width: 200px;"><%= @issue_statuses_hash[status_id] %> <span id="counter-<%= status_id %>" class="count" style="background-color: #d5d5d5"><%= @issues_hash[status_id].length %></span></th>
         <% } %>
       </tr>
     </thead>
