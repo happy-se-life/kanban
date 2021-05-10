@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Supported French.
 * Supported Spanish. #24
 * It is now possible to switch between normal card size and small card size. See screenshot.
 * It is now possible to use keyboard shortcuts. See below.
@@ -14,7 +15,7 @@ This plugin provides the Kanban board.
 * You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
 * Warning can be displayed if the WIP limit is exceeded.
-* Supports English, Spanish and Japanese language.
+* Supports English, Spanish, French and Japanese language.
 
 ## Screenshots
 
