@@ -247,7 +247,7 @@
                     <!-- This is SMALL SIZE card -->
                     <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
                       <!-- Card color by priority -->
-                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority-small <% elsif issue.priority_id == 2 %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
+                      <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority-small <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
                       <p class="my-string-ellipsis">
                         <input type="checkbox" name="ids[]" value="<%= issue.id %>">
                         <a href="./issues/<%= issue.id %>" title="<%= issue.subject %>"><%= issue.subject %></a>
@@ -258,7 +258,7 @@
                     <!-- This is NORMAL SIZE card display with diff. of due date -->
                     <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
                       <!-- Card color by priority -->
-                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                      <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                       <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
                       <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
                       <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
@@ -279,7 +279,7 @@
                     <!-- This is NORMAL SIZE card display with Estimated Hours -->
                     <div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
                       <!-- Card color by priority -->
-                      <% if issue.priority_id >= 3 then %> my-issue-card-high-priority <% elsif issue.priority_id == 2 %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+                      <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                       <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
                       <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
                       <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
