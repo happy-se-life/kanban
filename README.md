@@ -41,6 +41,9 @@ You can display more cards than normal size cards at once.
 - s : Show by small size card.
 - h : Show this help.
 
+## Required Redmine version
+* 3.4.6.stable or later (~4.1)
+
 ## Install
 
 1. Move to plugins folder.
