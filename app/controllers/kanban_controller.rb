@@ -172,7 +172,10 @@ class KanbanController < ApplicationController
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
       .where("updated_on >= '" + updated_from + "'")
       .where(is_private: 0)
-      .limit(Constants::SELECT_LIMIT)
+
+    if Constants::SELECT_LIMIT == 1 then
+      issues_for_projects = issues_for_projects.limit(Constants::SELECT_LIMIT)
+    end
 
     # Unique project IDs
     unique_project_id_array = []
