@@ -3,6 +3,10 @@
 #
 class Constants < ActiveRecord::Base
 
+  # Limit selection strategy
+  # 0: No Limit
+  # 1: Limited by `SELECT_LIMIT` value
+  SELECT_LIMIT_STRATEGY = 1;
   # Max number of selections
   SELECT_LIMIT = 250
 

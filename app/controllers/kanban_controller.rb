@@ -172,7 +172,10 @@ class KanbanController < ApplicationController
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
       .where("updated_on >= '" + updated_from + "'")
       .where(is_private: 0)
-      .limit(Constants::SELECT_LIMIT)
+
+    if Constants::SELECT_LIMIT == 1 then
+      issues_for_projects = issues_for_projects.limit(Constants::SELECT_LIMIT)
+    end
 
     # Unique project IDs
     unique_project_id_array = []
@@ -184,11 +187,7 @@ class KanbanController < ApplicationController
       }
     else
       # When select one project, add subproject IDs
-      unique_project_id_array << @project.id.to_i
-      subprojects = Project.where(parent_id: @project.id.to_i)
-      subprojects.each {|subproject|
-        unique_project_id_array << subproject.id.to_i
-      }
+      fill_subproject_ids(@project.id.to_i, unique_project_id_array)
     end
 
     # Display no assignee issue
@@ -461,6 +460,21 @@ class KanbanController < ApplicationController
   def global_authorize
     set_user
     render_403 unless @current_user.type == 'User'
+  end
+
+  #
+  # Get all subprojects
+  #
+  def fill_subproject_ids(project_id, unique_project_id_array)
+    if unique_project_id_array.include?(project_id) == true then
+      return
+    end
+
+    unique_project_id_array << project_id
+    subprojects = Project.where(parent_id: project_id)
+    subprojects.each {|subproject|
+      fill_subproject_ids(subproject.id.to_i, unique_project_id_array)
+    }
   end
 
 end
