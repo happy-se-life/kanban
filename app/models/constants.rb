@@ -58,4 +58,14 @@ class Constants < ActiveRecord::Base
   # Default Card Size
   # Please choose "normal_days_left" "normal_estimated_hours" "small"
   DEFAULT_CARD_SIZE = "normal_days_left"
+
+  # Default High Priority issue id
+  # Default is 3 to back compatibility
+  # All issues >= DEFAULT_HIGH_ PRIORITY_ISSUE_ID will be seen as high priority issues
+  DEFAULT_HIGH_PRIORITY_ISSUE_ID = 3
+
+  # Default Normal Priority issue id
+  # Default is 2 to back compatibility
+  # All issues == DEFAULT_HIGH_ DEFAULT_NORMAL_PRIORITY_ISSUE_ID will be seen as normal priority issues
+  DEFAULT_NORMAL_PRIORITY_ISSUE_ID = 2
 end
