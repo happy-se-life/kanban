@@ -173,7 +173,7 @@ class KanbanController < ApplicationController
       .where("updated_on >= '" + updated_from + "'")
       .where(is_private: 0)
 
-    if Constants::SELECT_LIMIT == 1 then
+    if Constants::SELECT_LIMIT_STRATEGY == 1 then
       issues_for_projects = issues_for_projects.limit(Constants::SELECT_LIMIT)
     end
 
