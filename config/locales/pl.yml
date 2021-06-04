@@ -1,0 +1,38 @@
+# Polish strings go here for Rails i18n
+pl:
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: "'s Kanban"
+  kanban_label_unspecified: nieokreslony
+  kanban_label_wip_limits: WIP limit
+  kanban_label_wip_limit_exceeded: limit WIP przekroczony
+  kanban_label_fields: Kategorie
+  kanban_label_update: Update
+
+  kanban_label_within_1_day: "ostatni dzień"
+  kanban_label_within_3_days: "ostatnie 3 dni"
+  kanban_label_within_1_week: "ostatni tydzień"
+  kanban_label_within_2_weeks: "ostatnie 2 tygodnie"
+  kanban_label_within_1_month: "ostatni miesiąc"
+  kanban_label_within_2_months: "ostatnie 2 miesiące"
+  kanban_label_within_3_months: "ostatnie 3 miesiące"
+
+  kanban_label_recent_history_is_here: "Ostatnie historia wyswietla sie tutaj"
+  kanban_label_recent_history: Ostatnio
+  kanban_label_add_notes: "Dodaj notatki"
+
+  kanban_label_overdue: "Zaległe"
+  kanban_label_today: "Dzisiaj"
+  kanban_label_tommorow: "Jutro"
+  kanban_label_thisweek: "W tym tygodniu"
+  kanban_label_nextweek: "W następnym tygodniu"
+
+  kanban_label_days_left: "%{value} dni zostało"
+
+  kanban_label_card_size: "Wielkość karty"
+  kanban_label_card_size_small: "Mała"
+  kanban_label_card_size_normal_days_left: "Normalna(wyszczególnij czas oddania)"
+  kanban_label_card_size_normal_estimated_hours: "Normalna (wyszczególnij przepracowany czas)"
+  
+  button_keyboard_shortcuts: "Skróty"
+
