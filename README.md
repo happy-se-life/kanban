@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Supported Polish.
 * Supported French.
 * Supported Spanish. #24
 * It is now possible to switch between normal card size and small card size. See screenshot.
