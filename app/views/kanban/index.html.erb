@@ -128,9 +128,22 @@
             <select name="version_id">
               <option value="unspecified" <% if @version_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
               <% @project.versions.each{|version| %>
-                <option value="<%= version.id %>" <% if @version_id.to_i == version.id then %> selected <% end %>><%= version.name %></option>
+                <% if @open_versions == "1" then %>
+                  <% if version.open? then %>
+                    <option value="<%= version.id %>" <% if @version_id.to_i == version.id then %> selected <% end %>><%= version.name %></option>
+                  <% end %>
+                <% else %>
+                  <option value="<%= version.id %>" <% if @version_id.to_i == version.id then %> selected <% end %>><%= version.name %></option>
+                <% end %>
               <% } %>
             </select>
+            <% if @open_versions == "1" then %>
+              <%= check_box_tag :cbx, 1, {:checked => "checked"} %>
+            <% else %>
+              <%= check_box_tag :cbx, 1 %>
+            <% end %>
+            <%= label_tag :cbx, I18n.t(:version_status_open) %>
+            <%= hidden_field_tag :open_versions, @open_versions %>
           </td>
         </tr>
       <% end %>

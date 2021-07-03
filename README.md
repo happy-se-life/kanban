@@ -2,12 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Supported Polish.
-* Supported French.
-* Supported Spanish. #24
-* It is now possible to switch between normal card size and small card size. See screenshot.
-* It is now possible to use keyboard shortcuts. See below.
-* The estimated hours can be displayed on the card. (type 'k' key)
+* You can now narrow the version filter to only open versions. #31
 
 ## Features
 * Issues can be displayed in a card form by status.
@@ -16,7 +11,7 @@ This plugin provides the Kanban board.
 * You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
 * Warning can be displayed if the WIP limit is exceeded.
-* Supports English, Spanish, French and Japanese language.
+* Supports English, Spanish, French, Polish and Japanese language.
 
 ## Screenshots
 

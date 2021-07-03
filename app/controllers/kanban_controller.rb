@@ -272,6 +272,7 @@ class KanbanController < ApplicationController
     session_hash["group_id"] = @group_id
     session_hash["project_all"] = @project_all
     session_hash["version_id"] = @version_id
+    session_hash["open_versions"] = @open_versions
     session_hash["status_fields"] = @status_fields
     session_hash["wip_max"] = @wip_max
     session_hash["card_size"] = @card_size
@@ -331,6 +332,13 @@ class KanbanController < ApplicationController
       @version_id = session_hash["version_id"]
     else
       @version_id = params[:version_id]
+    end
+
+    # Only open versions flag
+    if !session_hash.blank? && params[:open_versions].blank?
+      @open_versions = session_hash["open_versions"]
+    else
+      @open_versions = params[:open_versions]
     end
 
     # Selected statuses
@@ -401,6 +409,11 @@ class KanbanController < ApplicationController
     # Version ID
     if @version_id.nil? || @version_id.to_i == 0 || @project_all == "1" then
       @version_id = "unspecified"
+    end
+
+    # Only open versions flag
+    if @open_versions.nil? then
+      @open_versions = "1"
     end
 
     # Array of status ID for display

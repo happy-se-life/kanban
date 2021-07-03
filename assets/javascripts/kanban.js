@@ -126,6 +126,15 @@ $(function() {
             }
         }
     });
+
+    // Only open versions checkbox
+    $("#cbx").on("click", function(){
+        if($(this).prop("checked") == true){
+          $("#open_versions").val("1");
+        }else{
+          $("#open_versions").val("0");
+        }
+    });
 });
 
 //
