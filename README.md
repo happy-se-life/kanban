@@ -11,7 +11,7 @@ This plugin provides the Kanban board.
 * You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
 * Warning can be displayed if the WIP limit is exceeded.
-* Supports English, Spanish, French, Polish and Japanese language.
+* Supports English, Spanish, French, Polish, Russian and Japanese language.
 
 ## Screenshots
 
