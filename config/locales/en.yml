@@ -28,10 +28,22 @@ en:
   kanban_label_nextweek: Next week
 
   kanban_label_days_left: "%{value} days left"
+  kanban_hours_abbreviation: 'h'
 
   kanban_label_card_size: Card size
   kanban_label_card_size_small: Small
   kanban_label_card_size_normal_days_left: Normal (diff. of due date)
   kanban_label_card_size_normal_estimated_hours: Normal (estimated hours)
-  
+
   button_keyboard_shortcuts: Shortcuts
+
+  kanban_keyboard_shortcuts_help_0: Show login user only.
+  kanban_keyboard_shortcuts_help_1: Show everyone in the project.
+  kanban_keyboard_shortcuts_help_2: Due date set to unspecified.
+  kanban_keyboard_shortcuts_help_3: Due date set to overdue.
+  kanban_keyboard_shortcuts_help_4: Due date set to today.
+  kanban_keyboard_shortcuts_help_5: Due date set to this week.
+  kanban_keyboard_shortcuts_help_6: Show by normal size card with days left.
+  kanban_keyboard_shortcuts_help_7: Show by normal size card with estimated hours.
+  kanban_keyboard_shortcuts_help_8: Show by small size card.
+  kanban_keyboard_shortcuts_help_9: Show this help.

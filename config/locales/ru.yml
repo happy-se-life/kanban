@@ -1,0 +1,49 @@
+# Russian strings go here for Rails i18n
+ru:
+  kanban_menu_caption: "Канбан"
+
+  kanban_label_title: " - Личный канбан пользователя"
+  kanban_label_unspecified: "не задано"
+  kanban_label_wip_limits: "Лимит задач в работе"
+  kanban_label_wip_limit_exceeded: "Превышен лимит задач в работе!"
+  kanban_label_fields: "Столбцы (статусы задач)"
+  kanban_label_update: "Обновить"
+
+  kanban_label_within_1_day: "в течение этого дня"
+  kanban_label_within_3_days: "в течение последних 3 дней"
+  kanban_label_within_1_week: "в течение последней недели"
+  kanban_label_within_2_weeks: "в течение последних 2 недель"
+  kanban_label_within_1_month: "в течение последнего месяца"
+  kanban_label_within_2_months: "в течение последних 2 месяцев"
+  kanban_label_within_3_months: "в течение последних 3 месяцев"
+
+  kanban_label_recent_history_is_here: "Здесь будет показана недавняя история"
+  kanban_label_recent_history: "Последние записи"
+  kanban_label_add_notes: "Добавить запись"
+
+  kanban_label_overdue: "Просрочена"
+  kanban_label_today: "Сегодня"
+  kanban_label_tommorow: "Завтра"
+  kanban_label_thisweek: "На этой неделе"
+  kanban_label_nextweek: "На следующей неделе"
+
+  kanban_label_days_left: "Осталось %{value} дней"
+  kanban_hours_abbreviation: 'ч'
+
+  kanban_label_card_size: "Размер карточек"
+  kanban_label_card_size_small: "Маленький"
+  kanban_label_card_size_normal_days_left: "Нормальный (срок завершения)"
+  kanban_label_card_size_normal_estimated_hours: "Нормальный (расчетное время)"
+
+  button_keyboard_shortcuts: "Горячие клавиши"
+
+  kanban_keyboard_shortcuts_help_0: "Показать задачи текущего пользователя."
+  kanban_keyboard_shortcuts_help_1: "Показать задачи в этом проекте для всех."
+  kanban_keyboard_shortcuts_help_2: "Показать задачи без заданных сроков."
+  kanban_keyboard_shortcuts_help_3: "Показать просроченные задачи."
+  kanban_keyboard_shortcuts_help_4: "Показать задачи, истекающие сегодня."
+  kanban_keyboard_shortcuts_help_5: "Показать задачи, истекающие на этой неделе."
+  kanban_keyboard_shortcuts_help_6: "Показать карточки норм. размера (оставшиеся дни)."
+  kanban_keyboard_shortcuts_help_7: "Показать карточки норм. размера (расчетное время)."
+  kanban_keyboard_shortcuts_help_8: "Показать карточки малого размера."
+  kanban_keyboard_shortcuts_help_9: "Показать эту справку."

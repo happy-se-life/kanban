@@ -298,7 +298,7 @@
                       <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
                       <hr>
                       <!-- Estimated Hours -->
-                      <div style="float: right; font-size: smaller"><%= (issue.estimated_hours || 0.0) %>h</div>
+                      <div style="float: right; font-size: smaller"><%= (issue.estimated_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %></div>
                       <!-- User name -->
                       <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
                     </div>
@@ -338,43 +338,43 @@
   <table>
     <tr>
       <td>o</td>
-      <td>: Show login user only.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_0) %></td>
     </tr>
     <tr>
       <td>e</td>
-      <td>: Show everyone in the project.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_1) %></td>
     </tr>
     <tr>
       <td>d+u</td>
-      <td>: Due date set to unspecified.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_2) %></td>
     </tr>
     <tr>
       <td>d+o</td>
-      <td>: Due date set to overdue.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_3) %></td>
     </tr>
     <tr>
       <td>d+t</td>
-      <td>: Due date set to today.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_4) %></td>
     </tr>
     <tr>
       <td>d+w</td>
-      <td>: Due date set to this week.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_5) %></td>
     </tr>
     <tr>
       <td>n</td>
-      <td>: Show by normal size card with days left.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_6) %></td>
     </tr>
     <tr>
       <td>k</td>
-      <td>: Show by normal size card with estimated hours.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_7) %></td>
     </tr>
     <tr>
       <td>s</td>
-      <td>: Show by small size card.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_8) %></td>
     </tr>
     <tr>
       <td>h</td>
-      <td>: Show this help.</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_9) %></td>
     </tr>
   </table>
 </div>
