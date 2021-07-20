@@ -6,7 +6,7 @@ ru:
   kanban_label_unspecified: "не задано"
   kanban_label_wip_limits: "Лимит задач в работе"
   kanban_label_wip_limit_exceeded: "Превышен лимит задач в работе!"
-  kanban_label_fields: "Столбцы (статусы задач)"
+  kanban_label_fields: "Столбцы"
   kanban_label_update: "Обновить"
 
   kanban_label_within_1_day: "в течение этого дня"
@@ -21,11 +21,11 @@ ru:
   kanban_label_recent_history: "Последние записи"
   kanban_label_add_notes: "Добавить запись"
 
-  kanban_label_overdue: "Просрочена"
-  kanban_label_today: "Сегодня"
-  kanban_label_tommorow: "Завтра"
-  kanban_label_thisweek: "На этой неделе"
-  kanban_label_nextweek: "На следующей неделе"
+  kanban_label_overdue: "просрочена"
+  kanban_label_today: "сегодня"
+  kanban_label_tommorow: "завтра"
+  kanban_label_thisweek: "на этой неделе"
+  kanban_label_nextweek: "на следующей неделе"
 
   kanban_label_days_left: "Осталось %{value} дней"
   kanban_hours_abbreviation: 'ч'
