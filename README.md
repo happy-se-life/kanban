@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* All unclosed tickets can be selected using keyboard shortcuts(=l). #32
 * Added Russian translation.
 * You can now narrow the version filter to only open versions. #31
 
@@ -36,6 +37,7 @@ You can display more cards than normal size cards at once.
 - n : Show by normal size card with days left.
 - k : Show by normal size card with estimated hours.
 - s : Show by small size card.
+- l : Select all open issues.
 - h : Show this help.
 
 ## Required Redmine version
