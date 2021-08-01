@@ -76,11 +76,15 @@ rm -rf kanban
 ## License
 * MIT Lisense
 
-## Thanks
+## Thanks for the great contributors who helped with the localization
+* @aivorra for Spanish
+* @camlafit for French
+* @karnow98 for Polish
+* @deryaba for Russian
+
+## Thanks for the great library
 * [mkoryak/floatThead](https://github.com/mkoryak/floatThead)
 * [jaywcjlove/hotkeys](https://github.com/jaywcjlove/hotkeys)
 
-## Message from me
-* I'm an ordinary office worker and a Sunday programmer.
-* I like programming, so I'd love to hear your ideas for improvement.
-* If you have any questions, please register with Issue.
+## Contact me
+* If you have any questions or ideas for improvement, please register with issue.
