@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Added Russian translation.
 * You can now narrow the version filter to only open versions. #31
 
 ## Features
