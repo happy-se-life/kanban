@@ -314,7 +314,7 @@ Object.defineProperty(window, 'onbeforeunload', {
 });
 
 // Keyboard Shortcuts
-hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
+hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h,l', function(event,handler) {
     switch(handler.key){
         // assignee == (login user)
         case "o":
@@ -355,6 +355,13 @@ hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h', function(event,handler) {
         // show this
         case "h":
             $('#keyboard-chortcut-dialog').dialog('open');
+            return;
+        // select all open issues
+        case "l":
+            var tmp = $('#open-field-ids').html().split(' ');
+            for(let i in tmp) {
+                $("[id^=field-" + tmp[i] + "-]").find('input').click();
+            }
             return;
     }
     // reload page

@@ -373,8 +373,20 @@
       <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_8) %></td>
     </tr>
     <tr>
-      <td>h</td>
+      <td>l</td>
       <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_9) %></td>
+    </tr>
+    <tr>
+      <td>h</td>
+      <td>: <%= I18n.t(:kanban_keyboard_shortcuts_help_10) %></td>
     </tr>
   </table>
 </div>
+<!-- Field IDs of open issues -->
+<% string_open_fields="" %>
+<% @status_fields_array.each {|status_id| %>
+  <% if @done_issue_statuses_array.include?(status_id) == false then %>
+    <% string_open_fields = string_open_fields + " " + status_id.to_s %>
+  <% end %>
+<% } %>
+<p id="open-field-ids" style="display: none;"><%= string_open_fields.strip %></p>
