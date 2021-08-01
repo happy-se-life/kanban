@@ -35,3 +35,14 @@ es:
   kanban_label_card_size_normal_estimated_hours: Normal 2 (con horas estimadas)
   
   button_keyboard_shortcuts: Accesos rápidos
+
+  kanban_keyboard_shortcuts_help_0: Mostrar solo el usuario de inicio de sesión.
+  kanban_keyboard_shortcuts_help_1: Muestre a todos en el proyecto.
+  kanban_keyboard_shortcuts_help_2: Establezca la fecha de vencimiento en no especificado.
+  kanban_keyboard_shortcuts_help_3: Establezca la fecha de vencimiento como vencida.
+  kanban_keyboard_shortcuts_help_4: Establezca la fecha de vencimiento hoy.
+  kanban_keyboard_shortcuts_help_5: Establezca la fecha de vencimiento para esta semana.
+  kanban_keyboard_shortcuts_help_6: Mostrar por tarjeta de tamaño normal con días restantes.
+  kanban_keyboard_shortcuts_help_7: Mostrar por tarjeta de tamaño normal con horas estimadas.
+  kanban_keyboard_shortcuts_help_8: Mostrar por tarjeta de tamaño pequeño.
+  kanban_keyboard_shortcuts_help_9: Muestre esta ayuda.

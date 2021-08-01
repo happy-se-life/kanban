@@ -35,3 +35,14 @@ fr:
   kanban_label_card_size_normal_estimated_hours: Normal (en heures)
   
   button_keyboard_shortcuts: Raccourcis clavier
+
+  kanban_keyboard_shortcuts_help_0: Afficher l'utilisateur de connexion uniquement.
+  kanban_keyboard_shortcuts_help_1: Afficher tout le monde dans le projet.
+  kanban_keyboard_shortcuts_help_2: Définissez la date d'échéance sur non spécifiée.
+  kanban_keyboard_shortcuts_help_3: Définir la date d'échéance en retard.
+  kanban_keyboard_shortcuts_help_4: Fixez la date d'échéance à aujourd'hui.
+  kanban_keyboard_shortcuts_help_5: Fixez la date d'échéance à cette semaine.
+  kanban_keyboard_shortcuts_help_6: Afficher par carte de taille normale avec les jours restants.
+  kanban_keyboard_shortcuts_help_7: Afficher par carte de taille normale avec des heures estimées.
+  kanban_keyboard_shortcuts_help_8: Afficher par carte de petite taille.
+  kanban_keyboard_shortcuts_help_9: Montrez cette aide.

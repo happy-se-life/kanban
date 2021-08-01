@@ -39,10 +39,10 @@ en:
 
   kanban_keyboard_shortcuts_help_0: Show login user only.
   kanban_keyboard_shortcuts_help_1: Show everyone in the project.
-  kanban_keyboard_shortcuts_help_2: Due date set to unspecified.
-  kanban_keyboard_shortcuts_help_3: Due date set to overdue.
-  kanban_keyboard_shortcuts_help_4: Due date set to today.
-  kanban_keyboard_shortcuts_help_5: Due date set to this week.
+  kanban_keyboard_shortcuts_help_2: Set due date to unspecified.
+  kanban_keyboard_shortcuts_help_3: Set due date to overdue.
+  kanban_keyboard_shortcuts_help_4: Set due date to today.
+  kanban_keyboard_shortcuts_help_5: Set due date to this week.
   kanban_keyboard_shortcuts_help_6: Show by normal size card with days left.
   kanban_keyboard_shortcuts_help_7: Show by normal size card with estimated hours.
   kanban_keyboard_shortcuts_help_8: Show by small size card.

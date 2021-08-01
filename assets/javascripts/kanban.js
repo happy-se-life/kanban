@@ -117,7 +117,7 @@ $(function() {
     // Description of keyboard shortcuts dialog
     $("#keyboard-chortcut-dialog").dialog({
         title: "Keyboard Shortcuts",
-        width: 400,
+        width: 480,
         autoOpen: false,
         modal: true,
         buttons: {

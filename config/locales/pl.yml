@@ -36,3 +36,13 @@ pl:
   
   button_keyboard_shortcuts: "Skróty"
 
+  kanban_keyboard_shortcuts_help_0: "Pokaż tylko zalogowanego użytkownika."
+  kanban_keyboard_shortcuts_help_1: "Pokaż wszystkim w projekcie."
+  kanban_keyboard_shortcuts_help_2: "Ustaw termin na nieokreślony."
+  kanban_keyboard_shortcuts_help_3: "Ustaw termin zaległy."
+  kanban_keyboard_shortcuts_help_4: "Ustaw termin do dzisiaj."
+  kanban_keyboard_shortcuts_help_5: "Ustaw termin na ten tydzień."
+  kanban_keyboard_shortcuts_help_6: "Pokaż według karty normalnego rozmiaru z pozostałymi dniami."
+  kanban_keyboard_shortcuts_help_7: "Pokaż według karty o normalnym rozmiarze z szacowanymi godzinami."
+  kanban_keyboard_shortcuts_help_8: "Pokaż według małej karty rozmiaru."
+  kanban_keyboard_shortcuts_help_9: "Pokaż tę pomoc."

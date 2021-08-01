@@ -35,3 +35,14 @@ ja:
   kanban_label_card_size_normal_estimated_hours: ノーマル(予定工数)
   
   button_keyboard_shortcuts: ショートカット
+
+  kanban_keyboard_shortcuts_help_0: ログインユーザーのカードを表示
+  kanban_keyboard_shortcuts_help_1: プロジェクト全員のカードを表示
+  kanban_keyboard_shortcuts_help_2: 期限日を指定なしに設定
+  kanban_keyboard_shortcuts_help_3: 期限日を期限切れに設定
+  kanban_keyboard_shortcuts_help_4: 期限日を本日に設定
+  kanban_keyboard_shortcuts_help_5: 期限日を今週に設定
+  kanban_keyboard_shortcuts_help_6: 通常のカードサイズで表示(残日数)
+  kanban_keyboard_shortcuts_help_7: 通常のカードサイズで表示(予定工数)
+  kanban_keyboard_shortcuts_help_8: 小さいカードサイズで表示
+  kanban_keyboard_shortcuts_help_9: このヘルプを表示
