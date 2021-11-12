@@ -123,3 +123,11 @@
   position: relative;
   border-radius:3px;
 }
+
+.ancestor{
+  color:rgb(119, 151, 194);
+  font-size: 10px;
+}
+.context-menu-selection p { 
+  color:rgb(184, 224, 244);
+}
