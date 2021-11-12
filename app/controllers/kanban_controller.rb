@@ -276,6 +276,7 @@ class KanbanController < ApplicationController
     session_hash["status_fields"] = @status_fields
     session_hash["wip_max"] = @wip_max
     session_hash["card_size"] = @card_size
+    session_hash["show_ancestors"] = @show_ancestors
     session[:kanban] = session_hash
   end
 
@@ -361,6 +362,13 @@ class KanbanController < ApplicationController
     else
       @card_size = params[:card_size]
     end
+
+    # Show ancestors
+    if !session_hash.blank? && params[:show_ancestors].blank?
+      @show_ancestors = session_hash["show_ancestors"]
+    else
+      @show_ancestors = params[:show_ancestors]
+    end
   end
 
   #
@@ -437,6 +445,11 @@ class KanbanController < ApplicationController
     # Card size (default)
     if @card_size.nil? || (@card_size != "normal_days_left" && @card_size != "normal_estimated_hours" && @card_size != "small") then
       @card_size = Constants::DEFAULT_CARD_SIZE
+    end
+
+    # Show ancestors (default)
+    if @show_ancestors.nil?  then
+      @show_ancestors = Constants::DEFAULT_SHOW_ANCESTORS
     end
   end
 

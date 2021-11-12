@@ -72,4 +72,9 @@ class Constants < ActiveRecord::Base
   # Default is 2 to back compatibility
   # All issues == DEFAULT_HIGH_ DEFAULT_NORMAL_PRIORITY_ISSUE_ID will be seen as normal priority issues
   DEFAULT_NORMAL_PRIORITY_ISSUE_ID = 2
+
+  # Default Show ancestors
+  # 0: Not display
+  # 1: Display
+  DEFAULT_SHOW_ANCESTORS = "1"
 end

@@ -172,6 +172,20 @@
           </select>
         </td>
       </tr>
+      <tr>
+        <td style="width: 100px">
+          <label><%= I18n.t(:kanban_label_show_ancestors) %></label>
+        </td>
+        <td>
+          <% if @show_ancestors == "1" then %>
+            <%= check_box_tag :cb_ancestor, 1, {:checked => "checked"} %>
+          <% else %>
+            <%= check_box_tag :cb_ancestor, 1 %>
+          <% end %>
+          <%= hidden_field_tag :show_ancestors, @show_ancestors %>
+        </td>
+            
+      </tr>
     </table>
   </div>
 </fieldset>
@@ -263,7 +277,9 @@
                       <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority-small <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
                       <p class="my-string-ellipsis">
                         <input type="checkbox" name="ids[]" value="<%= issue.id %>">
+                        <% if @show_ancestors == "1" then %>
                         <%= render_issue_ancestors(issue) %>
+                        <% end %>
                         <a href="./issues/<%= issue.id %>" title="<%= issue.subject %>"><%= issue.subject %></a>
                       </p>
                     </div>
@@ -275,7 +291,9 @@
                       <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                       <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
                       <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                      <% if @show_ancestors == "1" then %>
                       <%= render_issue_ancestors(issue) %>
+                      <% end %>
                       <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
                       <hr>
                       <!-- Days to due_date -->
@@ -297,7 +315,9 @@
                       <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
                       <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
                       <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+                      <% if @show_ancestors == "1" then %>
                       <%= render_issue_ancestors(issue) %>
+                      <% end %>
                       <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
                       <hr>
                       <!-- Estimated Hours -->
