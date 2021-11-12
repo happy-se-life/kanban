@@ -33,6 +33,8 @@ fr:
   kanban_label_card_size_small: Réduit
   kanban_label_card_size_normal_days_left: Normal (en jours)
   kanban_label_card_size_normal_estimated_hours: Normal (en heures)
+
+  kanban_label_show_ancestors: Afficher la tâche parente
   
   button_keyboard_shortcuts: Raccourcis clavier
 
