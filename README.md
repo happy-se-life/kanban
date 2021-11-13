@@ -2,9 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* All unclosed tickets can be selected using keyboard shortcuts(=l). #32
-* Added Russian translation.
-* You can now narrow the version filter to only open versions. #31
+* Show parent task in issues cards. (See screenshot)
 
 ## Features
 * Issues can be displayed in a card form by status.
@@ -26,6 +24,10 @@ This plugin provides the Kanban board.
 ### Small card view
 You can display more cards than normal size cards at once.  
 <img src="./assets/images/kanban_board_small_card.png" width="960px">
+
+### Show parent task in issues cards
+It is possible to show\hide the issue parent from the filter section.  
+<img src="./assets/images/show_pearent_ss.png" width="960px">
 
 ## Keyboard Shortcuts
 - o : Show login user only.
