@@ -33,6 +33,8 @@ es:
   kanban_label_card_size_small: Pequeño
   kanban_label_card_size_normal_days_left: Normal 1 (con atrasos)
   kanban_label_card_size_normal_estimated_hours: Normal 2 (con horas estimadas)
+
+  kanban_label_show_ancestors: Mostrar tarea principal
   
   button_keyboard_shortcuts: Accesos rápidos
 

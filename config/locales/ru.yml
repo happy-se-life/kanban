@@ -35,6 +35,8 @@ ru:
   kanban_label_card_size_normal_days_left: "Нормальный (срок завершения)"
   kanban_label_card_size_normal_estimated_hours: "Нормальный (расчетное время)"
 
+  kanban_label_show_ancestors: "Показать pодительская задача"
+
   button_keyboard_shortcuts: "Горячие клавиши"
 
   kanban_keyboard_shortcuts_help_0: "Показать задачи текущего пользователя."

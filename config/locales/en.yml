@@ -35,6 +35,8 @@ en:
   kanban_label_card_size_normal_days_left: Normal (diff. of due date)
   kanban_label_card_size_normal_estimated_hours: Normal (estimated hours)
 
+  kanban_label_show_ancestors: Show parent task
+
   button_keyboard_shortcuts: Shortcuts
 
   kanban_keyboard_shortcuts_help_0: Show login user only.

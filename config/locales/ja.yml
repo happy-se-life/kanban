@@ -33,6 +33,8 @@ ja:
   kanban_label_card_size_small: スモール
   kanban_label_card_size_normal_days_left: ノーマル(期日との差)
   kanban_label_card_size_normal_estimated_hours: ノーマル(予定工数)
+
+  kanban_label_show_ancestors: 親タスクを表示する
   
   button_keyboard_shortcuts: ショートカット
 

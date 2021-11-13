@@ -135,6 +135,15 @@ $(function() {
           $("#open_versions").val("0");
         }
     });
+
+    // Show ancestor checkbox
+    $("#cb_ancestor").on("click", function(){
+        if($(this).prop("checked") == true){
+          $("#show_ancestors").val("1");
+        }else{
+          $("#show_ancestors").val("0");
+        }
+    });
 });
 
 //

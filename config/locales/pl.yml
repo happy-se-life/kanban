@@ -33,6 +33,8 @@ pl:
   kanban_label_card_size_small: "Mała"
   kanban_label_card_size_normal_days_left: "Normalna(wyszczególnij czas oddania)"
   kanban_label_card_size_normal_estimated_hours: "Normalna (wyszczególnij przepracowany czas)"
+
+  kanban_label_show_ancestors: Pokaż zadanie nadrzędne
   
   button_keyboard_shortcuts: "Skróty"
 
