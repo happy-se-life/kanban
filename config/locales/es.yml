@@ -33,6 +33,7 @@ es:
   kanban_label_card_size_small: Pequeño
   kanban_label_card_size_normal_days_left: Normal 1 (con atrasos)
   kanban_label_card_size_normal_estimated_hours: Normal 2 (con horas estimadas)
+  kanban_label_card_size_normal_spent_hours: Normal 3 (con horas dedicadas)
 
   kanban_label_show_ancestors: Mostrar tarea principal
   
@@ -49,3 +50,4 @@ es:
   kanban_keyboard_shortcuts_help_8: Mostrar por tarjeta de tamaño pequeño.
   kanban_keyboard_shortcuts_help_9: Seleccione todos los problemas abiertos.
   kanban_keyboard_shortcuts_help_10: Muestre esta ayuda.
+  kanban_keyboard_shortcuts_help_11: Mostrar por tarjeta de tamaño normal con horas dedicadas.

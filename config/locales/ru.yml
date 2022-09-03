@@ -34,6 +34,7 @@ ru:
   kanban_label_card_size_small: "Маленький"
   kanban_label_card_size_normal_days_left: "Нормальный (срок завершения)"
   kanban_label_card_size_normal_estimated_hours: "Нормальный (расчетное время)"
+  kanban_label_card_size_normal_spent_hours: "Нормальный (Рабочее время)"
 
   kanban_label_show_ancestors: "Показать pодительская задача"
 
@@ -50,3 +51,4 @@ ru:
   kanban_keyboard_shortcuts_help_8: "Показать карточки малого размера."
   kanban_keyboard_shortcuts_help_9: "Выбрать все открытые вопросы."
   kanban_keyboard_shortcuts_help_10: "Показать эту справку."
+  kanban_keyboard_shortcuts_help_11: "Показать карточки норм. размера (Рабочее время)."

@@ -1,0 +1,11 @@
+<div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+    <!-- Card color by priority -->
+    <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority-small <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card-small <% else %> my-issue-card-low-priority-small <% end %>">
+    <p class="my-string-ellipsis">
+    <input type="checkbox" name="ids[]" value="<%= issue.id %>">
+    <% if @show_ancestors == "1" then %>
+        <%= render_issue_ancestors(issue) %>
+    <% end %>
+    <a href="./issues/<%= issue.id %>" title="<%= issue.subject %>"><%= issue.subject %></a>
+    </p>
+</div>

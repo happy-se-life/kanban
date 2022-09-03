@@ -466,7 +466,7 @@ class KanbanController < ApplicationController
     end
 
     # Card size (default)
-    if @card_size.nil? || (@card_size != "normal_days_left" && @card_size != "normal_estimated_hours" && @card_size != "small") then
+    if @card_size.nil? || (@card_size != "normal_days_left" && @card_size != "normal_estimated_hours" && @card_size != "normal_spent_hours" && @card_size != "small") then
       @card_size = Constants::DEFAULT_CARD_SIZE
     end
 

@@ -34,6 +34,7 @@ en:
   kanban_label_card_size_small: Small
   kanban_label_card_size_normal_days_left: Normal (diff. of due date)
   kanban_label_card_size_normal_estimated_hours: Normal (estimated hours)
+  kanban_label_card_size_normal_spent_hours: Normal (spent hours)
 
   kanban_label_show_ancestors: Show parent task
 
@@ -50,3 +51,4 @@ en:
   kanban_keyboard_shortcuts_help_8: Show by small size card.
   kanban_keyboard_shortcuts_help_9: Select all open issues.
   kanban_keyboard_shortcuts_help_10: Show this help.
+  kanban_keyboard_shortcuts_help_11: Show by normal size card with spent hours.

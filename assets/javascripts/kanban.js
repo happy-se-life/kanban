@@ -323,7 +323,7 @@ Object.defineProperty(window, 'onbeforeunload', {
 });
 
 // Keyboard Shortcuts
-hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h,l', function(event,handler) {
+hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h,l,p', function(event,handler) {
     switch(handler.key){
         // assignee == (login user)
         case "o":
@@ -356,6 +356,10 @@ hotkeys('o,e,k,d+u,d+o,d+t,d+w,n,s,h,l', function(event,handler) {
         // card_size == normal_estimated_hours
         case "k":
             $('#card_size').val("normal_estimated_hours");
+            break;
+        // card_size == normal_spent_hours
+        case "p":
+            $('#card_size').val("normal_spent_hours");
             break;
         // card_size == small
         case "s":

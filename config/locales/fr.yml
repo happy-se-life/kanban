@@ -33,6 +33,7 @@ fr:
   kanban_label_card_size_small: Réduit
   kanban_label_card_size_normal_days_left: Normal (en jours)
   kanban_label_card_size_normal_estimated_hours: Normal (en heures)
+  kanban_label_card_size_normal_spent_hours: Normal (en heures de travail)
 
   kanban_label_show_ancestors: Afficher la tâche parente
   
@@ -49,3 +50,4 @@ fr:
   kanban_keyboard_shortcuts_help_8: Afficher par carte de petite taille.
   kanban_keyboard_shortcuts_help_9: Sélectionnez tous les problèmes ouverts.
   kanban_keyboard_shortcuts_help_10: Montrez cette aide.
+  kanban_keyboard_shortcuts_help_11: Afficher par carte de taille normale avec des heures de travail.

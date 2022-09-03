@@ -1,0 +1,21 @@
+<div id="issue-<%= issue.id %>" class="hascontextmenu created-by-me context-menu-selection
+    <!-- Card color by priority -->
+    <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
+    <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
+    <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+    <% if @show_ancestors == "1" then %>
+        <%= render_issue_ancestors(issue) %>
+    <% end %>
+    <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
+    <hr>
+    <!-- Days to due_date -->
+    <% if issue.due_date != nil and issue.done_ratio < 100 then %>
+        <% diff = issue.due_date - Date.today %>
+        <% if diff.to_i == 0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_today) %></div><% end %>
+        <% if diff.to_i == 1 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_tommorow) %></div><% end %>
+        <% if diff.to_i >= 2 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_days_left, :value => diff.to_i) %></div><% end %>
+        <% if diff.to_i <  0 then %><div style="float: right; font-size: smaller"><%= I18n.t(:kanban_label_overdue) %></div><% end %>
+    <% end %>
+    <!-- User name -->
+    <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
+</div>
