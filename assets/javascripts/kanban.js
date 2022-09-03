@@ -12,6 +12,44 @@ $(function() {
         $('#kanban_table').floatThead('reflow')
     });
 
+    // Show sidebar
+    $('#main').removeClass('nosidebar');
+
+    // Override sidebar style
+    $('#sidebar').css({"cssText" : "padding : 0 8px 0px 8px !important"});
+
+    // Initial message when no note
+    var initial_string = "<table class=\"my-journal-table\"><tr><td>" + label_recent_history_is_here + "</td></tr></table>"
+    $('#sidebar').html(initial_string);
+
+    // When mouse over
+    $('[id^=issue-]').hover(function() {
+        var card = $(this);
+        // Exec. after 500ms
+        timeout = setTimeout(function() {
+            var card_id = card.attr('id');
+            // Get journal
+            getJournal(card_id);
+        }, 500)
+    }, function() {
+        // Cancel before exec.
+        clearTimeout(timeout)
+    });
+
+    // When window scrolled
+    $(window).scroll(function() {
+        var top = $(this).scrollTop();
+        var content = $('#content').offset();
+        // Make sidebar follow the scroll
+        if (content.top < top) {
+            $('#sidebar').offset({ top: top + 10 });
+        } else {
+            $('#sidebar').offset({ top: content.top });
+        }
+        // Save hidden
+        $("#scroll_top").val(top);
+    });
+
     // Definition of dialog when card dropped
     $("#comment-dialog").dialog({
         title: label_add_notes,
@@ -212,6 +250,39 @@ function saveTicket(card_id, from_field_id, to_field_id, comment) {
         // Reload page
         $('#form1').submit();
     });
+}
+
+//
+// Get journal
+//
+function getJournal(card_id) {
+    // AJAX
+    $.ajax({
+        url:'./get_journal',
+        type:'POST',
+        data:{
+            'card_id' :card_id ,
+        },
+        dataType: 'json',
+        async: true,
+        global: false
+    })
+    // Case ajax succeed
+    .done( (data) => {
+        console.log(data.result);
+        if (data.result == "OK") {
+            // Display on sidebar
+            $('#sidebar').html(data.notes);
+            // Register click event
+            $('#submit-journal-button').on('click',function(){
+                putJournal(card_id);
+            });
+        }
+    })
+    // Case ajax failed
+    .fail( (data) => {
+        console.log("AJAX FAILED.");
+    })
 }
 
 //
