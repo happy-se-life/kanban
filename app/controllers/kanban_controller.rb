@@ -130,6 +130,13 @@ class KanbanController < ApplicationController
       @done_issue_statuses_array << issue_status.id
     }
 
+    # Get trackers
+    if @project.nil? then
+      @trackers = Tracker.sorted
+    else
+      @trackers = @project.rolled_up_trackers
+    end
+
     # Updated datetime for filter
     if @updated_within == "unspecified" then
       updated_from = "1970-01-01 00:00:00"
@@ -212,6 +219,9 @@ class KanbanController < ApplicationController
         if @due_date != "unspecified" then
           issues = issues.where("due_date >= '" + due_from + "'").where("due_date <= '" + due_to + "'")
         end
+        if @tracker_id != "unspecified" then
+          issues = issues.where(tracker_id: @tracker_id)
+        end
         @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
         # Count WIP issues
         if status_id == Constants::WIP_COUNT_STATUS_FIELD then
@@ -268,6 +278,7 @@ class KanbanController < ApplicationController
     session_hash["updated_within"] = @updated_within
     session_hash["done_within"] = @done_within
     session_hash["due_date"] = @due_date
+    session_hash["tracker_id"] = @tracker_id
     session_hash["user_id"] = @user_id
     session_hash["group_id"] = @group_id
     session_hash["project_all"] = @project_all
@@ -307,6 +318,13 @@ class KanbanController < ApplicationController
       @due_date = params[:due_date]
     end
 
+    # Display tracker ID
+    if !session_hash.blank? && params[:tracker_id].blank?
+      @tracker_id = session_hash["tracker_id"]
+    else
+      @tracker_id = params[:tracker_id]
+    end
+    
     # Display user ID
     if !session_hash.blank? && params[:user_id].blank?
       @user_id = session_hash["user_id"]
@@ -390,6 +408,11 @@ class KanbanController < ApplicationController
     due_date_values = ["overdue", "today", "tommorow", "thisweek", "nextweek", "unspecified"]
     if @due_date.nil? || !due_date_values.include?(@due_date.to_s) then
       @due_date = "unspecified"
+    end
+
+    # Tracker ID
+    if @tracker_id.nil? || @tracker_id.to_i == 0 then
+      @tracker_id = "unspecified"
     end
 
     # User ID

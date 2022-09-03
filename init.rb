@@ -2,7 +2,7 @@ Redmine::Plugin.register :kanban do
   name 'Kanban plugin'
   author 'Kohei Nomura'
   description 'Kanban plugin for redmine'
-  version '0.0.9'
+  version '0.0.10'
   url 'https://github.com/happy-se-life/kanban'
   author_url 'mailto:kohei_nom@yahoo.co.jp'
   
