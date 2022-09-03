@@ -229,7 +229,7 @@
   <% else %>
     <a class="icon icon-reload" href="./kanban?clear=1&project_id=<%= @project_id %>"><%= I18n.t(:button_clear) %></a>
   <% end %>
-  <a href="#" onclick="$('#keyboard-chortcut-dialog').dialog('open'); return false;" class="icon icon-checked"><%= I18n.t(:button_keyboard_shortcuts) %></a>
+  <a href="#" onclick="$('#keyboard-chortcut-dialog').dialog('open'); return false;" class="icon icon-help"><%= I18n.t(:button_keyboard_shortcuts) %></a>
 </p>
 <!-- Form for issue operation -->
 <form data-cm-url="./issues/context_menu" action="./issues" accept-charset="UTF-10" method="post">
