@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Added tracker to issue filters. #39
 * Show parent task in issues cards. (See screenshot)
 
 ## Features
