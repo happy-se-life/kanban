@@ -41,6 +41,7 @@ It is possible to show\hide the issue parent from the filter section.
 - d+w : Due date set to this week.
 - n : Show by normal size card with days left.
 - k : Show by normal size card with estimated hours.
+- p : Show by normal size card with spent hours.
 - s : Show by small size card.
 - l : Select all open issues.
 - h : Show this help.
