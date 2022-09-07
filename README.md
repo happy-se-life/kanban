@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Started accepting donations using Liberapay. The donate button is in the right sidebar. #40
 * Spent hours can now be displayed on cards. #40
 * Added tracker to issue filters. #39
 * Show parent task in issues cards. (See screenshot)
