@@ -251,6 +251,9 @@ class KanbanController < ApplicationController
         if @due_date != "unspecified" then
           issues = issues.where("due_date >= '" + due_from + "'").where("due_date <= '" + due_to + "'")
         end
+        if @tracker_id != "unspecified" then
+          issues = issues.where(tracker_id: @tracker_id)
+        end
         @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
       end
     }
