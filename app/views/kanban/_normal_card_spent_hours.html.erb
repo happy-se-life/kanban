@@ -9,7 +9,7 @@
     <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
     <hr>
     <!-- Spent hours -->
-    <div style="float: right; font-size: smaller"><%= (issue.spent_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %></div>
+    <div style="float: right; font-size: smaller"><%= (issue.spent_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %> (<%=(issue.estimated_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %>)</div>
     <!-- User name -->
     <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
 </div>
