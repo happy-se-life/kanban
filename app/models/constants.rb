@@ -61,7 +61,7 @@ class Constants < ActiveRecord::Base
 
   # Default Card Size
   # Please choose "normal_days_left" "normal_estimated_hours" "small"
-  DEFAULT_CARD_SIZE = "normal_days_left"
+  DEFAULT_CARD_SIZE = "normal_estimated_hours"
 
   # Default High Priority issue id
   # Default is 3 to back compatibility
