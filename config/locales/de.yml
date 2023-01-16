@@ -17,8 +17,8 @@ en:
   kanban_label_within_2_months: in 2 Monaten
   kanban_label_within_3_months: in 3 Monaten
 
-  kanban_label_recent_history_is_here: Die kürzliche Historie wird hier angezeigt
-  kanban_label_recent_history: Kürzliche Historie
+  kanban_label_recent_history_is_here: Die jüngste Historie wird hier angezeigt
+  kanban_label_recent_history: Jüngste Historie
   kanban_label_add_notes: Notiz hinzufügen
 
   kanban_label_overdue: Überfällig
@@ -36,7 +36,7 @@ en:
   kanban_label_card_size_normal_estimated_hours: Normal (Geschätzte Stunden)
   kanban_label_card_size_normal_spent_hours: Normal (Benötigte Stunden)
 
-  kanban_label_show_ancestors: Zeige Eltern-Aufgabe
+  kanban_label_show_ancestors: Zeige übergeordnete Aufgabe
 
   button_keyboard_shortcuts: Tastenkürzel
 
