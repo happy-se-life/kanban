@@ -2,7 +2,8 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Started accepting donations using Liberapay. The donate button is in the right sidebar. #40
+* Added German language file.
+* Started accepting donations using Liberapay. #40
 * Spent hours can now be displayed on cards. #40
 * Added tracker to issue filters. #39
 * Show parent task in issues cards. (See screenshot)
@@ -14,7 +15,7 @@ This plugin provides the Kanban board.
 * You can display some notes of a issue by mouse-over and write the note easily.
 * There are many filters for display.
 * Warning can be displayed if the WIP limit is exceeded.
-* Supports English, Spanish, French, Polish, Russian and Japanese language.
+* Supports English, German, Spanish, French, Polish, Russian and Japanese language.
 
 ## Screenshots
 
@@ -90,6 +91,7 @@ rm -rf kanban
 * @camlafit for French
 * @karnow98 for Polish
 * @deryaba for Russian
+* @HMT-HRO-MaMe for German
 
 ## Thanks for the great library
 * [mkoryak/floatThead](https://github.com/mkoryak/floatThead)
