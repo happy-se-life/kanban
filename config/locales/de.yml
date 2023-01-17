@@ -1,0 +1,54 @@
+# German strings go here for Rails i18n
+en:
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: "'s Kanban"
+  kanban_label_unspecified: alle
+  kanban_label_wip_limits: WIP Limits
+  kanban_label_wip_limit_exceeded: WIP Limit überschritten
+  kanban_label_fields: Felder
+  kanban_label_update: Aktualisieren
+
+  kanban_label_within_1_day: in 1 Tag
+  kanban_label_within_3_days: in 3 Tagen
+  kanban_label_within_1_week: in 1 Woche
+  kanban_label_within_2_weeks: in 2 Wochen
+  kanban_label_within_1_month: in 1 Monat
+  kanban_label_within_2_months: in 2 Monaten
+  kanban_label_within_3_months: in 3 Monaten
+
+  kanban_label_recent_history_is_here: Die jüngste Historie wird hier angezeigt
+  kanban_label_recent_history: Jüngste Historie
+  kanban_label_add_notes: Notiz hinzufügen
+
+  kanban_label_overdue: Überfällig
+  kanban_label_today: Heute
+  kanban_label_tommorow: Morgen
+  kanban_label_thisweek: Diese Woche
+  kanban_label_nextweek: Nächste Woche
+
+  kanban_label_days_left: "%{value} Tage verbleiben"
+  kanban_hours_abbreviation: 'h'
+
+  kanban_label_card_size: Kartengröße
+  kanban_label_card_size_small: Klein
+  kanban_label_card_size_normal_days_left: Normal (Diff. bis Fälligkeit)
+  kanban_label_card_size_normal_estimated_hours: Normal (Geschätzte Stunden)
+  kanban_label_card_size_normal_spent_hours: Normal (Benötigte Stunden)
+
+  kanban_label_show_ancestors: Zeige übergeordnete Aufgabe
+
+  button_keyboard_shortcuts: Tastenkürzel
+
+  kanban_keyboard_shortcuts_help_0: Zeige nur angemeldeten Nutzer
+  kanban_keyboard_shortcuts_help_1: Zeige jeden aus dem Projekt
+  kanban_keyboard_shortcuts_help_2: Setze Fälligkeit auf unspezifiziert.
+  kanban_keyboard_shortcuts_help_3: Setze Fälligkeit auf überfällig.
+  kanban_keyboard_shortcuts_help_4: Setze Fälligkeit auf heute.
+  kanban_keyboard_shortcuts_help_5: Setze Fälligkeit auf diese Woche.
+  kanban_keyboard_shortcuts_help_6: Zeige als normaler Kartengröße, wie viele Tage verbleiben.
+  kanban_keyboard_shortcuts_help_7: Zeige als normaler Kartengröße die geschätzten Stunden.
+  kanban_keyboard_shortcuts_help_8: Zeige als kleine Kartengröße.
+  kanban_keyboard_shortcuts_help_9: Wähle alle offenen Tickets.
+  kanban_keyboard_shortcuts_help_10: Zeige diese Hilfe.
+  kanban_keyboard_shortcuts_help_11: Zeige als normaler Kartengröße die benötigten Stunden.
