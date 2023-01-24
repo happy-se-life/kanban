@@ -1,0 +1,54 @@
+# Brazilian Portugues strings go here for Rails i18n
+pt-BR:
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: "'s Kanban"
+  kanban_label_unspecified: sem definição
+  kanban_label_wip_limits: Limites WIP
+  kanban_label_wip_limit_exceeded: Limites excedidos do WIP
+  kanban_label_fields: Campos
+  kanban_label_update: Atualização
+
+  kanban_label_within_1_day: dentro de  1 dia
+  kanban_label_within_3_days: dentro de 3 dias
+  kanban_label_within_1_week: dentro de 1 semana
+  kanban_label_within_2_weeks: dentro de 2 semanas
+  kanban_label_within_1_month: dentro de 1 mês
+  kanban_label_within_2_months: dentro de 2 meses
+  kanban_label_within_3_months: dentro de 3 meses
+
+  kanban_label_recent_history_is_here: Históricos recentes são dispóniveis aqui
+  kanban_label_recent_history: Histórico Recente
+  kanban_label_add_notes: Adicionar Notas
+
+  kanban_label_overdue: Atrasado
+  kanban_label_today: Hoje
+  kanban_label_tommorow: Amanhã
+  kanban_label_thisweek: Essa Semana
+  kanban_label_nextweek: Próxima Semana
+
+  kanban_label_days_left: "%{value} dias restantes"
+  kanban_hours_abbreviation: 'h'
+
+  kanban_label_card_size: Tamanho do cartão
+  kanban_label_card_size_small: Pequeno
+  kanban_label_card_size_normal_days_left: Normal (diferença da data de conclusão)
+  kanban_label_card_size_normal_estimated_hours: Normal (hora estimada)
+  kanban_label_card_size_normal_spent_hours: Normal (horas gastas)
+
+  kanban_label_show_ancestors: Exibir tarefas relacionadas.
+
+  button_keyboard_shortcuts: Atalhos
+
+  kanban_keyboard_shortcuts_help_0: Exibir somente login de usuarios.
+  kanban_keyboard_shortcuts_help_1: Exibir projetos para todos.
+  kanban_keyboard_shortcuts_help_2: Definir data de conclusão não especificada.
+  kanban_keyboard_shortcuts_help_3: Definir data de conclusão atrasada.
+  kanban_keyboard_shortcuts_help_4: Definir data de conclusão hoje.
+  kanban_keyboard_shortcuts_help_5: Definir data de conclusão semanal.
+  kanban_keyboard_shortcuts_help_6: Exibir cartão normal por dias restantes.
+  kanban_keyboard_shortcuts_help_7: Exibir cartão normal por horas estimadas.
+  kanban_keyboard_shortcuts_help_8: Exibir cartão em tamanho pequeno.
+  kanban_keyboard_shortcuts_help_9: Selecione todas as Tarefas.
+  kanban_keyboard_shortcuts_help_10: Exibir ajuda.
+  kanban_keyboard_shortcuts_help_11: Exibir cartão normal por horas gastas..
