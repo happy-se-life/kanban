@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* Added Italian language file.
 * Added European Portuguese language file.
 * Added German language file.
 * Started accepting donations using Liberapay. #40
@@ -94,6 +95,7 @@ rm -rf kanban
 * @deryaba for Russian
 * @HMT-HRO-MaMe for German
 * @guilhermelinhares for European Portuguese
+* @Wrightie for Italian
 
 ## Thanks for the great library
 * [mkoryak/floatThead](https://github.com/mkoryak/floatThead)
