@@ -1,0 +1,54 @@
+# English strings go here for Rails i18n
+en:
+  kanban_menu_caption: Kanban
+  
+  kanban_label_title: " - Kanban"
+  kanban_label_unspecified: non specificato
+  kanban_label_wip_limits: Limite voci WIP
+  kanban_label_wip_limit_exceeded: superato limite voci WIP
+  kanban_label_fields: Campi
+  kanban_label_update: Aggiorna
+
+  kanban_label_within_1_day: entro 1 giorno
+  kanban_label_within_3_days: entro 3 giorni
+  kanban_label_within_1_week: entro 1 settimana
+  kanban_label_within_2_weeks: entro 2 settimane
+  kanban_label_within_1_month: entro 1 mese
+  kanban_label_within_2_months: entro 2 mesi
+  kanban_label_within_3_months: entro 3 mesi
+
+  kanban_label_recent_history_is_here: Lo storico recente è visualizzato qui
+  kanban_label_recent_history: Storico recente
+  kanban_label_add_notes: Aggiungi note
+
+  kanban_label_overdue: In ritardo
+  kanban_label_today: Oggi
+  kanban_label_tommorow: Domani
+  kanban_label_thisweek: Questa settimana
+  kanban_label_nextweek: Prossima settimana
+
+  kanban_label_days_left: "scade tra %{value} giorni"
+  kanban_hours_abbreviation: 'h'
+
+  kanban_label_card_size: Dimensione card
+  kanban_label_card_size_small: Piccola
+  kanban_label_card_size_normal_days_left: Normale (giorni alla scadenza)
+  kanban_label_card_size_normal_estimated_hours: Normale (ore stimate)
+  kanban_label_card_size_normal_spent_hours: Normale (ore lavorate)
+
+  kanban_label_show_ancestors: Mostra predecessori
+
+  button_keyboard_shortcuts: Scorciatoie
+
+  kanban_keyboard_shortcuts_help_0: Mostra solo l'utente connesso.
+  kanban_keyboard_shortcuts_help_1: Mostra tutti gli utenti del progetto.
+  kanban_keyboard_shortcuts_help_2: Imposta la data di scadenza a non specificata.
+  kanban_keyboard_shortcuts_help_3: Imposta la data di scadenza a scaduto.
+  kanban_keyboard_shortcuts_help_4: Imposta la data di scadenza a oggi.
+  kanban_keyboard_shortcuts_help_5: Imposta la data di scadenza a questa settimana.
+  kanban_keyboard_shortcuts_help_6: Card di dimensione normale (giorni mancanti).
+  kanban_keyboard_shortcuts_help_7: Card di dimensione normale (ore stimate).
+  kanban_keyboard_shortcuts_help_8: Mostra card di dimensione ridotta.
+  kanban_keyboard_shortcuts_help_9: Seleziona tutte le segnalazioni aperte.
+  kanban_keyboard_shortcuts_help_10: Mostra questo menu di aiuto.
+  kanban_keyboard_shortcuts_help_11: Card di dimensione normale (ore lavorate).
