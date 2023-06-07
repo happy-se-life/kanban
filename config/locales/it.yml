@@ -1,5 +1,5 @@
-# English strings go here for Rails i18n
-en:
+# Italian strings go here for Rails i18n
+it:
   kanban_menu_caption: Kanban
   
   kanban_label_title: " - Kanban"
