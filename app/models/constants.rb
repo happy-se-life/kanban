@@ -6,13 +6,13 @@ class Constants < ActiveRecord::Base
   # Limit selection strategy
   # 0: No Limit
   # 1: Limited by `SELECT_LIMIT` value
-  SELECT_LIMIT_STRATEGY = 1;
+  SELECT_LIMIT_STRATEGY = 0;
   # Max number of selections
   SELECT_LIMIT = 250
 
   # Days since upadated date
   # Please choose "1" "3" "7" "14" "31" "62" "93" "unspecified"
-  DEFAULT_VALUE_UPDATED_WITHIN = "31"
+  DEFAULT_VALUE_UPDATED_WITHIN = "62"
 
   # Days since closed date
   # Please choose "1" "3" "7" "14" "31" "62" "93" "unspecified"
@@ -29,7 +29,7 @@ class Constants < ActiveRecord::Base
   # 4: Feedback
   # 5: Closed
   # 6: Rejected
-  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,2,3,4,5]
+  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,12,2,3,4,5]
 
   # Status ID for WIP count
   WIP_COUNT_STATUS_FIELD = 2
@@ -57,7 +57,7 @@ class Constants < ActiveRecord::Base
   # Display comment dialog when issue was dropped
   # 0: Not display
   # 1: Display
-  DISPLAY_COMMENT_DIALOG_WHEN_DROP = 1
+  DISPLAY_COMMENT_DIALOG_WHEN_DROP = 0
 
   # Default Card Size
   # Please choose "normal_days_left" "normal_estimated_hours" "small"
@@ -66,15 +66,14 @@ class Constants < ActiveRecord::Base
   # Default High Priority issue id
   # Default is 3 to back compatibility
   # All issues >= DEFAULT_HIGH_ PRIORITY_ISSUE_ID will be seen as high priority issues
-  DEFAULT_HIGH_PRIORITY_ISSUE_ID = 3
+  DEFAULT_HIGH_PRIORITY_ISSUE_ID = 5
 
   # Default Normal Priority issue id
   # Default is 2 to back compatibility
   # All issues == DEFAULT_HIGH_ DEFAULT_NORMAL_PRIORITY_ISSUE_ID will be seen as normal priority issues
-  DEFAULT_NORMAL_PRIORITY_ISSUE_ID = 2
-
+  DEFAULT_NORMAL_PRIORITY_ISSUE_ID = 4
   # Default Show ancestors
   # 0: Not display
   # 1: Display
-  DEFAULT_SHOW_ANCESTORS = "1"
+  DEFAULT_SHOW_ANCESTORS = "1"  
 end
