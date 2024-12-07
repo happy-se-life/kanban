@@ -23,7 +23,7 @@ $(function() {
     // Initial message when no note
     var initial_string = "<table class=\"my-journal-table\"><tr><td>" + label_recent_history_is_here + "</td></tr></table>"
     $('#sidebar').html(initial_string);
-
+    let timeout;
     // When mouse over
     $('[id^=issue-]').hover(function() {
         var card = $(this);

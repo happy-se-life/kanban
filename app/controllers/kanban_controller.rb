@@ -1,5 +1,7 @@
 class KanbanController < ApplicationController
-  unloadable
+  if Redmine::VERSION::MAJOR < 4 || (Redmine::VERSION::MAJOR == 4 && Redmine::VERSION::MINOR < 1)
+    unloadable
+  end
   before_action :global_authorize
   #
   # Display kanban board
@@ -261,7 +263,7 @@ class KanbanController < ApplicationController
     # Hide user without issues
     if Constants::DISPLAY_USER_WITHOUT_ISSUES != 1 then
       remove_user_without_issues
-    end
+    end    
   end
   
   private
@@ -277,6 +279,7 @@ class KanbanController < ApplicationController
   # Store session
   #
   def store_params_to_session
+
     session_hash = {}
     session_hash["updated_within"] = @updated_within
     session_hash["done_within"] = @done_within
