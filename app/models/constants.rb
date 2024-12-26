@@ -29,7 +29,7 @@ class Constants < ActiveRecord::Base
   # 4: Feedback
   # 5: Closed
   # 6: Rejected
-  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,12,2,3,4,5]
+  DEFAULT_STATUS_FIELD_VALUE_ARRAY = [1,2,3,4,5]
 
   # Status ID for WIP count
   WIP_COUNT_STATUS_FIELD = 2
@@ -66,7 +66,7 @@ class Constants < ActiveRecord::Base
   # Default High Priority issue id
   # Default is 3 to back compatibility
   # All issues >= DEFAULT_HIGH_ PRIORITY_ISSUE_ID will be seen as high priority issues
-  DEFAULT_HIGH_PRIORITY_ISSUE_ID = 5
+  DEFAULT_HIGH_PRIORITY_ISSUE_ID = 3
 
   # Default Normal Priority issue id
   # Default is 2 to back compatibility

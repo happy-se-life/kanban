@@ -1,13 +1,5 @@
 <!-- Javascript -->
-<script>
-  var login_user_id = "<%= @current_user.id %>";
-  var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
-  var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
-  var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>";
-  window.onload = function(){    
-    $(window).scrollTop(<%= params[:scroll_top] %>);    
-  }
-</script>
+
 
 <%= stylesheet_link_tag 'context_menu' %>
 <%= javascript_include_tag 'context_menu' %>
@@ -16,6 +8,17 @@
 <%= javascript_include_tag "jquery.floatThead", :plugin => "kanban" %>
 <%= javascript_include_tag "hotkeys", :plugin => "kanban" %>
 <%= javascript_include_tag "kanban", :plugin => "kanban" %>
+<script>
+  var login_user_id = "<%= @current_user.id %>";
+  var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
+  var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
+  var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>";
+  window.onload = function(){    
+    $(window).scrollTop(<%= params[:scroll_top] %>);    
+  }
+    
+</script>
+
 <!-- CSS -->
 <%= stylesheet_link_tag 'kanban', :plugin => 'kanban' %>
 <div class="contextual">

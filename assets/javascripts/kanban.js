@@ -1,4 +1,16 @@
 $(function() {
+    // Floating table header
+    $('#kanban_table').floatThead({
+        responsiveContainer: function($table) {
+            return $table.closest('#content'); // Use the right container
+        },
+        zIndex: 39        
+    });
+    //force reflow to avoid overlap in the first loading
+    $(document).ready(function(){
+        $('#kanban_table').floatThead('reflow')
+    });
+
     // Redraw table header
     $('#upper_filters').on('click',function(){
         $('#kanban_table').floatThead('reflow')
