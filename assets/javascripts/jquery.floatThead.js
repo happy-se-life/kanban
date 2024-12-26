@@ -1,15 +1,15 @@
-/** @preserve jQuery.floatThead 2.2.0 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2019 Misha Koryak **/
+/** @preserve jQuery.floatThead 2.2.5 - https://mkoryak.github.io/floatThead/ - Copyright (c) 2012 - 2023 Misha Koryak **/
 // @license MIT
 
 /* @author Misha Koryak
  * @projectDescription position:fixed on steroids. Lock a table header in place while scrolling.
  *
  * Dependencies:
- * jquery 1.9.0 + [required] OR jquery 1.7.0 + jquery UI core
+ * jquery 1.9.0+ [required] OR jquery 1.7.0+ jquery UI core
  *
  * https://mkoryak.github.io/floatThead/
  *
- * Tested on FF13+, Chrome 21+, IE8, IE9, IE10, IE11
+ * Tested on FF13+, Chrome 21+, IE9, IE10, IE11, EDGE
  */
 (function( $ ) {
   /**
@@ -106,7 +106,6 @@
 
   var globalCanObserveMutations = typeof MutationObserver !== 'undefined';
 
-
   //browser stuff
   var ieVersion = function(){for(var a=3,b=document.createElement("b"),c=b.all||[];a = 1+a,b.innerHTML="<!--[if gt IE "+ a +"]><i><![endif]-->",c[0];);return 4<a?a:document.documentMode}();
   var isFF = /Gecko\//.test(navigator.userAgent);
@@ -120,11 +119,11 @@
   //safari 7 (and perhaps others) reports table width to be parent container's width if max-width is set on table. see: https://github.com/mkoryak/floatThead/issues/108
   var isTableWidthBug = function(){
     if(isWebkit) {
-      var $test = $('<div>').css('width', 0).append(
+      var $test = $('<div>').css('width', '0').append(
           $('<table>').css('max-width', '100%').append(
               $('<tr>').append(
                   $('<th>').append(
-                      $('<div>').css('min-width', 100).text('X')
+                      $('<div>').css('min-width', '100px').text('X')
                   )
               )
           )
@@ -194,7 +193,6 @@
     }
     return $(parent);
   }
-
 
   function debug(str){
     window && window.console && window.console.error && window.console.error("jQuery.floatThead: " + str);
@@ -350,8 +348,6 @@
 
       var useAbsolutePositioning = null;
 
-
-
       if (opts.position === 'auto') {
         useAbsolutePositioning = null;
       } else if (opts.position === 'fixed') {
@@ -373,8 +369,8 @@
 
       var $fthGrp = $('<fthfoot>').css({
         'display': 'table-footer-group',
-        'border-spacing': 0,
-        'height': 0,
+        'border-spacing': '0',
+        'height': '0',
         'border-collapse': 'collapse',
         'visibility': 'hidden'
       });
@@ -393,8 +389,8 @@
       var colSelector = existingColGroup ? "col:visible" : "col";
       var $fthRow = $('<fthtr>').css({ //created unstyled elements (used for sizing the table because chrome can't read <col> width)
         'display': 'table-row',
-        'border-spacing': 0,
-        'height': 0,
+        'border-spacing': '0',
+        'height': '0',
         'border-collapse': 'collapse'
       });
       var $floatContainer = $('<div>').css(opts.floatContainerCss).attr('aria-hidden', 'true');
@@ -436,7 +432,7 @@
         floatTableHidden = true;
       }
 
-      $floatTable.addClass(opts.floatTableClass).css({'margin': 0, 'border-bottom-width': 0}); //must have no margins or you won't be able to click on things under floating table
+      $floatTable.addClass(opts.floatTableClass).css({'margin': '0', 'border-bottom-width': '0'}); //must have no margins or you won't be able to click on things under floating table
 
       if(useAbsolutePositioning){
         var makeRelative = function($container, alwaysWrap){
@@ -468,11 +464,10 @@
         $table.before($floatContainer);
       }
 
-
       $floatContainer.css({
         position: useAbsolutePositioning ? 'absolute' : 'fixed',
-        marginTop: 0,
-        top:  useAbsolutePositioning ? 0 : 'auto',
+        marginTop: '0',
+        top:  useAbsolutePositioning ? '0' : 'auto',
         zIndex: opts.zIndex,
         willChange: 'transform'
       });
@@ -503,7 +498,6 @@
         $sizerRow.outerHeight(headerHeight);
         $sizerCells.outerHeight(headerHeight);
       }
-
 
       function setFloatWidth(){
         var tw = tableWidth($table, $fthCells, true);
@@ -544,14 +538,16 @@
           $sizerRow.empty();
           for(var x = 0; x < count; x++){
             var cell = document.createElement('th');
-            cell.setAttribute('aria-label', opts.ariaLabel($table, $headerColumns.eq(x), x));
+            var span = document.createElement('span');
+            span.setAttribute('aria-label', opts.ariaLabel($table, $headerColumns.eq(x), x));
+            cell.appendChild(span);
             cell.className = 'floatThead-col';
             $sizerRow[0].appendChild(cell);
             cols.push('<col/>');
             psuedo.push(
                 $('<fthtd>').css({
                   'display': 'table-cell',
-                  'height': 0,
+                  'height': '0',
                   'width': 'auto'
                 })
             );
@@ -795,7 +791,7 @@
               triggerFloatEvent(false);
             } else if(scrollingContainerTop - tableContainerGap > tableHeight - floatContainerHeight){
               // scrolled past table but there is space in the container under it..
-              top = tableHeight - floatContainerHeight - scrollingContainerTop - tableContainerGap;
+              top = tableHeight - floatContainerHeight - scrollingContainerTop + tableContainerGap;
             } else {
               top = wrappedContainer ? tableTopGap : scrollingContainerTop;
               //headers stop at the top of the viewport
@@ -869,8 +865,8 @@
                 '-ms-transform'     : transform,
                 '-o-transform'      : transform,
                 'transform'         : transform,
-                'top': 0,
-                'left': 0,
+                'top': '0',
+                'left': '0',
               };
               $floatContainer.css(cssObj);
             }
@@ -996,7 +992,6 @@
       }
       ////// end printing stuff
 
-
       if(locked){ //internal scrolling
         if(useAbsolutePositioning){
           $scrollContainer.on(eventName('scroll'), containerScrollEvent);
@@ -1026,7 +1021,6 @@
       if(opts.support && opts.support.jqueryUI) {
         $window.on(eventName('tabsactivate'), reflowEvent); // same thing for jqueryui
       }
-
 
       if (canObserveMutations) {
         var mutationElement = null;
