@@ -290,7 +290,7 @@ class KanbanController < ApplicationController
     session_hash["project_all"] = @project_all
     session_hash["version_id"] = @version_id
     session_hash["open_versions"] = @open_versions
-    session_hash["status_fields"] = @status_fields
+    session_hash["status_fields"] = @status_fields.to_json
     session_hash["wip_max"] = @wip_max
     session_hash["card_size"] = @card_size
     session_hash["show_ancestors"] = @show_ancestors
@@ -368,7 +368,11 @@ class KanbanController < ApplicationController
 
     # Selected statuses
     if !session_hash.blank? && params[:status_fields].blank?
-      @status_fields = session_hash["status_fields"]
+      if !session_hash["status_fields"].blank?
+        @status_fields = JSON.parse( session_hash["status_fields"])
+      else
+        @status_fields = ""
+      end
     else
       @status_fields = params[:status_fields]
     end
