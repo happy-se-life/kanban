@@ -2,13 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Added Italian language file.
-* Added European Portuguese language file.
-* Added German language file.
-* Started accepting donations using Liberapay. #40
-* Spent hours can now be displayed on cards. #40
-* Added tracker to issue filters. #39
-* Show parent task in issues cards. (See screenshot)
+* Support to Redmine 6.x and timetracking additions [#60](https://github.com/happy-se-life/kanban/pull/60) (Special thanks to @Filippo)
 
 ## Features
 * Issues can be displayed in a card form by status.
@@ -50,7 +44,7 @@ It is possible to show\hide the issue parent from the filter section.
 - h : Show this help.
 
 ## Required Redmine version
-* 3.4.6.stable or later (~4.1)
+* 3.4.6.stable ~ 6.0.2.stable
 
 ## Install
 
