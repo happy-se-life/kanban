@@ -131,3 +131,12 @@
 .context-menu-selection p { 
   color:rgb(184, 224, 244);
 }
+
+#kanban_table {
+  width: 100%; 
+  table-layout: auto; 
+}
+
+.floatThead-container {
+  width: 100% !important; 
+}

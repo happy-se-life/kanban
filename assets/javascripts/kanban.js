@@ -1,4 +1,5 @@
 $(function() {
+    
     // Redraw table header
     $('#upper_filters').on('click',function(){
         $('#kanban_table').floatThead('reflow')
@@ -16,14 +17,19 @@ $(function() {
     $('#sidebar').css({"cssText" : "padding : 0 8px 0px 8px !important"});
 	
     // Floating table header
-    $('#kanban_table').floatThead({zIndex: 39});
+    $('#kanban_table').floatThead({
+        responsiveContainer: function($table) {
+            return $table.closest('#content'); // Use the right container
+        },
+        zIndex: 39        
+    });
     //Moved from beginning of file so that float table loads after sidebar.
     //Placing it here, after the sidebar fixes an issue with Kanban Board overflowing to end of page until reflow.
 	
     // Initial message when no note
     var initial_string = "<table class=\"my-journal-table\"><tr><td>" + label_recent_history_is_here + "</td></tr></table>"
     $('#sidebar').html(initial_string);
-
+    let timeout;
     // When mouse over
     $('[id^=issue-]').hover(function() {
         var card = $(this);

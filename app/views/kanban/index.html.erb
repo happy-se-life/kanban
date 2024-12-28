@@ -1,19 +1,25 @@
 <!-- Javascript -->
+
+
+<%= stylesheet_link_tag 'context_menu' %>
+<%= javascript_include_tag 'context_menu' %>
+
+
+<%= javascript_include_tag "jquery.floatThead", :plugin => "kanban" %>
+<%= javascript_include_tag "hotkeys", :plugin => "kanban" %>
+<%= javascript_include_tag "kanban", :plugin => "kanban" %>
 <script>
   var login_user_id = "<%= @current_user.id %>";
   var label_recent_history_is_here = "<%= I18n.t(:kanban_label_recent_history_is_here) %>";
   var label_add_notes = "<%= I18n.t(:kanban_label_add_notes) %>";
   var option_display_comment_dialog_when_drop = "<%= Constants::DISPLAY_COMMENT_DIALOG_WHEN_DROP %>";
-  window.onload = function(){
-    $(window).scrollTop(<%= params[:scroll_top] %>);
+  window.onload = function(){    
+    $(window).scrollTop(<%= params[:scroll_top] %>);    
   }
+    
 </script>
-<script src="./javascripts/context_menu.js"></script>
-<%= javascript_include_tag "jquery.floatThead", :plugin => "kanban" %>
-<%= javascript_include_tag "hotkeys", :plugin => "kanban" %>
-<%= javascript_include_tag "kanban", :plugin => "kanban" %>
+
 <!-- CSS -->
-<link rel="stylesheet" media="screen" href="./stylesheets/context_menu.css">
 <%= stylesheet_link_tag 'kanban', :plugin => 'kanban' %>
 <div class="contextual">
   <% if @project_id.blank? != true then %>
@@ -199,14 +205,13 @@
     </table>
   </div>
 </fieldset>
-<!-- This is the part that opens and closes -->
+<!-- This is the part that opens and closes --> 
 <fieldset id="lower_filters" class="collapsible collapsed">
   <legend class="icon icon-collapsed" onclick="toggleFieldset(this);"><%= I18n.t(:kanban_label_fields) %></legend>
   <div style="display: none;">
     <table>
       <tr>
         <td>
-          <!-- checkboxes for status fields -->
           <% @issue_statuses.each_with_index do |status,index| %>
             <% if @status_fields_array.include?(status.id) then flag = true else flag = false end %>
             <div style="float: left;">

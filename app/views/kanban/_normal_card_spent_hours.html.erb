@@ -3,13 +3,37 @@
     <% if issue.priority_id >= Constants::DEFAULT_HIGH_PRIORITY_ISSUE_ID then %> my-issue-card-high-priority <% elsif issue.priority_id == Constants::DEFAULT_NORMAL_PRIORITY_ISSUE_ID %> my-issue-card <% else %> my-issue-card-low-priority <% end %>">
     <div style="float: right; font-size: smaller"><%= issue.project.name %></div>
     <p><input type="checkbox" name="ids[]" value="<%= issue.id %>"> <%= issue.tracker.name %> #<%= issue.id %></p>
+
     <% if @show_ancestors == "1" then %>
         <%= render_issue_ancestors(issue) %>
     <% end %>
     <p><a href="./issues/<%= issue.id %>"><%= issue.subject %></a></p>
     <hr>
-    <!-- Spent hours -->
-    <div style="float: right; font-size: smaller"><%= (issue.spent_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %></div>
-    <!-- User name -->
-    <p id="user_name_issue-<%= issue.id %>"><% if issue.assigned_to != nil %><%= issue.assigned_to.name %><% else %>Not assigned<% end %></p>
+    
+    <!-- Details container -->
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: smaller;">
+        <!-- Assignee -->
+        <p id="user_name_issue-<%= issue.id %>" style="margin: 0;">
+            <% if issue.assigned_to.present? %>
+            <%= issue.assigned_to.name %>
+            <% else %>
+            Not assigned
+            <% end %>
+        </p>
+
+        <!-- Hours details -->
+        <div>
+            <!-- Spent time -->
+            <div style="display: flex; align-items: center;">
+            <%= (issue.spent_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %>
+            <%= link_to new_time_entry_path(issue_id: issue.id), class: 'icon-only icon-time', title: l(:label_spent_time) do %>
+                <i class="icon-time" style="margin-left: 5px;"></i>
+            <% end %>
+            </div>
+            <!-- Planned hours -->
+            <div>
+            (<%= (issue.estimated_hours || 0.0) %><%= I18n.t(:kanban_hours_abbreviation) %>)
+            </div>
+        </div>
+    </div>
 </div>
