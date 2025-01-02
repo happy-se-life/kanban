@@ -53,7 +53,7 @@ It is possible to show\hide the issue parent from the filter section.
 git clone https://github.com/happy-se-life/kanban.git
 </pre>
 
-2. Edit models/constants.rb for your environment.
+2. Edit app/models/constants.rb for your environment.
 
 3. Restart redmine.
 
