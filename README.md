@@ -2,7 +2,8 @@
 This plugin provides the Kanban board.
 
 ## What's new
-* Support to Redmine 6.x and timetracking additions [#60](https://github.com/happy-se-life/kanban/pull/60) (Special thanks to @Filippo)
+* Fix #67: Show private issues based on issues visibility.
+* Fix #66: Showing tickets for users who have lost their roles.
 
 ## Features
 * Issues can be displayed in a card form by status.
