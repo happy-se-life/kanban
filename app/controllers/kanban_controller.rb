@@ -43,7 +43,20 @@ class KanbanController < ApplicationController
     if @project_all == "1" then
       @selectable_users = User.where(type: "User").where(status: 1)
     else
-      @selectable_users = @project.users
+      # Get users who have roles in the project
+      project_users = @project.users
+      
+      # Get users who are assigned to issues in the project (including those without roles)
+      assigned_user_ids = Issue.where(project_id: @project.id)
+                               .where.not(assigned_to_id: nil)
+                               .pluck(:assigned_to_id)
+                               .uniq
+      
+      assigned_users = User.where(id: assigned_user_ids, type: "User", status: 1)
+      
+      # Combine project users and assigned users
+      @selectable_users = User.where(id: (project_users.pluck(:id) + assigned_users.pluck(:id)).uniq)
+                             .where(type: "User", status: 1)
     end
 
     # Get groups for group filetr
