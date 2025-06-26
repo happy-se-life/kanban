@@ -193,7 +193,7 @@ class KanbanController < ApplicationController
     # Get issues related to display users
     issues_for_projects = Issue.where(assigned_to_id: @user_id_array)
       .where("updated_on >= '" + updated_from + "'")
-      .where(is_private: 0)
+      .where(get_issues_visibility_condition)
 
     if Constants::SELECT_LIMIT_STRATEGY == 1 then
       issues_for_projects = issues_for_projects.limit(Constants::SELECT_LIMIT)
@@ -226,7 +226,7 @@ class KanbanController < ApplicationController
         issues = Issue.where(assigned_to_id: @user_id_array)
           .where(project_id: unique_project_id_array)
           .where(status: status_id)
-          .where(is_private: 0)
+          .where(get_issues_visibility_condition)
           .where("updated_on >= '" + updated_from + "'")
         if @version_id != "unspecified" then
           issues = issues.where(fixed_version_id: @version_id)
@@ -258,7 +258,7 @@ class KanbanController < ApplicationController
         issues = Issue.where(assigned_to_id: @user_id_array)
             .where(project_id: unique_project_id_array)
             .where(status: status_id)
-            .where(is_private: 0)
+            .where(get_issues_visibility_condition)
             .where("updated_on >= '" + closed_from + "'")
         if @version_id != "unspecified" then
           issues = issues.where(fixed_version_id: @version_id)
@@ -280,6 +280,50 @@ class KanbanController < ApplicationController
   end
   
   private
+
+  #
+  # Get issues visibility condition based on user's role settings
+  #
+  def get_issues_visibility_condition
+    if @current_user.admin?
+      # Admin can see all issues
+      return '1=1'
+    end
+
+    # Get user's roles for the current project
+    if @project
+      roles = @current_user.roles_for_project(@project)
+    else
+      # For all projects, use the most permissive role
+      roles = @current_user.roles.to_a
+    end
+
+    return '1=0' if roles.empty?
+
+    # Find the most permissive issues_visibility setting
+    visibility_levels = roles.map(&:issues_visibility).compact
+    return '1=0' if visibility_levels.empty?
+
+    # Determine the most permissive setting
+    if visibility_levels.include?('all')
+      # 'all' - can see all issues including private ones
+      return '1=1'
+    elsif visibility_levels.include?('default')
+      # 'default' - can see non-private issues or issues created by/assigned to user
+      user_ids = [@current_user.id] + @current_user.groups.pluck(:id).compact
+      return "(#{Issue.table_name}.is_private = #{Issue.connection.quoted_false} " \
+             "OR #{Issue.table_name}.author_id = #{@current_user.id} " \
+             "OR #{Issue.table_name}.assigned_to_id IN (#{user_ids.join(',')}))"
+    elsif visibility_levels.include?('own')
+      # 'own' - can only see issues created by or assigned to user
+      user_ids = [@current_user.id] + @current_user.groups.pluck(:id).compact
+      return "(#{Issue.table_name}.author_id = #{@current_user.id} OR " \
+             "#{Issue.table_name}.assigned_to_id IN (#{user_ids.join(',')}))"
+    else
+      # Fallback to most restrictive
+      return '1=0'
+    end
+  end
 
   #
   # Discard session
