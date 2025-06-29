@@ -3,7 +3,7 @@ en:
   kanban_menu_caption: Kanban
   
   kanban_label_title: "'s Kanban"
-  kanban_label_unspecified: unspecified
+  kanban_label_unspecified: Any
   kanban_label_wip_limits: WIP limits
   kanban_label_wip_limit_exceeded: WIP limit exceeded
   kanban_label_fields: Fields
@@ -42,7 +42,7 @@ en:
 
   kanban_keyboard_shortcuts_help_0: Show login user only.
   kanban_keyboard_shortcuts_help_1: Show everyone in the project.
-  kanban_keyboard_shortcuts_help_2: Set due date to unspecified.
+  kanban_keyboard_shortcuts_help_2: Set due date to any dates.
   kanban_keyboard_shortcuts_help_3: Set due date to overdue.
   kanban_keyboard_shortcuts_help_4: Set due date to today.
   kanban_keyboard_shortcuts_help_5: Set due date to this week.
