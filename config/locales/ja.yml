@@ -51,3 +51,6 @@ ja:
   kanban_keyboard_shortcuts_help_9: 全ての未解決のカードを選択
   kanban_keyboard_shortcuts_help_10: このヘルプを表示
   kanban_keyboard_shortcuts_help_11: 通常のカードサイズで表示(作業時間)
+
+  # MyPage Widget
+  kanban_widget: かんばん

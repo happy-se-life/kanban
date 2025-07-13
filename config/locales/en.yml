@@ -52,3 +52,6 @@ en:
   kanban_keyboard_shortcuts_help_9: Select all open issues.
   kanban_keyboard_shortcuts_help_10: Show this help.
   kanban_keyboard_shortcuts_help_11: Show by normal size card with spent hours.
+
+  # MyPage Widget
+  kanban_widget: Kanban
