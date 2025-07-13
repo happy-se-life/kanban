@@ -2,6 +2,7 @@
 This plugin provides the Kanban board.
 
 ## What's new
+* #68 #69: Implemented MyPage widget – feedback appreciated.
 * Fix #67: Show private issues based on issues visibility.
 * Fix #66: Showing tickets for users who have lost their roles.
 
