@@ -140,24 +140,3 @@
 .floatThead-container {
   width: 100% !important; 
 }
-
-/* Kanban Hello World Widget */
-.kanban-hello-world-widget {
-  padding: 15px;
-  border: 1px solid #d5d5d5;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  margin: 10px 0;
-}
-
-.kanban-hello-world-widget h3 {
-  color: #333;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.kanban-hello-world-widget p {
-  color: #666;
-  margin: 0;
-  font-size: 14px;
-}

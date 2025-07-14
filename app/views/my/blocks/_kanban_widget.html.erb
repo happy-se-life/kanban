@@ -69,9 +69,9 @@
       <tbody>
         <% @user_projects.each do |project| %>
           <tr>
-            <td class="project-name"><%= link_to project.name, project_path(project), class: 'project-link' %></td>
+            <td class="project-name" data-project-id="<%= project.id %>"><%= link_to project.name, project_path(project), class: 'project-link' %></td>
             <% @status_fields_array.each do |status_id| %>
-              <td class="kanban-column">
+              <td class="kanban-column" data-status-id="<%= status_id %>" data-project-id="<%= project.id %>">
                 <% 
                   # Get issues for this project and status
                   project_issues = @issues_hash[status_id].select { |issue| issue.project_id == project.id }
@@ -87,12 +87,29 @@
                                       'my-issue-card-low-priority'
                                     end
                   %>
-                  <div class="<%= priority_class %>">
+                  <div class="<%= priority_class %>" data-issue-id="<%= issue.id %>">
                     <div class="issue-header">
                       <span class="issue-tracker"><%= issue.tracker.name %></span> <span class="issue-id">#<%= issue.id %></span>
                     </div>
                     <div class="issue-title">
                       <%= link_to issue.subject, issue_path(issue), class: 'issue-link' %>
+                    </div>
+                    <hr class="">
+                    <div class="issue-details">
+                      <span class="issue-due-date">
+                        <% if issue.due_date %>
+                          Due: <%= issue.due_date.strftime('%m/%d') %>
+                        <% else %>
+                          Due: -
+                        <% end %>
+                      </span>
+                      <span class="issue-estimated-hours">
+                        <% if issue.estimated_hours %>
+                          Est: <%= issue.estimated_hours %>h
+                        <% else %>
+                          Est: -
+                        <% end %>
+                      </span>
                     </div>
                   </div>
                 <% end %>
@@ -141,18 +158,40 @@
     }
     
     .issue-tracker {
-      font-size: 11px;
-      color: #666;
+      font-size: 12px;
+      color: #000000;
     }
     
     .issue-id {
       font-size: 12px;
-      color: #999;
+      color: #000000;
     }
     
     .issue-title {
       font-size: 13px;
       line-height: 1.3;
+    }
+    
+    .issue-divider {
+      margin: 4px 0;
+      border: none;
+      border-top: 1px solid #eee;
+    }
+    
+    .issue-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #000000;
+      margin-top: 2px;
+    }
+    
+    .issue-due-date {
+      text-align: left;
+    }
+    
+    .issue-estimated-hours {
+      text-align: right;
     }
     
     .issue-link {
@@ -175,16 +214,85 @@
     
     .my-issue-card {
       min-height: 80px;
+      cursor: move;
     }
       
     .my-issue-card-high-priority {
       min-height: 80px;
+      cursor: move;
     }
 
     .my-issue-card-low-priority {
       min-height: 80px;
+      cursor: move;
+    }
+
+    .dragged-issue-card {
+      opacity: 0.8;
+      transform: rotate(5deg);
     }
 
   </style>
+
+  <!-- JavaScript for drag and drop -->
+  <script>
+    $(function() {
+      // Card can be draggable
+      $("[data-issue-id]").draggable({ 
+        drag: function(event, ui) {
+          ui.helper.addClass("dragged-issue-card");
+        }
+      });
+      
+      // Card can be droppable only within the same project row
+      $(".kanban-column").droppable({
+        accept: "[data-issue-id]",
+        drop: function(event, ui) {
+          // Get source and target project IDs
+          var sourceProjectId = ui.draggable.closest('tr').find('.project-name').data('project-id');
+          var targetProjectId = $(this).closest('tr').find('.project-name').data('project-id');
+          
+          // Check if it's the same project
+          if (sourceProjectId !== targetProjectId) {
+            // Cancel drop and reload page
+            location.reload();
+            return;
+          }
+          
+          // Remove drag effect
+          ui.helper.removeClass("dragged-issue-card");
+          
+          // Get issue ID and new status ID
+          var issueId = ui.draggable.data("issue-id");
+          var newStatusId = $(this).data("status-id");
+          
+          // Move card to new column
+          $(this).append(ui.draggable.css('left','').css('top',''));
+          
+          // Update issue status via AJAX
+          $.ajax({
+            url: '<%= url_for(controller: "issue", action: "update_status") %>',
+            type: 'POST',
+            data: {
+              'card_id': 'issue-' + issueId,
+              'field_id': 'field-' + newStatusId + '-<%= @current_user.id %>',
+              'comment': ''
+            },
+            dataType: 'json',
+            success: function(data) {
+              if (data.result == "NG") {
+                alert("Operation not permitted. Please check your workflow settings.");
+                location.reload();
+              }
+            },
+            error: function(xhr, status, error) {
+              alert("Something went wrong: " + error);
+              location.reload();
+            }
+          });
+        }
+      });
+    });
+  </script>
 
 </div> 
