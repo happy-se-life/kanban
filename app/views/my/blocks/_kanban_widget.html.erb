@@ -25,6 +25,20 @@
     # Get projects for current user
     @user_projects = Project.visible(@current_user).order(:name)
 
+    # Count issues per project
+    @project_issues_count = {}
+    @user_projects.each do |project|
+      project_issues_count = 0
+      @status_fields_array.each do |status_id|
+        project_issues = Issue.where(assigned_to_id: @current_user, project_id: project.id, status: status_id)
+        project_issues_count += project_issues.count
+      end
+      @project_issues_count[project.id] = project_issues_count
+    end
+
+    # Remove projects with 0 issues
+    @user_projects = @user_projects.select { |project| @project_issues_count[project.id] > 0 }
+
     # Declaring variables
     @issues_hash = {}
 
