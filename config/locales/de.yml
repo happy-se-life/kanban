@@ -1,5 +1,5 @@
 # German strings go here for Rails i18n
-en:
+de:
   kanban_menu_caption: Kanban
   
   kanban_label_title: "'s Kanban"
@@ -52,3 +52,9 @@ en:
   kanban_keyboard_shortcuts_help_9: Wähle alle offenen Tickets.
   kanban_keyboard_shortcuts_help_10: Zeige diese Hilfe.
   kanban_keyboard_shortcuts_help_11: Zeige als normaler Kartengröße die benötigten Stunden.
+
+  # MyPage Widget
+  kanban_widget: Kanban
+
+  # Settings
+  label_hide_done_issues: Abgeschlossene Tickets ausblenden

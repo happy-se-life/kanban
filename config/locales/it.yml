@@ -52,3 +52,9 @@ it:
   kanban_keyboard_shortcuts_help_9: Seleziona tutte le segnalazioni aperte.
   kanban_keyboard_shortcuts_help_10: Mostra questo menu di aiuto.
   kanban_keyboard_shortcuts_help_11: Card di dimensione normale (ore lavorate).
+
+  # MyPage Widget
+  kanban_widget: Kanban
+
+  # Settings
+  label_hide_done_issues: Nascondi ticket completati

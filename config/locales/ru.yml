@@ -52,3 +52,9 @@ ru:
   kanban_keyboard_shortcuts_help_9: "Выбрать все открытые вопросы."
   kanban_keyboard_shortcuts_help_10: "Показать эту справку."
   kanban_keyboard_shortcuts_help_11: "Показать карточки норм. размера (Рабочее время)."
+
+  # MyPage Widget
+  kanban_widget: Kanban
+
+  # Settings
+  label_hide_done_issues: Скрыть завершенные задачи

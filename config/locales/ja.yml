@@ -54,3 +54,6 @@ ja:
 
   # MyPage Widget
   kanban_widget: かんばん
+
+  # Settings
+  label_hide_done_issues: 完了チケットを非表示

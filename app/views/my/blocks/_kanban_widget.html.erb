@@ -1,4 +1,31 @@
 <div>  
+  <!-- gear icon -->
+  <div class="contextual">
+    <%= link_to sprite_icon('settings', l(:label_options)), '#', 
+                :class => 'icon-only icon-settings', 
+                :title => l(:label_options),
+                :data => {:toggle => 'kanban-settings'} %>
+  </div>
+
+  <!-- Settings form -->
+  <div id="kanban-settings" style="display:none;">
+    <%= form_tag(my_page_path, :remote => true, :method => :post) do %>
+      <div class="box">
+        <p>
+          <label>
+            <%= hidden_field_tag "settings[#{block}][hide_done_issues]", '0' %>
+            <%= check_box_tag "settings[#{block}][hide_done_issues]", '1', settings[:hide_done_issues] == '1' %>
+            <%= l(:label_hide_done_issues) %>
+          </label>
+        </p>
+      </div>
+      <p>
+        <%= submit_tag l(:button_save) %>
+        <%= link_to l(:button_cancel), '#', :data => {:toggle => 'kanban-settings'} %>
+      </p>
+    <% end %>
+  </div>
+
   <% 
     # Direct data build.
 
@@ -13,14 +40,13 @@
     }
 
     # Get statuses for issue done
-    @done_issue_statuses = IssueStatus.where(is_closed: 1)
-    @done_issue_statuses_array = []
-    @done_issue_statuses.each {|issue_status|
-      @done_issue_statuses_array << issue_status.id
-    }
+    @done_issue_statuses_array = IssueStatus.where(is_closed: 1).pluck(:id)
     
     # Array of status ID for display
     @status_fields_array = Constants::DEFAULT_STATUS_FIELD_VALUE_ARRAY
+
+    # Note: We keep all statuses in @status_fields_array to show columns
+    # but will filter out done statuses from @issues_hash when setting is enabled
 
     # Get projects for current user
     @user_projects = Project.visible(@current_user).order(:name)
@@ -47,13 +73,15 @@
       if @done_issue_statuses_array.include?(status_id) == false then
         # Case not done status
         issues = Issue.where(assigned_to_id: @current_user).where(status: status_id)
-
         @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
       else
-        # Case done status
-        issues = Issue.where(assigned_to_id: @current_user).where(status: status_id)
-
-        @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
+        # Case done status - show empty array if hiding done issues
+        if settings[:hide_done_issues] == '1' then
+          @issues_hash[status_id] = []
+        else
+          issues = Issue.where(assigned_to_id: @current_user).where(status: status_id)
+          @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Constants::SELECT_LIMIT)
+        end
       end
     }
 
@@ -88,7 +116,8 @@
               <td class="kanban-column" data-status-id="<%= status_id %>" data-project-id="<%= project.id %>">
                 <% 
                   # Get issues for this project and status
-                  project_issues = @issues_hash[status_id].select { |issue| issue.project_id == project.id }
+                  issues_for_status = @issues_hash[status_id] || []
+                  project_issues = issues_for_status.select { |issue| issue.project_id == project.id }
                 %>
                 <% project_issues.each do |issue| %>
                   <% 
@@ -251,6 +280,12 @@
   <!-- JavaScript for drag and drop -->
   <script>
     $(function() {
+      // Toggle settings panel
+      $('[data-toggle="kanban-settings"]').on('click', function(e) {
+        e.preventDefault();
+        $('#kanban-settings').toggle();
+      });
+      
       // Card can be draggable
       $("[data-issue-id]").draggable({ 
         drag: function(event, ui) {

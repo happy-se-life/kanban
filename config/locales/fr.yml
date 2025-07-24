@@ -51,3 +51,9 @@ fr:
   kanban_keyboard_shortcuts_help_9: Sélectionnez tous les problèmes ouverts.
   kanban_keyboard_shortcuts_help_10: Montrez cette aide.
   kanban_keyboard_shortcuts_help_11: Afficher par carte de taille normale avec des heures de travail.
+
+  # MyPage Widget
+  kanban_widget: Kanban
+
+  # Settings
+  label_hide_done_issues: Masquer les tickets terminés
