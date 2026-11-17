@@ -152,6 +152,13 @@ class KanbanController < ApplicationController
       @trackers = @project.rolled_up_trackers
     end
 
+    # Get issue categories（分類）供篩選下拉使用
+    if @project.nil? then
+      @categories = IssueCategory.all.order(:name)
+    else
+      @categories = @project.issue_categories
+    end
+
     # Updated datetime for filter
     if @updated_within == "unspecified" then
       updated_from = "1970-01-01 00:00:00"
@@ -237,6 +244,9 @@ class KanbanController < ApplicationController
         if @tracker_id != "unspecified" then
           issues = issues.where(tracker_id: @tracker_id)
         end
+        if @category_id != "unspecified" then
+          issues = issues.where(category_id: @category_id)
+        end
         @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Kanban::Constants::SELECT_LIMIT)
         # Count WIP issues
         if status_id == Kanban::Constants::WIP_COUNT_STATUS_FIELD then
@@ -268,6 +278,9 @@ class KanbanController < ApplicationController
         end
         if @tracker_id != "unspecified" then
           issues = issues.where(tracker_id: @tracker_id)
+        end
+        if @category_id != "unspecified" then
+          issues = issues.where(category_id: @category_id)
         end
         @issues_hash[status_id] = issues.order(updated_on: "DESC").limit(Kanban::Constants::SELECT_LIMIT)
       end
@@ -342,6 +355,7 @@ class KanbanController < ApplicationController
     session_hash["done_within"] = @done_within
     session_hash["due_date"] = @due_date
     session_hash["tracker_id"] = @tracker_id
+    session_hash["category_id"] = @category_id
     session_hash["user_id"] = @user_id
     session_hash["group_id"] = @group_id
     session_hash["project_all"] = @project_all
@@ -387,7 +401,14 @@ class KanbanController < ApplicationController
     else
       @tracker_id = params[:tracker_id]
     end
-    
+
+    # Display category ID（分類）
+    if !session_hash.blank? && params[:category_id].blank?
+      @category_id = session_hash["category_id"]
+    else
+      @category_id = params[:category_id]
+    end
+
     # Display user ID
     if !session_hash.blank? && params[:user_id].blank?
       @user_id = session_hash["user_id"]
@@ -480,6 +501,11 @@ class KanbanController < ApplicationController
     # Tracker ID
     if @tracker_id.nil? || @tracker_id.to_i == 0 then
       @tracker_id = "unspecified"
+    end
+
+    # Category ID（分類）
+    if @category_id.nil? || @category_id.to_i == 0 then
+      @category_id = "unspecified"
     end
 
     # User ID

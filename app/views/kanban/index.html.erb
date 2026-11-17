@@ -99,6 +99,20 @@
         </td>
       </tr>
       <tr>
+        <!-- Category（分類）-->
+        <td style="width: 100px">
+          <label><%= I18n.t(:field_category) %></label>
+        </td>
+        <td>
+          <select name="category_id" id="category_id">
+            <option value="unspecified" <% if @category_id == "unspecified" then %> selected <% end %>><%= I18n.t(:kanban_label_unspecified) %></option>
+            <% @categories.each{|category| %>
+              <option value="<%= category.id %>" <% if @category_id.to_i == category.id then %> selected <% end %>><%= category.name %></option>
+            <% } %>
+          </select>
+        </td>
+      </tr>
+      <tr>
         <td style="width: 100px">
           <label><%= I18n.t(:field_assigned_to) %></label>
         </td>
